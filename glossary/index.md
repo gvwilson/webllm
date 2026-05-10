@@ -67,11 +67,12 @@
     Entities begin with `&` and end with `;`, for example `&lt;` for `<`,
     `&amp;` for `&`, and `&copy;` for &copy;.
 
+<span id="http-200">HTTP 200</span>
+:   The HTTP status code a server returns when the request succeeded.
+
 <span id="http-404">HTTP 404</span>
 :   The HTTP status code a server returns when it cannot find the resource the client requested.
     "404 Not Found" is so common that it has become shorthand for any missing page on the web.
-    Servers return other status codes for other problems: 500 for an internal server error,
-    403 for a resource the client is not allowed to see.
 
 <span id="http-request">HTTP request</span>
 :   A message sent from a browser (or other client) to a web server asking for a resource.
@@ -158,6 +159,14 @@
 
 ## S
 
+<span id="status-code">status code</span>
+:   The three-digit number at the start of an HTTP response that indicates whether the request
+    succeeded or failed.
+    200 means the server found and returned the content;
+    400 means the request was malformed;
+    404 means the requested resource was not found;
+    500 means something went wrong on the server.
+
 ## T
 
 <span id="tag">tag</span>
@@ -165,10 +174,16 @@
     An opening tag has the form `<tagname>` and a closing tag has the form `</tagname>`.
 
 <span id="template-engine">template engine</span>
-:   A tool that combines a template---an HTML file with placeholders---and data to produce
+:   A tool that combines a template (an HTML file with placeholders) and data to produce
     a finished HTML document.
-    Jinja is a popular Python template engine; it replaces `{{ variable }}` with the variable's
+    [Jinja][jinja] is a popular Python template engine; it replaces `{{ variable }}` with the variable's
     value and handles loops and conditionals with `{% %}` blocks.
+
+<span id="test-client">test client</span>
+:   A tool that sends HTTP requests directly to a web application in memory,
+    without starting a real server or opening a browser.
+    The application handles requests normally, so tests can check status codes and response content
+    without any network setup.
 
 <span id="tree">tree</span>
 :   A data structure in which each item has at most one parent and any number of children,

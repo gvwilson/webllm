@@ -23,6 +23,7 @@
 <li><a href="../htmlcss/">HTML and CSS</a></li>
 <li><a href="../genhtml/">Generating HTML</a></li>
 <li><a href="../server/">Serving Data</a></li>
+<li><a href="../testserver/">Testing the Server</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -98,11 +99,11 @@ and a browser renders those elements as visible text, images, and links.</dd>
 interpreted as markup or is not easily typed.
 Entities begin with <code>&amp;</code> and end with <code>;</code>, for example <code>&amp;lt;</code> for <code>&lt;</code>,
 <code>&amp;amp;</code> for <code>&amp;</code>, and <code>&amp;copy;</code> for ©.</dd>
+<dt><span id="http-200">HTTP 200</span></dt>
+<dd>The HTTP status code a server returns when the request succeeded.</dd>
 <dt><span id="http-404">HTTP 404</span></dt>
 <dd>The HTTP status code a server returns when it cannot find the resource the client requested.
-"404 Not Found" is so common that it has become shorthand for any missing page on the web.
-Servers return other status codes for other problems: 500 for an internal server error,
-403 for a resource the client is not allowed to see.</dd>
+"404 Not Found" is so common that it has become shorthand for any missing page on the web.</dd>
 <dt><span id="http-request">HTTP request</span></dt>
 <dd>A message sent from a browser (or other client) to a web server asking for a resource.
 A GET request asks the server to return data; a POST request sends data to the server.
@@ -179,16 +180,30 @@ For example, the route <code>GET /sighting/{id}</code> matches any GET request
 whose path starts with <code>/sighting/</code> followed by an identifier.</dd>
 </dl>
 <h2>S</h2>
+<dl>
+<dt><span id="status-code">status code</span></dt>
+<dd>The three-digit number at the start of an HTTP response that indicates whether the request
+succeeded or failed.
+200 means the server found and returned the content;
+400 means the request was malformed;
+404 means the requested resource was not found;
+500 means something went wrong on the server.</dd>
+</dl>
 <h2>T</h2>
 <dl>
 <dt><span id="tag">tag</span></dt>
 <dd>The angle-bracket notation used to mark the start or end of an HTML element.
 An opening tag has the form <code>&lt;tagname&gt;</code> and a closing tag has the form <code>&lt;/tagname&gt;</code>.</dd>
 <dt><span id="template-engine">template engine</span></dt>
-<dd>A tool that combines a template---an HTML file with placeholders---and data to produce
+<dd>A tool that combines a template (an HTML file with placeholders) and data to produce
 a finished HTML document.
-Jinja is a popular Python template engine; it replaces <code>{{ variable }}</code> with the variable's
+<a href="https://jinja.palletsprojects.com/">Jinja</a> is a popular Python template engine; it replaces <code>{{ variable }}</code> with the variable's
 value and handles loops and conditionals with <code>{% %}</code> blocks.</dd>
+<dt><span id="test-client">test client</span></dt>
+<dd>A tool that sends HTTP requests directly to a web application in memory,
+without starting a real server or opening a browser.
+The application handles requests normally, so tests can check status codes and response content
+without any network setup.</dd>
 <dt><span id="tree">tree</span></dt>
 <dd>A data structure in which each item has at most one parent and any number of children,
 with a single root item at the top.

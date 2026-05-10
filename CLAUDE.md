@@ -112,6 +112,13 @@ social and environmental impact of these tools in general.
     something the online references do not, and verify that it is no
     more than a few years old before recommending it.
 
+## Style Rules
+
+-   Do not use `---` horizontal rules in prose.
+-   Each lesson directory must be self-contained and not depend on files in other lesson
+    directories, unless the lessons are explicitly ordered and one lesson builds directly
+    on the previous one.
+
 ## Stack
 
 -   [uv](https://docs.astral.sh/uv/): package and environment management

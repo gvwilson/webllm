@@ -11,6 +11,7 @@
 1.  [HTML and CSS](@/htmlcss/)
 1.  [Generating HTML](@/genhtml/)
 1.  [Serving Data](@/server/)
+1.  [Testing the Server](@/testserver/)
 1.  [Conclusion](@/finale/)
 
 </div>

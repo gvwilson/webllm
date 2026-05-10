@@ -62,6 +62,7 @@
 -   Litestar matches the path `/` to the `index` function and calls it
 -   The function returns the string, Litestar wraps it in an [%g http-response "HTTP response" %],
     and sends it back
+-   With a [%g http-200 "200" %] status code to indicate that everything is OK
 -   The browser displays the text in the window
 
 <div class="callout" markdown="1">

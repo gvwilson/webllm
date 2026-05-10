@@ -17,3 +17,9 @@
     "Litestar Documentation".
     <https://docs.litestar.dev/>,
     2025.
+
+<span id="pytest2025">pytest2025</span>
+:   pytest Contributors:
+    "pytest Documentation".
+    <https://docs.pytest.org/>,
+    2025.
