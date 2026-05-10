@@ -11,6 +11,11 @@
 
 ## C
 
+<span id="column">column</span>
+:   A named field in a database table that holds one kind of value for every row.
+    For example, the `sightings` table has columns named `species`, `sex`, and `weight`.
+    Every row must have a value for each column, or store null if the value is unknown.
+
 <span id="css">CSS (Cascading Style Sheets)</span>
 :   A language for describing how HTML elements should be displayed,
     including fonts, colors, spacing, and layout.  "Cascading" refers
@@ -36,6 +41,12 @@
     `#title` selects the element with `id="title"`.
 
 ## D
+
+<span id="database">database</span>
+:   An organized collection of data stored on disk so that it survives program restarts
+    and can be shared across multiple programs or users.
+    A SQL database organizes data into tables of rows and columns and provides a standard
+    language for querying and updating that data.
 
 ## E
 
@@ -125,9 +136,19 @@
 
 ## N
 
+<span id="db-null">null (database)</span>
+:   A special marker in a database column meaning "no value was recorded here."
+    Null is not the same as zero, an empty string, or Python's `None`,
+    though Python's `sqlite3` module represents SQL null as `None` when returning results.
+
 ## O
 
 ## P
+
+<span id="placeholder">placeholder</span>
+:   A `?` marker in a SQL query that `sqlite3` replaces with a supplied value at runtime.
+    Using placeholders instead of inserting values directly into the query string prevents
+    SQL injection, a common attack in which a malicious value changes the meaning of the query.
 
 <span id="path-parameter">path parameter</span>
 :   A variable segment in a URL route pattern, written in curly braces, such as
@@ -144,7 +165,17 @@
 
 ## Q
 
+<span id="query">query</span>
+:   A SQL instruction that retrieves or modifies data in a database.
+    A query that reads data (beginning with `select`) returns a set of rows;
+    a query that writes data (beginning with `insert`, `update`, or `delete`)
+    changes the database and returns nothing.
+
 ## R
+
+<span id="row">row</span>
+:   A single record in a database table, containing one value (or null) for each column.
+    A row in the `sightings` table represents one reported sasquatch observation.
 
 <span id="root-element">root element</span>
 :   The single outermost element in an HTML document that contains all other elements.
@@ -159,6 +190,11 @@
 
 ## S
 
+<span id="sql">SQL (Structured Query Language)</span>
+:   The standard language for creating, querying, and modifying data in a relational database.
+    SQL uses English-like keywords such as `select`, `insert`, `create table`, and `where`
+    to describe what data to retrieve or change.
+
 <span id="status-code">status code</span>
 :   The three-digit number at the start of an HTTP response that indicates whether the request
     succeeded or failed.
@@ -168,6 +204,11 @@
     500 means something went wrong on the server.
 
 ## T
+
+<span id="db-table">table (database)</span>
+:   A collection of rows in a database, where every row has the same named columns.
+    A table is similar to a spreadsheet: each column has a fixed name and type,
+    and each row is one record.
 
 <span id="tag">tag</span>
 :   The angle-bracket notation used to mark the start or end of an HTML element.

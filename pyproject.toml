@@ -29,8 +29,9 @@ skips = [
     "**/__pycache__/**",
     "docs/**",
     "log/**",
-    "server/*.css",
+    "*/style.css",
     "uv.lock",
+    "*.db",
     "*.html",
     "*.py",
     "*.sh"

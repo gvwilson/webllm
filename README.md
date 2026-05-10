@@ -12,6 +12,7 @@
 1.  [Generating HTML](@/genhtml/)
 1.  [Serving Data](@/server/)
 1.  [Testing the Server](@/testserver/)
+1.  [Using a Database](@/database/)
 1.  [Conclusion](@/finale/)
 
 </div>

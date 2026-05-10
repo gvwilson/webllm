@@ -168,6 +168,15 @@ The fix is to drop the quotes: `assert response.status_code == 200`.
 
 </details>
 
+<details markdown="1">
+<summary markdown="1">If `make_app()` is called with no arguments in a test, which dataset does the server use, and why?</summary>
+
+It uses `SIGHTINGS` from `dataset.py`, because that is the default value of the `sightings` parameter.
+The line `def make_app(sightings=SIGHTINGS):` means any call that omits the argument gets the full
+twenty-row dataset, exactly as `server3.py` behaved.
+
+</details>
+
 See [%b pytest2025 %] for the full pytest documentation and [%b litestar2025 %] for Litestar's testing reference.
 
 ## Exercises
@@ -198,3 +207,27 @@ Write a test using `make_app(SMALL)` that visits the index page and asserts that
 Rewrite `test_index_returns_ok` and `test_index_contains_title` as a single test function
 that makes both assertions using one `TestClient`.
 When would it be better to keep them as two separate tests?
+
+### Check the Back Link
+
+Using `make_app(SMALL)`, write a test that visits the detail page for sighting 1 and asserts
+that the text `"Back to all sightings"` appears in the response.
+Then visit the index page and assert that the same text does *not* appear there.
+
+### Shared App vs. Fresh App
+
+Write two versions of `test_index_ok` and `test_detail_ok`: one where both tests share a single
+`app = make_app(SMALL)` created at module level, and one where each test calls `make_app(SMALL)`
+inside its own body.
+Run both versions and confirm they pass.
+Then add a route to `server4.py` that keeps a count of how many requests it has received
+and returns it at `/count`.
+Add a test that calls `/count` twice and checks whether the count resets between tests
+depending on which version you use.
+
+### Add a Route for a Missing Page
+
+Add a new route to `server5.py` that handles any URL not matched by the existing routes
+and returns a page with the text "Page not found" and HTTP status 404.
+Look up Litestar's `ExceptionHandler` to see how to do this,
+and then add a test for it.

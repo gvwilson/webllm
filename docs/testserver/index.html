@@ -24,6 +24,7 @@
 <li><a href="../genhtml/">Generating HTML</a></li>
 <li><a href="../server/">Serving Data</a></li>
 <li><a class="active" href="../testserver/">Testing the Server</a></li>
+<li><a href="../database/">Using a Database</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -348,6 +349,12 @@ not for the absence of things you did not add.</p>
 Comparing it to the string <code>"200"</code> is always <code>False</code> in Python.
 The fix is to drop the quotes: <code>assert response.status_code == 200</code>.</p>
 </details>
+<details>
+<summary>If <code>make_app()</code> is called with no arguments in a test, which dataset does the server use, and why?</summary>
+<p>It uses <code>SIGHTINGS</code> from <code>dataset.py</code>, because that is the default value of the <code>sightings</code> parameter.
+The line <code>def make_app(sightings=SIGHTINGS):</code> means any call that omits the argument gets the full
+twenty-row dataset, exactly as <code>server3.py</code> behaved.</p>
+</details>
 <p>See [<a class="bib-ref" href="../bibliography/#pytest2025">pytest2025</a>] for the full pytest documentation and [<a class="bib-ref" href="../bibliography/#litestar2025">litestar2025</a>] for Litestar's testing reference.</p>
 <h2>Exercises</h2>
 <h3>Test the CSS Route</h3>
@@ -367,6 +374,24 @@ right code here rather than 404.</p>
 <p>Rewrite <code>test_index_returns_ok</code> and <code>test_index_contains_title</code> as a single test function
 that makes both assertions using one <code>TestClient</code>.
 When would it be better to keep them as two separate tests?</p>
+<h3>Check the Back Link</h3>
+<p>Using <code>make_app(SMALL)</code>, write a test that visits the detail page for sighting 1 and asserts
+that the text <code>"Back to all sightings"</code> appears in the response.
+Then visit the index page and assert that the same text does <em>not</em> appear there.</p>
+<h3>Shared App vs. Fresh App</h3>
+<p>Write two versions of <code>test_index_ok</code> and <code>test_detail_ok</code>: one where both tests share a single
+<code>app = make_app(SMALL)</code> created at module level, and one where each test calls <code>make_app(SMALL)</code>
+inside its own body.
+Run both versions and confirm they pass.
+Then add a route to <code>server4.py</code> that keeps a count of how many requests it has received
+and returns it at <code>/count</code>.
+Add a test that calls <code>/count</code> twice and checks whether the count resets between tests
+depending on which version you use.</p>
+<h3>Add a Route for a Missing Page</h3>
+<p>Add a new route to <code>server5.py</code> that handles any URL not matched by the existing routes
+and returns a page with the text "Page not found" and HTTP status 404.
+Look up Litestar's <code>ExceptionHandler</code> to see how to do this,
+and then add a test for it.</p>
 </main>
 <footer aria-label="Page navigation">
 <div class="row">
@@ -379,7 +404,7 @@ When would it be better to keep them as two separate tests?</p>
 	  <a href="../#acknowledgments">the authors</a>
 </div>
 <div class="col-3 right">
-<a href="../finale/">Conclusion</a> <span aria-hidden="true">⇒</span>
+<a href="../database/">Using a Database</a> <span aria-hidden="true">⇒</span>
 </div>
 </div>
 </footer>

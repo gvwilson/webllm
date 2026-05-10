@@ -115,9 +115,13 @@ social and environmental impact of these tools in general.
 ## Style Rules
 
 -   Do not use `---` horizontal rules in prose.
+-   Callouts are written as `<div class="callout" markdown="1">` followed by an H3 header,
+    prose content, and `</div>`. Use callouts sparingly for warnings or important asides.
 -   Each lesson directory must be self-contained and not depend on files in other lesson
     directories, unless the lessons are explicitly ordered and one lesson builds directly
     on the previous one.
+-   Always use lowercase for SQL keywords (e.g., `select`, `from`, `where`, `insert into`,
+    `create table`). Never use uppercase SQL keywords.
 
 ## Stack
 
