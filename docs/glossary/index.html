@@ -20,6 +20,7 @@
 <button aria-controls="nav-lessons" aria-haspopup="true">Lessons</button>
 <ul class="dropdown-content" id="nav-lessons">
 <li><a href="../intro/">Introduction</a></li>
+<li><a href="../htmlcss/">HTML and CSS</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -38,14 +39,72 @@
 <main id="main-content">
 <h1>Glossary</h1>
 <h2>A</h2>
+<dl>
+<dt><span id="attribute">attribute</span></dt>
+<dd>A <code>name="value"</code> pair written inside an HTML opening tag that customizes
+or provides additional information about the element.
+For example, <code>href</code> in <code>&lt;a href="..."&gt;</code> specifies where the link goes.</dd>
+</dl>
 <h2>B</h2>
 <h2>C</h2>
+<dl>
+<dt><span id="css">CSS (Cascading Style Sheets)</span></dt>
+<dd>A language for describing how HTML elements should be displayed---fonts,
+colors, spacing, and layout.
+"Cascading" refers to the rules that determine which style wins when
+more than one rule applies to the same element.</dd>
+<dt><span id="css-class">CSS class</span></dt>
+<dd>A label given to one or more HTML elements with the <code>class</code> attribute
+so that they can be styled as a group.
+In a stylesheet, a class selector begins with a dot: <code>.warning { color: red; }</code>.</dd>
+<dt><span id="css-property">CSS property</span></dt>
+<dd>A single stylistic setting in a CSS rule, such as <code>font-family: sans-serif</code>
+or <code>border: 1px solid gray</code>.</dd>
+<dt><span id="css-rule">CSS rule</span></dt>
+<dd>A block of CSS consisting of a selector and one or more property declarations
+in curly braces, such as <code>p { font-size: 1em; line-height: 1.5; }</code>.</dd>
+<dt><span id="css-selector">CSS selector</span></dt>
+<dd>The part of a CSS rule that identifies which HTML elements the rule applies to.
+<code>h1</code> selects all <code>&lt;h1&gt;</code> elements; <code>.note</code> selects all elements with <code>class="note"</code>;
+<code>#title</code> selects the element with <code>id="title"</code>.</dd>
+</dl>
 <h2>D</h2>
 <h2>E</h2>
+<dl>
+<dt><span id="element">element</span></dt>
+<dd>A single unit of content in an HTML document, represented by an opening tag,
+optional content, and a closing tag.
+For example, <code>&lt;p&gt;A paragraph.&lt;/p&gt;</code> is a paragraph element.</dd>
+</dl>
 <h2>F</h2>
+<dl>
+<dt><span id="file-path">file path</span></dt>
+<dd>A string that identifies the location of a file on a computer's filesystem,
+such as <code>./images/map.png</code>.
+A relative file path is interpreted starting from the location of the file that contains it,
+not from a fixed root, which means it works regardless of where the project is stored on disk.</dd>
+</dl>
 <h2>G</h2>
 <h2>H</h2>
+<dl>
+<dt><span id="html">HTML (HyperText Markup Language)</span></dt>
+<dd>The standard language for creating web pages.
+An HTML document describes content using nested elements marked by tags,
+and a browser renders those elements as visible text, images, and links.</dd>
+<dt><span id="html-entity">HTML entity</span></dt>
+<dd>A short code used in HTML to represent a character that would otherwise be
+interpreted as markup or is not easily typed.
+Entities begin with <code>&amp;</code> and end with <code>;</code>, for example <code>&amp;lt;</code> for <code>&lt;</code>,
+<code>&amp;amp;</code> for <code>&amp;</code>, and <code>&amp;copy;</code> for ©.</dd>
+</dl>
 <h2>I</h2>
+<dl>
+<dt><span id="internal-style-sheet">internal stylesheet</span></dt>
+<dd>CSS rules written inside a <code>&lt;style&gt;</code> element in the <code>&lt;head&gt;</code> of an HTML page,
+as opposed to an external stylesheet in a separate <code>.css</code> file.
+An internal stylesheet is self-contained, so the page renders correctly
+when opened directly in a browser without a web server.</dd>
+</dl>
 <h2>J</h2>
 <h2>K</h2>
 <h2>L</h2>
@@ -55,10 +114,29 @@
 <h2>P</h2>
 <h2>Q</h2>
 <h2>R</h2>
+<dl>
+<dt><span id="root-element">root element</span></dt>
+<dd>The single outermost element in an HTML document that contains all other elements.
+In HTML this is the <code>&lt;html&gt;</code> element.</dd>
+</dl>
 <h2>S</h2>
 <h2>T</h2>
+<dl>
+<dt><span id="tag">tag</span></dt>
+<dd>The angle-bracket notation used to mark the start or end of an HTML element.
+An opening tag has the form <code>&lt;tagname&gt;</code> and a closing tag has the form <code>&lt;/tagname&gt;</code>.</dd>
+<dt><span id="tree">tree</span></dt>
+<dd>A data structure in which each item has at most one parent and any number of children,
+with a single root item at the top.
+HTML documents form a tree because elements must be properly nested.</dd>
+</dl>
 <h2>U</h2>
 <h2>V</h2>
+<dl>
+<dt><span id="void-element">void element</span></dt>
+<dd>An HTML element that has no content and therefore no closing tag, such as
+<code>&lt;img&gt;</code> or <code>&lt;br&gt;</code>.</dd>
+</dl>
 <h2>W</h2>
 <h2>X</h2>
 <h2>Y</h2>

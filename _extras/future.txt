@@ -1,0 +1,25 @@
+## File paths vs. URLs: when relative paths break
+
+Potential "Check Understanding" question for a lesson that introduces a web server:
+
+Q: You have an HTML file with `<img src="map.png">` that displays correctly when you
+open the file in a browser by double-clicking it. You then run a web server and open
+the same page through the server. The image no longer appears. What could cause this?
+
+A: When you open an HTML file directly, the browser resolves relative paths against
+the file's directory on disk, so `src="map.png"` finds `map.png` sitting next to the
+HTML file. Once a web server is involved, the server has its own root directory and
+its own URL routing. If the server root and the file's directory don't align---for
+example, if you moved the HTML file without moving the image, or if the server uses
+routes that don't correspond to real directories---the browser looks for the image at
+the wrong location and gets a 404.
+
+A subtler case: some frameworks generate URLs like `https://example.com/app/page`
+where `/app/` is a route, not a real folder. The browser resolves `src="map.png"`
+to `https://example.com/app/map.png`, which doesn't exist even if `map.png` is
+present somewhere in the project.
+
+The fix is to use paths anchored to the site root (starting with `/`) rather than
+relative paths once a server is in the picture.
+
+Lesson placement: introduce after the first lesson that adds a web server (Litestar).

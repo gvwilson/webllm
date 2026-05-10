@@ -2,21 +2,78 @@
 
 ## A
 
+<span id="attribute">attribute</span>
+:   A `name="value"` pair written inside an HTML opening tag that customizes
+    or provides additional information about the element.
+    For example, `href` in `<a href="...">` specifies where the link goes.
+
 ## B
 
 ## C
+
+<span id="css">CSS (Cascading Style Sheets)</span>
+:   A language for describing how HTML elements should be displayed---fonts,
+    colors, spacing, and layout.
+    "Cascading" refers to the rules that determine which style wins when
+    more than one rule applies to the same element.
+
+<span id="css-class">CSS class</span>
+:   A label given to one or more HTML elements with the `class` attribute
+    so that they can be styled as a group.
+    In a stylesheet, a class selector begins with a dot: `.warning { color: red; }`.
+
+<span id="css-property">CSS property</span>
+:   A single stylistic setting in a CSS rule, such as `font-family: sans-serif`
+    or `border: 1px solid gray`.
+
+<span id="css-rule">CSS rule</span>
+:   A block of CSS consisting of a selector and one or more property declarations
+    in curly braces, such as `p { font-size: 1em; line-height: 1.5; }`.
+
+<span id="css-selector">CSS selector</span>
+:   The part of a CSS rule that identifies which HTML elements the rule applies to.
+    `h1` selects all `<h1>` elements; `.note` selects all elements with `class="note"`;
+    `#title` selects the element with `id="title"`.
 
 ## D
 
 ## E
 
+<span id="element">element</span>
+:   A single unit of content in an HTML document, represented by an opening tag,
+    optional content, and a closing tag.
+    For example, `<p>A paragraph.</p>` is a paragraph element.
+
 ## F
+
+<span id="file-path">file path</span>
+:   A string that identifies the location of a file on a computer's filesystem,
+    such as `./images/map.png`.
+    A relative file path is interpreted starting from the location of the file that contains it,
+    not from a fixed root, which means it works regardless of where the project is stored on disk.
 
 ## G
 
 ## H
 
+<span id="html">HTML (HyperText Markup Language)</span>
+:   The standard language for creating web pages.
+    An HTML document describes content using nested elements marked by tags,
+    and a browser renders those elements as visible text, images, and links.
+
+<span id="html-entity">HTML entity</span>
+:   A short code used in HTML to represent a character that would otherwise be
+    interpreted as markup or is not easily typed.
+    Entities begin with `&` and end with `;`, for example `&lt;` for `<`,
+    `&amp;` for `&`, and `&copy;` for &copy;.
+
 ## I
+
+<span id="internal-style-sheet">internal stylesheet</span>
+:   CSS rules written inside a `<style>` element in the `<head>` of an HTML page,
+    as opposed to an external stylesheet in a separate `.css` file.
+    An internal stylesheet is self-contained, so the page renders correctly
+    when opened directly in a browser without a web server.
 
 ## J
 
@@ -36,13 +93,30 @@
 
 ## R
 
+<span id="root-element">root element</span>
+:   The single outermost element in an HTML document that contains all other elements.
+    In HTML this is the `<html>` element.
+
 ## S
 
 ## T
 
+<span id="tag">tag</span>
+:   The angle-bracket notation used to mark the start or end of an HTML element.
+    An opening tag has the form `<tagname>` and a closing tag has the form `</tagname>`.
+
+<span id="tree">tree</span>
+:   A data structure in which each item has at most one parent and any number of children,
+    with a single root item at the top.
+    HTML documents form a tree because elements must be properly nested.
+
 ## U
 
 ## V
+
+<span id="void-element">void element</span>
+:   An HTML element that has no content and therefore no closing tag, such as
+    `<img>` or `<br>`.
 
 ## W
 

@@ -24,5 +24,6 @@ skips = [
     "**/*~",
     "docs/**",
     "log/**",
-    "uv.lock"
+    "uv.lock",
+    "*.html"
 ]

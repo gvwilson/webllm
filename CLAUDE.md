@@ -38,7 +38,7 @@ social and environmental impact of these tools in general.
 
 -   The running example is a simple web application for managing
     observations of sasquatches in British Columbia. It includes a
-	simple synthetic data generator to create datasets for testing.
+    simple synthetic data generator to create datasets for testing.
 -   The synthetic data generator is in the `./scripts` directory.
     Building it is *not* part of the tutorial.
 -   The finished application stores information in a SQLite database
@@ -65,24 +65,27 @@ social and environmental impact of these tools in general.
     `./glossary/index.md`.
 -   Each lesson is in its own subdirectory, whose name is a one-word
     descriptive slug. Lessons are included in the `Lessons` section
-	of `README.md` in order (see `intro` and `finale` for format).
+    of `README.md` in order (see `intro` and `finale` for format).
 -   Each lesson has an `index.md` file with an H1 title followed by
     sections with H2 titles.
 -   Lesson content in each section is written as point-form lists
     using four-space indentation. *NEVER* put tab characters in files.
-	Point-form lists may include sub-lists, but only one level deep.
--   The first H2 in each lesson is `Goal`, which is followed by a
-    point-form list of the goals of that lesson.
+    Point-form lists may include sub-lists, but only one level deep.
+-   The first H2 in each lesson is `Goals`, which is followed by a
+    point-form list of the goals of that lesson. Do not wrap new terms
+    in this section in glossary references, but make sure that all new
+    terms mentioned here are defined in the lesson.
 -   Each H2 title is a short description of the next thing to be added
     to the running example. This is followed by an italicized prompt
     for an LLM that either asks a question or tells the LLM to do the
-    next step in the running example. This is followed by a point-form
-	description of what the LLM does, along with excerpts of generated
-	code.
+    next step in the running example. The prompt is given directly,
+    without any prefix such as "Ask an LLM", and is not in quotes. The
+    prompt is followed by a point-form description of what the LLM
+    does, along with excerpts of generated code.
 -   Code is put in files in the lesson directory. These files are
     transcluded in the lesson using mccole's `%inc` tag. The shell
-	command to run the code (if needed) is put in a `.sh` file in the
-	lesson directory, which is also transcluded in the lesson.
+    command to run the code (if needed) is put in a `.sh` file in the
+    lesson directory, which is also transcluded in the lesson.
 -   The penultimate section of each lesson is an H2 titled `Check
     Understanding`. The content underneath this is a series of 3-5
     questions for learners to answer *without* using an LLM. Each
@@ -93,7 +96,7 @@ social and environmental impact of these tools in general.
     `</details>`.
 -   The final section of each lesson is an H2 titled `Exercises`. It
     is followed by 3-5 exercises, each of which has a brief H3 title
-	followed by a paragraph describing the goal of the exercise.
+    followed by a paragraph describing the goal of the exercise.
 
 ## Stack
 
