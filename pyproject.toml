@@ -1,0 +1,28 @@
+[project]
+name = "webllm"
+version = "0.1.0"
+description = "learning web programming with LLMs"
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+    "mccole>=4.0.0",
+    "ruff>=0.15.12",
+    "taskipy>=1.14.1",
+]
+
+[tool.taskipy.tasks]
+bib = {cmd = "mccole bib", help = "Check bibliography entries."}
+clean = {cmd = "find . -type f -name '*~' -exec rm {} \\; && find . -type d -name __pycache__ | xargs rm -rf && find . -type d -name .ruff_cache | xargs rm -rf", help = "Clean up generated and cache files."}
+check = {cmd = "mccole check --src . --dst docs && typos *.md */*.md", help = "Check code and project."}
+serve = {cmd = "python -m http.server -d docs", help = "Serve generated HTML."}
+site = {cmd = "mccole build --src . --dst docs && touch docs/.nojekyll", help = "Build HTML."}
+
+[tool.mccole]
+brand = "WebLLM"
+skips = [
+    "**/*~",
+    "docs/**",
+    "log/**",
+    "uv.lock"
+]
