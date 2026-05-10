@@ -1,4 +1,4 @@
-# Generating HTML with htpy
+# Generating HTML
 
 ## Goals
 

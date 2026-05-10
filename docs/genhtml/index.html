@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Generating HTML with htpy</title>
+<title>Generating HTML</title>
 <meta content="Learning Web Programming with LLMs" name="description"/>
 <link href="../_static/favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
@@ -21,8 +21,8 @@
 <ul class="dropdown-content" id="nav-lessons">
 <li><a href="../intro/">Introduction</a></li>
 <li><a href="../htmlcss/">HTML and CSS</a></li>
-<li><a class="active" href="../htpy/">Generating HTML with htpy</a></li>
-<li><a href="../server/">Serving Data with Litestar</a></li>
+<li><a class="active" href="../genhtml/">Generating HTML</a></li>
+<li><a href="../server/">Serving Data</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -39,7 +39,7 @@
 </div>
 </nav>
 <main id="main-content">
-<h1>Generating HTML with htpy</h1>
+<h1>Generating HTML</h1>
 <h2>Goals</h2>
 <ul>
 <li>Understand different ways to generate HTML from Python and when each is appropriate.</li>
@@ -100,7 +100,7 @@
 <li>htpy escapes <code>&amp;</code>, <code>&lt;</code>, and <code>&gt;</code> in text content automatically,
     so <code>"volunteers &amp; researchers"</code> becomes <code>volunteers &amp;amp; researchers</code> in the output</li>
 </ul>
-<div data-inc="basic_page.py"><span aria-label="Source: htpy/basic_page.py" class="inc-path" role="img" tabindex="0" title="htpy/basic_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">li</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ul</span>
+<div data-inc="basic_page.py"><span aria-label="Source: genhtml/basic_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/basic_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">li</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ul</span>
 
 <span class="n">page</span> <span class="o">=</span> <span class="n">html</span><span class="p">(</span><span class="n">lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">)[</span>
     <span class="n">head</span><span class="p">[</span><span class="n">title</span><span class="p">[</span><span class="s2">"Sasquatch Sightings"</span><span class="p">]],</span>
@@ -147,7 +147,7 @@
 <li>htpy accepts a list anywhere it accepts a single child,
     so you can pass the comprehension directly inside <code>table[...]</code></li>
 </ul>
-<div data-inc="table_page.py"><span aria-label="Source: htpy/table_page.py" class="inc-path" role="img" tabindex="0" title="htpy/table_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
+<div data-inc="table_page.py"><span aria-label="Source: genhtml/table_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/table_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
 
 <span class="n">SIGHTINGS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">"2024-01-15"</span><span class="p">,</span> <span class="s2">"G. canadensis"</span><span class="p">,</span> <span class="s2">"Near Hope, BC"</span><span class="p">,</span> <span class="s2">"Weight &gt; 200 kg; sex not recorded"</span><span class="p">),</span>
@@ -200,7 +200,7 @@
     <code>td(class_="note")[notes]</code></li>
 <li>Apply <code>class_="copyright"</code> to the copyright paragraph the same way</li>
 </ul>
-<div data-inc="styled_page.py"><span aria-label="Source: htpy/styled_page.py" class="inc-path" role="img" tabindex="0" title="htpy/styled_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
+<div data-inc="styled_page.py"><span aria-label="Source: genhtml/styled_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/styled_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
 
 <span class="n">SIGHTINGS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">"2024-01-15"</span><span class="p">,</span> <span class="s2">"G. canadensis"</span><span class="p">,</span> <span class="s2">"Near Hope, BC"</span><span class="p">,</span> <span class="s2">"Weight &gt; 200 kg; sex not recorded"</span><span class="p">),</span>
@@ -342,7 +342,7 @@ Add CSS rules to the stylesheet string so each species has a different backgroun
 	  <a href="../#acknowledgments">the authors</a>
 </div>
 <div class="col-3 right">
-<a href="../server/">Serving Data with Litestar</a> <span aria-hidden="true">⇒</span>
+<a href="../server/">Serving Data</a> <span aria-hidden="true">⇒</span>
 </div>
 </div>
 </footer>

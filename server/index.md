@@ -1,4 +1,4 @@
-# Serving Data with Litestar
+# Serving Data
 
 ## Goals
 
