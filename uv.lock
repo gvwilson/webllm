@@ -34,6 +34,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/2f/8c/d0252cc503d6447f3533a0a1ab7957ffa20ff9e0bbc51b484c3c721b0537/html5validator-0.4.2.tar.gz", hash = "sha256:aff87b596df86bebdd6a6e503ec0f4c281d33cdea7d38ae05ce25941e021174b", size = 26826004, upload-time = "2022-05-29T15:36:51.925Z" }
 
 [[package]]
+name = "htpy"
+version = "25.12.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markupsafe" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b6/23/e00bbc355e70444d16c90a0f1fdce108c67379fe65e9312cd026c13db976/htpy-25.12.0.tar.gz", hash = "sha256:7d3f4aaa10b35c5e46dfa804df1f3f18772caf8efee6e6a035b5dee89a5d6af8", size = 291259, upload-time = "2025-12-01T20:35:01.666Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/61/f1/a2f2caf14b03e7fab4801ac6018a4ac996de3e82a573e7aa21f3cb11a7cc/htpy-25.12.0-py3-none-any.whl", hash = "sha256:642e69278d6f8f4643acc2d2d13c21682ceb5fb4860ecbbce042f171577fff54", size = 21141, upload-time = "2025-12-01T20:35:00.13Z" },
+]
+
+[[package]]
 name = "jinja2"
 version = "3.1.6"
 source = { registry = "https://pypi.org/simple" }
@@ -304,6 +316,7 @@ name = "webllm"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "htpy" },
     { name = "mccole" },
     { name = "ruff" },
     { name = "taskipy" },
@@ -311,6 +324,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "htpy", specifier = ">=25.12.0" },
     { name = "mccole", specifier = ">=4.0.0" },
     { name = "ruff", specifier = ">=0.15.12" },
     { name = "taskipy", specifier = ">=1.14.1" },

@@ -79,7 +79,17 @@
 
 ## K
 
+<span id="keyword-argument">keyword argument</span>
+:   A function argument passed by name rather than by position, written as `name=value`.
+    In htpy, keyword arguments set the attributes of an HTML element:
+    `a(href="#recent")` sets the `href` attribute on the `<a>` tag.
+
 ## L
+
+<span id="list-comprehension">list comprehension</span>
+:   A compact Python expression that builds a new list by applying an expression to each item
+    in an existing sequence: `[x * 2 for x in numbers]`.
+    In htpy, list comprehensions are a natural way to generate one HTML element per row of data.
 
 ## M
 
@@ -104,6 +114,12 @@
 <span id="tag">tag</span>
 :   The angle-bracket notation used to mark the start or end of an HTML element.
     An opening tag has the form `<tagname>` and a closing tag has the form `</tagname>`.
+
+<span id="template-engine">template engine</span>
+:   A tool that combines a template---an HTML file with placeholders---and data to produce
+    a finished HTML document.
+    Jinja is a popular Python template engine; it replaces `{{ variable }}` with the variable's
+    value and handles loops and conditionals with `{% %}` blocks.
 
 <span id="tree">tree</span>
 :   A data structure in which each item has at most one parent and any number of children,

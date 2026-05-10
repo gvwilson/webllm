@@ -9,6 +9,7 @@
 
 1.  [Introduction](@/intro/)
 1.  [HTML and CSS](@/htmlcss/)
+1.  [Generating HTML with htpy](@/htpy/)
 1.  [Conclusion](@/finale/)
 
 </div>

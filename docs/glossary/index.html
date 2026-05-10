@@ -21,6 +21,7 @@
 <ul class="dropdown-content" id="nav-lessons">
 <li><a href="../intro/">Introduction</a></li>
 <li><a href="../htmlcss/">HTML and CSS</a></li>
+<li><a href="../htpy/">Generating HTML with htpy</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -107,7 +108,19 @@ when opened directly in a browser without a web server.</dd>
 </dl>
 <h2>J</h2>
 <h2>K</h2>
+<dl>
+<dt><span id="keyword-argument">keyword argument</span></dt>
+<dd>A function argument passed by name rather than by position, written as <code>name=value</code>.
+In htpy, keyword arguments set the attributes of an HTML element:
+<code>a(href="#recent")</code> sets the <code>href</code> attribute on the <code>&lt;a&gt;</code> tag.</dd>
+</dl>
 <h2>L</h2>
+<dl>
+<dt><span id="list-comprehension">list comprehension</span></dt>
+<dd>A compact Python expression that builds a new list by applying an expression to each item
+in an existing sequence: <code>[x * 2 for x in numbers]</code>.
+In htpy, list comprehensions are a natural way to generate one HTML element per row of data.</dd>
+</dl>
 <h2>M</h2>
 <h2>N</h2>
 <h2>O</h2>
@@ -125,6 +138,11 @@ In HTML this is the <code>&lt;html&gt;</code> element.</dd>
 <dt><span id="tag">tag</span></dt>
 <dd>The angle-bracket notation used to mark the start or end of an HTML element.
 An opening tag has the form <code>&lt;tagname&gt;</code> and a closing tag has the form <code>&lt;/tagname&gt;</code>.</dd>
+<dt><span id="template-engine">template engine</span></dt>
+<dd>A tool that combines a template---an HTML file with placeholders---and data to produce
+a finished HTML document.
+Jinja is a popular Python template engine; it replaces <code>{{ variable }}</code> with the variable's
+value and handles loops and conditionals with <code>{% %}</code> blocks.</dd>
 <dt><span id="tree">tree</span></dt>
 <dd>A data structure in which each item has at most one parent and any number of children,
 with a single root item at the top.
