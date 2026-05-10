@@ -76,20 +76,30 @@ social and environmental impact of these tools in general.
     in this section in glossary references, but make sure that all new
     terms mentioned here are defined in the lesson.
 -   Each H2 title is a short description of the next thing to be added
-    to the running example. This is followed by an italicized prompt
-    for an LLM that either asks a question or tells the LLM to do the
-    next step in the running example. The prompt is given directly,
-    without any prefix such as "Ask an LLM", and is not in quotes. The
-    prompt is followed by a point-form description of what the LLM
-    does, along with excerpts of generated code.
+    to the running example. This is followed by at least two italicized
+    prompts for an LLM. Each prompt either asks a question or tells the
+    LLM to do the next step in the running example. Prompts are given
+    directly, without any prefix such as "Ask an LLM", and are not in
+    quotes. The point-form content is split between the prompts, with
+    each prompt followed by the bullets that describe what the LLM does
+    in response to that prompt, along with excerpts of generated code.
+-   Do not introduce a concept, tag, or feature until the running
+    example actually needs it. If you cannot point to a specific place
+    in the example where the new material is required, leave it for a
+    later lesson.
+-   Start examples with the simplest structure that illustrates the
+    concept and build complexity progressively. For example, introduce
+    a paragraph and a list before introducing a table.
 -   Code is put in files in the lesson directory. These files are
     transcluded in the lesson using mccole's `%inc` tag. The shell
     command to run the code (if needed) is put in a `.sh` file in the
     lesson directory, which is also transcluded in the lesson.
 -   The penultimate section of each lesson is an H2 titled `Check
     Understanding`. The content underneath this is a series of 3-5
-    questions for learners to answer *without* using an LLM. Each
-    question is written as `<details markdown="1">`, followed by
+    questions for learners to answer *without* using an LLM. At least
+    one question must ask the learner to diagnose and fix a bug rather
+    than simply recall or distinguish concepts. Each question is written
+    as `<details markdown="1">`, followed by
     `<summary markdown="1">text of question</summary>` on a line of
     its own, followed by a blank line, followed by a paragraph answer
     and/or snippets of code, followed by a blank line, followed by
@@ -97,6 +107,10 @@ social and environmental impact of these tools in general.
 -   The final section of each lesson is an H2 titled `Exercises`. It
     is followed by 3-5 exercises, each of which has a brief H3 title
     followed by a paragraph describing the goal of the exercise.
+-   Citations must be to free, actively maintained resources such as
+    official documentation or MDN. Only cite a book if it covers
+    something the online references do not, and verify that it is no
+    more than a few years old before recommending it.
 
 ## Stack
 

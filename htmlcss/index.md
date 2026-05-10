@@ -18,6 +18,9 @@
     -   An opening tag `<tagname>` shows where an element starts
     -   A closing tag `</tagname>` shows where it ends
     -   Content goes between them: `<p>A paragraph.</p>`
+
+*Explain how multiple tags can be used together.*
+
 -   Elements must form a [%g tree "tree" %]: they can nest but cannot overlap
     -   `<ul><li>first</li><li>second</li></ul>` is correct
     -   `<b><i>text</b></i>` is not, because `<i>` opens inside `<b>` but closes after `</b>`
@@ -46,36 +49,43 @@ which is why understanding HTML matters even if you rarely type it yourself.
     -   An `<html>` element enclosing everything else (the [%g root-element "root element" %])
     -   A `<head>` element containing metadata (information *about* the page, not shown in the window)
     -   A `<body>` element containing the visible content
+
+*How do I add notes inside an HTML file that won't appear in the browser?*
+
 -   Indentation and blank lines don't change how the browser renders the page: they exist for human readers
 -   `<!-- this is a comment -->` adds notes the browser ignores
     -   Comments cannot be nested
 
 ## Common Tags
 
-*What are the most common HTML tags I should know?*
+*What are the most common HTML tags?*
 
--   A short list of tags covers most pages:
+-   A short list of tags covers most structural needs:
     -   `<h1>` through `<h6>` for headings: use them in order, don't skip levels
     -   `<p>` for paragraphs
     -   `<ul>` and `<ol>` for unordered and ordered lists, with `<li>` for each item
-    -   `<a>` for links
-    -   `<img>` for images
-    -   `<em>` and `<strong>` for emphasis and strong emphasis
+
+*What tags do I use to add emphasis, links, and images?*
+
+-   `<em>` and `<strong>` for emphasis and strong emphasis
+    -   Use these instead of `<i>` (italics) and `<b>` (bold)
 
 ## Special Characters
 
-*How do I include a less-than sign in HTML without the browser treating it as a tag?*
+*If a less-than sign is special, how do I include one in HTML without the browser treating it as a tag?*
 
 -   `<` and `>` mark the boundaries of tags, so they cannot appear as-is in text content
 -   [%g html-entity "HTML entities" %] are a way to include them and other special characters safely
--   An entity starts with `&`, ends with `;`, and has a name or number in between:
+-   An entity starts with `&`, ends with `;`, and has a name or number in between
+
+*What are the most common HTML entities I will actually need?*
+
+-   The entities that come up most often are:
     -   `&lt;` displays as `<`
     -   `&gt;` displays as `>`
     -   `&amp;` displays as `&` (the `&` itself must be escaped because it starts entities)
     -   `&quot;` displays as `"` (useful inside attribute values)
-    -   `&copy;` displays as &copy;
-    -   `&mdash;` displays as &mdash;
--   In `basic_page.html`, the notes column uses `&gt;` and `&lt;` for weight comparisons,
+-   In `basic_page.html`, the list items use `&gt;` and `&lt;` for weight comparisons,
     and `&amp;` where the text says "volunteers & researchers"
 -   A browser that sees `&lt;b&gt;` in text displays `<b>` rather than treating it as a bold tag
 
@@ -88,7 +98,11 @@ which is why understanding HTML matters even if you rarely type it yourself.
     -   A full URL: `<a href="https://example.com">Visit here</a>`
     -   A path relative to the current page: `<a href="./details.html">Details</a>`
     -   An anchor on the current page: `<a href="#recent">Jump to recent sightings</a>`
+    -   `href` stands for "hypertext reference"
 -   Create an anchor target with an `id` attribute on any element: `<h2 id="recent">Recent Sightings</h2>`
+
+*How do I embed an image in an HTML page?*
+
 -   The `<img>` tag embeds an image; it is a [%g void-element "void element" %] with no closing tag,
     because it has no text content:
     -   `<img src="map.png" alt="map of sightings">`
@@ -99,7 +113,8 @@ which is why understanding HTML matters even if you rarely type it yourself.
 
 ### File Paths vs. URLs
 
-`src="map.png"` is a [%g file-path "file path" %]: the browser looks for `map.png` in the same directory as the HTML file.
+`src="map.png"` is a [%g file-path "file path" %]:
+the browser looks for `map.png` in the same directory as the HTML file.
 You can open the page by double-clicking the file and the image will appear.
 `src="https://example.com/map.png"` is a URL: the browser fetches the image from a remote server.
 This works in a browser tab, but it requires a network connection and the remote server to be available.
@@ -110,13 +125,16 @@ For pages you are developing locally, file paths let you work without running a 
 
 ## Tables
 
-*Rewrite the sightings list as a table with one row per sighting and columns for date, species, location, and notes.*
+*Rewrite the sightings list as a table with columns for date, species, location, and notes.*
 
 -   A table is made of rows, and each row is made of cells
 -   `<table>` wraps the whole table
 -   `<tr>` wraps one row
 -   `<th>` is a header cell (bold and centered by default)
 -   `<td>` is a data cell
+
+*What does the HTML for a table with a header row and three data rows look like?*
+
 -   Rows are listed top to bottom; cells within a row are listed left to right
 -   Without CSS a table has no visible borders: the structure is there but the grid lines are not
 
@@ -124,7 +142,7 @@ For pages you are developing locally, file paths let you work without running a 
 
 ## Styling with CSS
 
-*Add a stylesheet to the sightings page that sets the font, constrains the page width, and puts borders on the table.*
+*Add a stylesheet to the sightings page that sets the font and page width, and puts borders on the table.*
 
 -   Putting visual styling directly in HTML attributes works but creates problems:
     -   `<h1 align="center">` makes every heading a separate style decision
@@ -140,6 +158,8 @@ selector {
     another-property: value;
 }
 ```
+
+*Show me CSS rules that center a heading, set a page font, and add borders to table cells.*
 
 -   The selector says which elements the rule applies to
 -   `body { font-family: sans-serif; }` sets the font for the entire page
@@ -171,6 +191,9 @@ A stylesheet keeps all the style decisions in one place so one change affects ev
 -   Target a class in CSS with a dot prefix: `.note { font-style: italic; }`
 -   Combine a tag name and a class to be more specific: `td.note { font-style: italic; }`
     (only `<td>` elements with class `note`, not `<p class="note">`)
+
+*How do I style one specific element differently from all others of the same type?*
+
 -   Target a specific element by its unique `id`: `#main-title { font-size: 2em; }`
 -   An element can belong to multiple classes: `<td class="note warning">`
 -   When two rules could both apply, the more specific one wins
@@ -179,8 +202,6 @@ A stylesheet keeps all the style decisions in one place so one change affects ev
     and `copyright` centers and shrinks the footer line
 
 ## Check Understanding
-
--   See [%b MDN2024 %] for (much) more information
 
 <details markdown="1">
 <summary markdown="1">What is wrong with `<p>first <b>bold</p></b>`?</summary>
@@ -220,16 +241,40 @@ with many pages, because one file can style all of them.
 
 </details>
 
+See [%b MDN2024 %] for (much) more information.
+
+<details markdown="1">
+<summary markdown="1">A page has `<img src="photo.jpg">` and the image shows a broken icon in the browser. The file `photo.jpg` is in a folder called `images` that sits next to the HTML file. What is wrong and how do you fix it?</summary>
+
+The `src` attribute points to `photo.jpg` in the same directory as the HTML file,
+but the image is actually in a subdirectory called `images`.
+The fix is `<img src="images/photo.jpg" alt="...">`.
+
+</details>
+
+<details markdown="1">
+<summary markdown="1">A stylesheet has the rule `p { color: navy; }` and also `.highlight { color: red; }`. A paragraph written as `<p class="highlight">Warning</p>` appears in navy, not red. Why, and how do you fix it?</summary>
+
+Both rules apply to this element, so CSS picks the more specific one.
+A class selector and a tag selector have the same specificity when written separately,
+so the rule that appears *later* in the stylesheet wins---and in this case `p` comes after `.highlight`.
+Move `.highlight { color: red; }` to appear after `p { color: navy; }`,
+or make it more specific by writing `p.highlight { color: red; }`.
+
+</details>
+
 ## Exercises
 
 ### Add a Navigation Bar
 
-Add an unordered list at the top of `styled_page.html` with links to the `#recent` and `#about` anchors already in the file.
+Add an unordered list at the top of `styled_page.html`
+with links to the `#recent` and `#about` anchors already in the file.
 Add CSS rules to the internal stylesheet so the list items appear side by side rather than stacked.
 
 ### Color-Code by Species
 
-Edit `styled_page.html` to give each data row a CSS class that matches its species (`canadensis` or `horribilus`).
+Edit `styled_page.html` to give each data row a CSS class
+that matches its species (`canadensis` or `horribilus`).
 Add rules to the stylesheet so rows for each species have a different background color.
 
 ### Add a Second Page
@@ -239,3 +284,35 @@ Sasquatch Observation Registry in a paragraph or two.
 Add a link from `styled_page.html` to `about.html`, and a link back from `about.html`
 to `styled_page.html`.
 Give `about.html` the same internal stylesheet as `styled_page.html`.
+
+### Fix the Broken Page
+
+The file below has three HTML errors. Find and fix them without using an LLM.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Errors</head>
+  </title>
+  <body>
+    <h1>Sasquatch &amp Research</h2>
+    <p>Sightings where weight > 100 kg are flagged.</p>
+  </body>
+</html>
+```
+
+### Ordered List
+
+Rewrite the unordered sightings list in `basic_page.html` as an ordered list.
+Then add a CSS rule to `styled_page.html` that removes the default left margin on the list.
+
+### Change the Color Scheme
+
+Edit the stylesheet in `styled_page.html` to use a dark background (`#222222`) with light text (`#eeeeee`).
+Update the table header background and border colors so they still look reasonable against the dark background.
+
+### Add a Caption
+
+HTML tables support an optional `<caption>` element placed immediately after the opening `<table>` tag.
+Add a caption to the table in `styled_page.html` and write a CSS rule to center it and make it italic.
