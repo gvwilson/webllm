@@ -11,3 +11,9 @@
     "htpy".
     <https://htpy.dev/>,
     2025.
+
+<span id="litestar2025">litestar2025</span>
+:   Litestar Contributors:
+    "Litestar Documentation".
+    <https://docs.litestar.dev/>,
+    2025.

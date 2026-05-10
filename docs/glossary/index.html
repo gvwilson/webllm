@@ -22,6 +22,7 @@
 <li><a href="../intro/">Introduction</a></li>
 <li><a href="../htmlcss/">HTML and CSS</a></li>
 <li><a href="../htpy/">Generating HTML with htpy</a></li>
+<li><a href="../server/">Serving Data with Litestar</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -50,10 +51,10 @@ For example, <code>href</code> in <code>&lt;a href="..."&gt;</code> specifies wh
 <h2>C</h2>
 <dl>
 <dt><span id="css">CSS (Cascading Style Sheets)</span></dt>
-<dd>A language for describing how HTML elements should be displayed---fonts,
-colors, spacing, and layout.
-"Cascading" refers to the rules that determine which style wins when
-more than one rule applies to the same element.</dd>
+<dd>A language for describing how HTML elements should be displayed,
+including fonts, colors, spacing, and layout.  "Cascading" refers
+to the rules that determine which style wins when more than one
+rule applies to the same element.</dd>
 <dt><span id="css-class">CSS class</span></dt>
 <dd>A label given to one or more HTML elements with the <code>class</code> attribute
 so that they can be styled as a group.
@@ -97,6 +98,19 @@ and a browser renders those elements as visible text, images, and links.</dd>
 interpreted as markup or is not easily typed.
 Entities begin with <code>&amp;</code> and end with <code>;</code>, for example <code>&amp;lt;</code> for <code>&lt;</code>,
 <code>&amp;amp;</code> for <code>&amp;</code>, and <code>&amp;copy;</code> for ©.</dd>
+<dt><span id="http-404">HTTP 404</span></dt>
+<dd>The HTTP status code a server returns when it cannot find the resource the client requested.
+"404 Not Found" is so common that it has become shorthand for any missing page on the web.
+Servers return other status codes for other problems: 500 for an internal server error,
+403 for a resource the client is not allowed to see.</dd>
+<dt><span id="http-request">HTTP request</span></dt>
+<dd>A message sent from a browser (or other client) to a web server asking for a resource.
+A GET request asks the server to return data; a POST request sends data to the server.
+Each request includes the URL path, any headers, and (for POST) a body.</dd>
+<dt><span id="http-response">HTTP response</span></dt>
+<dd>A message sent from a web server back to the browser in reply to an HTTP request.
+It includes a status code (200 for success, 404 for not found, etc.),
+headers such as the media type, and a body containing the requested content.</dd>
 </dl>
 <h2>I</h2>
 <dl>
@@ -120,17 +134,49 @@ In htpy, keyword arguments set the attributes of an HTML element:
 <dd>A compact Python expression that builds a new list by applying an expression to each item
 in an existing sequence: <code>[x * 2 for x in numbers]</code>.
 In htpy, list comprehensions are a natural way to generate one HTML element per row of data.</dd>
+<dt><span id="localhost">localhost (loopback address)</span></dt>
+<dd>The special IP address <code>127.0.0.1</code>, which always refers to the current machine.
+A web server listening on <code>localhost</code> only accepts requests from the same computer,
+not from other machines on the network.
+The name <code>localhost</code> is an alias for <code>127.0.0.1</code>.</dd>
 </dl>
 <h2>M</h2>
+<dl>
+<dt><span id="media-type">media type</span></dt>
+<dd>A label included in an HTTP response header that tells the browser what kind of content
+the response body contains.
+Common values are <code>text/html</code> for web pages, <code>text/css</code> for stylesheets,
+and <code>application/json</code> for JSON data.
+Browsers use the media type to decide how to render or process the response.</dd>
+</dl>
 <h2>N</h2>
 <h2>O</h2>
 <h2>P</h2>
+<dl>
+<dt><span id="path-parameter">path parameter</span></dt>
+<dd>A variable segment in a URL route pattern, written in curly braces, such as
+<code>{sighting_id:int}</code> in <code>/sighting/{sighting_id:int}</code>.
+The web framework extracts the value from the URL and passes it to the handler function.
+The optional type suffix (<code>:int</code>) tells the framework to convert the extracted text
+to the specified type before calling the function.</dd>
+<dt><span id="port">port</span></dt>
+<dd>A number from 0 to 65535 that identifies a specific service on a networked computer,
+like a door number on a building.
+Web servers commonly listen on port 80 (HTTP) or 443 (HTTPS);
+local development servers typically use 8000 or 8080 to avoid requiring special permissions.</dd>
+</dl>
 <h2>Q</h2>
 <h2>R</h2>
 <dl>
 <dt><span id="root-element">root element</span></dt>
 <dd>The single outermost element in an HTML document that contains all other elements.
 In HTML this is the <code>&lt;html&gt;</code> element.</dd>
+<dt><span id="route">route</span></dt>
+<dd>A pairing of a URL pattern and a handler function in a web application.
+When the server receives a request, it matches the URL against its routes
+and calls the handler for the first match.
+For example, the route <code>GET /sighting/{id}</code> matches any GET request
+whose path starts with <code>/sighting/</code> followed by an identifier.</dd>
 </dl>
 <h2>S</h2>
 <h2>T</h2>
@@ -147,6 +193,12 @@ value and handles loops and conditionals with <code>{% %}</code> blocks.</dd>
 <dd>A data structure in which each item has at most one parent and any number of children,
 with a single root item at the top.
 HTML documents form a tree because elements must be properly nested.</dd>
+<dt><span id="type-annotation">type annotation</span></dt>
+<dd>An optional label added to a Python function parameter or return value to indicate what type
+of data is expected, written with a colon for parameters and <code>-&gt;</code> for return values:
+<code>def greet(name: str) -&gt; str:</code>.
+Python does not enforce annotations at runtime, but web frameworks like Litestar use them
+to validate incoming data and generate documentation automatically.</dd>
 </dl>
 <h2>U</h2>
 <h2>V</h2>
@@ -156,6 +208,16 @@ HTML documents form a tree because elements must be properly nested.</dd>
 <code>&lt;img&gt;</code> or <code>&lt;br&gt;</code>.</dd>
 </dl>
 <h2>W</h2>
+<dl>
+<dt><span id="web-framework">web framework</span></dt>
+<dd>A library that handles the low-level details of receiving HTTP requests and sending responses,
+so developers can focus on application logic rather than network plumbing.
+Examples include Litestar, Flask, and Django for Python.</dd>
+<dt><span id="web-server">web server</span></dt>
+<dd>A program that listens for HTTP requests from browsers or other clients and sends back responses.
+Unlike a static file server, a web server can generate different responses for different requests,
+read from databases, and accept data submitted through forms.</dd>
+</dl>
 <h2>X</h2>
 <h2>Y</h2>
 <h2>Z</h2>

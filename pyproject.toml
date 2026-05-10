@@ -7,6 +7,7 @@ requires-python = ">=3.13"
 
 dependencies = [
     "htpy>=25.12.0",
+    "litestar>=2.0.0",
     "mccole>=4.0.0",
     "ruff>=0.15.12",
     "taskipy>=1.14.1",
@@ -23,8 +24,12 @@ site = {cmd = "mccole build --src . --dst docs && touch docs/.nojekyll", help = 
 brand = "WebLLM"
 skips = [
     "**/*~",
+    "**/__pycache__/**",
     "docs/**",
     "log/**",
+    "server/*.css",
     "uv.lock",
-    "*.html"
+    "*.html",
+    "*.py",
+    "*.sh"
 ]
