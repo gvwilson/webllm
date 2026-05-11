@@ -25,7 +25,9 @@
 <li><a href="../server/">Serving Data</a></li>
 <li><a href="../testserver/">Testing the Server</a></li>
 <li><a href="../database/">Using a Database</a></li>
+<li><a href="../testdatabase/">Testing with Fixtures</a></li>
 <li><a class="active" href="../forms/">Forms</a></li>
+<li><a href="../testclient/">Testing with a Browser</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -81,7 +83,8 @@ page that sends a POST request to remove the sighting and then sends the browser
 <li><code>@post</code> in Litestar marks a handler that responds to POST requests,
     just as <code>@get</code> marks one that responds to GET</li>
 <li><code>delete from sightings where id = ?</code> removes the matching row; <code>conn.commit()</code> writes the change to disk</li>
-<li>After deleting, the handler returns a <a class="gl-ref" href="../glossary/#redirect">redirect</a> that tells the browser to fetch another URL<ul>
+<li>After deleting, the handler returns a <a class="gl-ref" href="../glossary/#http-303">HTTP 303</a> <a class="gl-ref" href="../glossary/#redirect">redirect</a>
+    that tells the browser to fetch another URL<ul>
 <li><code>Redirect("/", status_code=303)</code> sends the browser to the home page</li>
 <li>This is called the Post/Redirect/Get pattern</li>
 <li>If the user presses Refresh afterward, the browser replays the GET, not the POST,
@@ -97,25 +100,10 @@ page that sends a POST request to remove the sighting and then sends the browser
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundException</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.response</span><span class="w"> </span><span class="kn">import</span> <span class="n">Redirect</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">,</span> <span class="n">LABELS</span><span class="p">,</span> <span class="n">fmt</span>
+
 <span class="n">LESSON_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
 <span class="n">DB_PATH</span> <span class="o">=</span> <span class="n">LESSON_DIR</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"database"</span> <span class="o">/</span> <span class="s2">"sightings.db"</span>
-
-<span class="n">LABELS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"ID"</span><span class="p">,</span>
-    <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"Species"</span><span class="p">,</span>
-    <span class="s2">"sex"</span><span class="p">:</span> <span class="s2">"Sex"</span><span class="p">,</span>
-    <span class="s2">"weight"</span><span class="p">:</span> <span class="s2">"Weight (kg)"</span><span class="p">,</span>
-    <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"Color"</span><span class="p">,</span>
-    <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"Date/Time"</span><span class="p">,</span>
-    <span class="s2">"latitude"</span><span class="p">:</span> <span class="s2">"Latitude"</span><span class="p">,</span>
-    <span class="s2">"longitude"</span><span class="p">:</span> <span class="s2">"Longitude"</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">HEADERS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="n">KEYS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">fmt</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">make_app</span><span class="p">(</span><span class="n">db_path</span><span class="o">=</span><span class="n">DB_PATH</span><span class="p">):</span>
@@ -243,25 +231,10 @@ and redirects the user to the home page.</em></p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Body</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.response</span><span class="w"> </span><span class="kn">import</span> <span class="n">Redirect</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">,</span> <span class="n">LABELS</span><span class="p">,</span> <span class="n">fmt</span>
+
 <span class="n">LESSON_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
 <span class="n">DB_PATH</span> <span class="o">=</span> <span class="n">LESSON_DIR</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"database"</span> <span class="o">/</span> <span class="s2">"sightings.db"</span>
-
-<span class="n">LABELS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"ID"</span><span class="p">,</span>
-    <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"Species"</span><span class="p">,</span>
-    <span class="s2">"sex"</span><span class="p">:</span> <span class="s2">"Sex"</span><span class="p">,</span>
-    <span class="s2">"weight"</span><span class="p">:</span> <span class="s2">"Weight (kg)"</span><span class="p">,</span>
-    <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"Color"</span><span class="p">,</span>
-    <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"Date/Time"</span><span class="p">,</span>
-    <span class="s2">"latitude"</span><span class="p">:</span> <span class="s2">"Latitude"</span><span class="p">,</span>
-    <span class="s2">"longitude"</span><span class="p">:</span> <span class="s2">"Longitude"</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">HEADERS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="n">KEYS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">fmt</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
 
 
 <span class="n">INSERT_ROW</span> <span class="o">=</span> <span class="p">(</span>
@@ -475,25 +448,10 @@ all its rows into the database.</em></p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Body</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.response</span><span class="w"> </span><span class="kn">import</span> <span class="n">Redirect</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">,</span> <span class="n">LABELS</span><span class="p">,</span> <span class="n">fmt</span>
+
 <span class="n">LESSON_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
 <span class="n">DB_PATH</span> <span class="o">=</span> <span class="n">LESSON_DIR</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"database"</span> <span class="o">/</span> <span class="s2">"sightings.db"</span>
-
-<span class="n">LABELS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"ID"</span><span class="p">,</span>
-    <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"Species"</span><span class="p">,</span>
-    <span class="s2">"sex"</span><span class="p">:</span> <span class="s2">"Sex"</span><span class="p">,</span>
-    <span class="s2">"weight"</span><span class="p">:</span> <span class="s2">"Weight (kg)"</span><span class="p">,</span>
-    <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"Color"</span><span class="p">,</span>
-    <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"Date/Time"</span><span class="p">,</span>
-    <span class="s2">"latitude"</span><span class="p">:</span> <span class="s2">"Latitude"</span><span class="p">,</span>
-    <span class="s2">"longitude"</span><span class="p">:</span> <span class="s2">"Longitude"</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">HEADERS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="n">KEYS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">fmt</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
 
 
 <span class="n">INSERT_ROW</span> <span class="o">=</span> <span class="p">(</span>
@@ -933,7 +891,7 @@ and a <code>POST /edit/{id}</code> route that updates the row in the database wi
 <footer aria-label="Page navigation">
 <div class="row">
 <div class="col-3 left">
-<span aria-hidden="true">⇐</span> <a href="../database/">Using a Database</a>
+<span aria-hidden="true">⇐</span> <a href="../testdatabase/">Testing with Fixtures</a>
 </div>
 <div class="col-6 center">
 <a href="../">WebLLM</a>
@@ -941,7 +899,7 @@ and a <code>POST /edit/{id}</code> route that updates the row in the database wi
 	  <a href="../#acknowledgments">the authors</a>
 </div>
 <div class="col-3 right">
-<a href="../finale/">Conclusion</a> <span aria-hidden="true">⇒</span>
+<a href="../testclient/">Testing with a Browser</a> <span aria-hidden="true">⇒</span>
 </div>
 </div>
 </footer>

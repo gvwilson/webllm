@@ -25,7 +25,9 @@
 <li><a class="active" href="../server/">Serving Data</a></li>
 <li><a href="../testserver/">Testing the Server</a></li>
 <li><a href="../database/">Using a Database</a></li>
+<li><a href="../testdatabase/">Testing with Fixtures</a></li>
 <li><a href="../forms/">Forms</a></li>
+<li><a href="../testclient/">Testing with a Browser</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -134,7 +136,11 @@
 </ul>
 <div class="callout">
 <h3>Why <code>index</code>?</h3>
-<p>FIXME</p>
+<p>The name <code>index</code> comes from the early web, when servers mapped URLs directly to files on disk.
+Visiting <code>/some/path/</code> would return the file <code>index.html</code> in that directory—the starting point,
+like the index of a book.
+Modern frameworks keep the convention: the function that handles requests for <code>/</code> is called <code>index</code>
+because it serves the site's front page.</p>
 </div>
 <h2>A Table of Sightings</h2>
 <p><em>Create a file called <code>dataset.py</code> containing twenty rows of synthetic sasquatch sighting data.
@@ -181,25 +187,9 @@ Also add a route at <code>/style.css</code> to read and return that file.</em></
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">MediaType</span><span class="p">,</span> <span class="n">get</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">SIGHTINGS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">,</span> <span class="n">LABELS</span><span class="p">,</span> <span class="n">fmt</span>
 
 <span class="n">LESSON_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
-
-<span class="n">LABELS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"ID"</span><span class="p">,</span>
-    <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"Species"</span><span class="p">,</span>
-    <span class="s2">"sex"</span><span class="p">:</span> <span class="s2">"Sex"</span><span class="p">,</span>
-    <span class="s2">"weight"</span><span class="p">:</span> <span class="s2">"Weight (kg)"</span><span class="p">,</span>
-    <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"Color"</span><span class="p">,</span>
-    <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"Date/Time"</span><span class="p">,</span>
-    <span class="s2">"latitude"</span><span class="p">:</span> <span class="s2">"Latitude"</span><span class="p">,</span>
-    <span class="s2">"longitude"</span><span class="p">:</span> <span class="s2">"Longitude"</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">HEADERS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="n">KEYS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">fmt</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
 
 
 <span class="nd">@get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="n">MediaType</span><span class="o">.</span><span class="n">HTML</span><span class="p">)</span>
@@ -290,25 +280,9 @@ in a two-column table with the field names on the left and values on the right.<
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundException</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">SIGHTINGS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">,</span> <span class="n">LABELS</span><span class="p">,</span> <span class="n">fmt</span>
 
 <span class="n">LESSON_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
-
-<span class="n">LABELS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"ID"</span><span class="p">,</span>
-    <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"Species"</span><span class="p">,</span>
-    <span class="s2">"sex"</span><span class="p">:</span> <span class="s2">"Sex"</span><span class="p">,</span>
-    <span class="s2">"weight"</span><span class="p">:</span> <span class="s2">"Weight (kg)"</span><span class="p">,</span>
-    <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"Color"</span><span class="p">,</span>
-    <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"Date/Time"</span><span class="p">,</span>
-    <span class="s2">"latitude"</span><span class="p">:</span> <span class="s2">"Latitude"</span><span class="p">,</span>
-    <span class="s2">"longitude"</span><span class="p">:</span> <span class="s2">"Longitude"</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">HEADERS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="n">KEYS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">LABELS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">fmt</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
 
 
 <span class="nd">@get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="n">MediaType</span><span class="o">.</span><span class="n">HTML</span><span class="p">)</span>

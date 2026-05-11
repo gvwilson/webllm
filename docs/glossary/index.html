@@ -25,7 +25,9 @@
 <li><a href="../server/">Serving Data</a></li>
 <li><a href="../testserver/">Testing the Server</a></li>
 <li><a href="../database/">Using a Database</a></li>
+<li><a href="../testdatabase/">Testing with Fixtures</a></li>
 <li><a href="../forms/">Forms</a></li>
+<li><a href="../testclient/">Testing with a Browser</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -67,6 +69,11 @@ Every row must have a value for each column, or store null if the value is unkno
 within a row are separated by commas.
 The first line is usually a header row listing column names.
 Empty values are represented by two consecutive commas.</dd>
+<dt><span id="conftest-file"><code>conftest.py</code></span></dt>
+<dd>A special file that pytest looks for automatically in the same directory as a test file
+(and in parent directories up to the project root).
+Fixtures defined in <code>conftest.py</code> are available to every test file in that directory
+without any import statement.</dd>
 <dt><span id="css-class">CSS class</span></dt>
 <dd>A label given to one or more HTML elements with the <code>class</code> attribute
 so that they can be styled as a group.
@@ -96,6 +103,11 @@ language for querying and updating that data.</dd>
 <dd>A single unit of content in an HTML document, represented by an opening tag,
 optional content, and a closing tag.
 For example, <code>&lt;p&gt;A paragraph.&lt;/p&gt;</code> is a paragraph element.</dd>
+<dt><span id="end-to-end-test">end-to-end test</span></dt>
+<dd>A test that drives the application through a real browser, sending actual HTTP requests
+and checking what the user sees on screen.
+Unlike a test client that talks directly to the server in memory,
+an end-to-end test exercises browser-side behavior such as form validation and JavaScript.</dd>
 </dl>
 <h2>F</h2>
 <dl>
@@ -104,6 +116,11 @@ For example, <code>&lt;p&gt;A paragraph.&lt;/p&gt;</code> is a paragraph element
 such as <code>./images/map.png</code>.
 A relative file path is interpreted starting from the location of the file that contains it,
 not from a fixed root, which means it works regardless of where the project is stored on disk.</dd>
+<dt><span id="fixture">fixture</span></dt>
+<dd>A function decorated with <code>@pytest.fixture</code> that sets up resources a test needs,
+such as a database connection or a temporary directory.
+pytest injects the fixture's return value into any test function that names the fixture
+as a parameter, and tears down the resource automatically when the test finishes.</dd>
 <dt><span id="form">form</span></dt>
 <dd>An HTML element that groups one or more inputs together with a submit button so the browser
 can collect values from the user and send them to the server.
@@ -112,6 +129,12 @@ The <code>method</code> attribute specifies GET or POST, and <code>action</code>
 <h2>G</h2>
 <h2>H</h2>
 <dl>
+<dt><span id="headless">headless</span></dt>
+<dd>A mode in which a browser runs without displaying a visible window.
+Headless browsers are used in automated testing because they run faster and
+do not require a graphical display.
+Most browser testing tools default to headless mode and offer a flag to show the window
+for debugging.</dd>
 <dt><span id="html-entity">HTML entity</span></dt>
 <dd>A short code used in HTML to represent a character that would otherwise be
 interpreted as markup or is not easily typed.
@@ -119,6 +142,8 @@ Entities begin with <code>&amp;</code> and end with <code>;</code>, for example 
 <code>&amp;amp;</code> for <code>&amp;</code>, and <code>&amp;copy;</code> for ©.</dd>
 <dt><span id="http-200">HTTP 200</span></dt>
 <dd>The HTTP status code a server returns when the request succeeded.</dd>
+<dt><span id="http-303">HTTP 303</span></dt>
+<dd>The HTTP status code a server returns to redirect the client to another URL.</dd>
 <dt><span id="http-404">HTTP 404</span></dt>
 <dd>The HTTP status code a server returns when it cannot find the resource the client requested.
 "404 Not Found" is so common that it has become shorthand for any missing page on the web.</dd>
@@ -162,6 +187,11 @@ In htpy, list comprehensions are a natural way to generate one HTML element per 
 A web server listening on <code>localhost</code> only accepts requests from the same computer,
 not from other machines on the network.
 The name <code>localhost</code> is an alias for <code>127.0.0.1</code>.</dd>
+<dt><span id="locator">locator</span></dt>
+<dd>A description of which element on a page a browser testing tool should interact with,
+such as <code>"table a"</code> to mean "any link inside a table".
+Playwright evaluates locators lazily, just before an action is performed,
+so the element does not need to exist when the locator is created.</dd>
 </dl>
 <h2>M</h2>
 <dl>

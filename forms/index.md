@@ -31,7 +31,8 @@ page that sends a POST request to remove the sighting and then sends the browser
 -   `@post` in Litestar marks a handler that responds to POST requests,
     just as `@get` marks one that responds to GET
 -   `delete from sightings where id = ?` removes the matching row; `conn.commit()` writes the change to disk
--   After deleting, the handler returns a [%g redirect "redirect" %] that tells the browser to fetch another URL
+-   After deleting, the handler returns a [%g http-303 "HTTP 303" %] [%g redirect "redirect" %]
+    that tells the browser to fetch another URL
     -   `Redirect("/", status_code=303)` sends the browser to the home page
     -   This is called the Post/Redirect/Get pattern
     -   If the user presses Refresh afterward, the browser replays the GET, not the POST,

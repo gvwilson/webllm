@@ -24,6 +24,12 @@
     <https://developer.mozilla.org/en-US/docs/Web/HTML>,
     2024.
 
+<span id="playwright2025">playwright2025</span>
+:   Microsoft:
+    "Playwright for Python".
+    <https://playwright.dev/python/>,
+    2025.
+
 <span id="pytest2025">pytest2025</span>
 :   pytest Contributors:
     "pytest Documentation".

@@ -28,6 +28,12 @@
     The first line is usually a header row listing column names.
     Empty values are represented by two consecutive commas.
 
+<span id="conftest-file">`conftest.py`</span>
+:   A special file that pytest looks for automatically in the same directory as a test file
+    (and in parent directories up to the project root).
+    Fixtures defined in `conftest.py` are available to every test file in that directory
+    without any import statement.
+
 <span id="css-class">CSS class</span>
 :   A label given to one or more HTML elements with the `class` attribute
     so that they can be styled as a group.
@@ -61,6 +67,12 @@
     optional content, and a closing tag.
     For example, `<p>A paragraph.</p>` is a paragraph element.
 
+<span id="end-to-end-test">end-to-end test</span>
+:   A test that drives the application through a real browser, sending actual HTTP requests
+    and checking what the user sees on screen.
+    Unlike a test client that talks directly to the server in memory,
+    an end-to-end test exercises browser-side behavior such as form validation and JavaScript.
+
 ## F
 
 <span id="file-path">file path</span>
@@ -68,6 +80,12 @@
     such as `./images/map.png`.
     A relative file path is interpreted starting from the location of the file that contains it,
     not from a fixed root, which means it works regardless of where the project is stored on disk.
+
+<span id="fixture">fixture</span>
+:   A function decorated with `@pytest.fixture` that sets up resources a test needs,
+    such as a database connection or a temporary directory.
+    pytest injects the fixture's return value into any test function that names the fixture
+    as a parameter, and tears down the resource automatically when the test finishes.
 
 <span id="form">form</span>
 :   An HTML element that groups one or more inputs together with a submit button so the browser
@@ -78,6 +96,13 @@
 
 ## H
 
+<span id="headless">headless</span>
+:   A mode in which a browser runs without displaying a visible window.
+    Headless browsers are used in automated testing because they run faster and
+    do not require a graphical display.
+    Most browser testing tools default to headless mode and offer a flag to show the window
+    for debugging.
+
 <span id="html-entity">HTML entity</span>
 :   A short code used in HTML to represent a character that would otherwise be
     interpreted as markup or is not easily typed.
@@ -86,6 +111,9 @@
 
 <span id="http-200">HTTP 200</span>
 :   The HTTP status code a server returns when the request succeeded.
+
+<span id="http-303">HTTP 303</span>
+:   The HTTP status code a server returns to redirect the client to another URL.
 
 <span id="http-404">HTTP 404</span>
 :   The HTTP status code a server returns when it cannot find the resource the client requested.
@@ -135,6 +163,12 @@
     A web server listening on `localhost` only accepts requests from the same computer,
     not from other machines on the network.
     The name `localhost` is an alias for `127.0.0.1`.
+
+<span id="locator">locator</span>
+:   A description of which element on a page a browser testing tool should interact with,
+    such as `"table a"` to mean "any link inside a table".
+    Playwright evaluates locators lazily, just before an action is performed,
+    so the element does not need to exist when the locator is created.
 
 ## M
 

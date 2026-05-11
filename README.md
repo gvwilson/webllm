@@ -13,7 +13,9 @@
 1.  [Serving Data](@/server/)
 1.  [Testing the Server](@/testserver/)
 1.  [Using a Database](@/database/)
+1.  [Testing with Fixtures](@/testdatabase/)
 1.  [Forms](@/forms/)
+1.  [Testing with a Browser](@/testclient/)
 1.  [Conclusion](@/finale/)
 
 </div>
