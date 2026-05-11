@@ -15,8 +15,16 @@ page = html(lang="en")[
         h2(id="recent")["Recent Sightings"],
         ul[
             li["2024-01-15: ", em["G. canadensis"], " near Hope, BC. Weight > 200 kg."],
-            li["2024-02-03: ", em["G. horribilus"], " near Whistler. Female; weight < 150 kg."],
-            li["2024-03-21: ", em["G. canadensis"], " in Manning Park. Color: \"reddish-brown\"."],
+            li[
+                "2024-02-03: ",
+                em["G. horribilus"],
+                " near Whistler. Female; weight < 150 kg.",
+            ],
+            li[
+                "2024-03-21: ",
+                em["G. canadensis"],
+                ' in Manning Park. Color: "reddish-brown".',
+            ],
         ],
         h2(id="about")["About This Project"],
         p[

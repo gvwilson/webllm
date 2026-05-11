@@ -9,9 +9,6 @@ from litestar.response import Redirect
 LESSON_DIR = Path(__file__).parent
 DB_PATH = LESSON_DIR.parent / "database" / "sightings.db"
 
-HEADERS = ["ID", "Species", "Sex", "Weight (kg)", "Color", "Date/Time", "Latitude", "Longitude"]
-KEYS = ["id", "species", "sex", "weight", "color", "datetime", "latitude", "longitude"]
-
 LABELS = {
     "id": "ID",
     "species": "Species",
@@ -22,6 +19,12 @@ LABELS = {
     "latitude": "Latitude",
     "longitude": "Longitude",
 }
+HEADERS = list(LABELS.values())
+KEYS = list(LABELS.keys())
+
+
+def fmt(v):
+    return str(v) if v is not None else ""
 
 
 def make_app(db_path=DB_PATH):
@@ -43,7 +46,7 @@ def make_app(db_path=DB_PATH):
                         [
                             tr[
                                 td[a(href=f"/sighting/{row['id']}")[str(row["id"])]],
-                                [td[str(row[k]) if row[k] is not None else ""] for k in KEYS[1:]],
+                                [td[fmt(row[k])] for k in KEYS[1:]],
                             ]
                             for row in rows
                         ],
@@ -73,7 +76,7 @@ def make_app(db_path=DB_PATH):
                         [
                             tr[
                                 td(class_="label")[lbl],
-                                td[str(row[key]) if row[key] is not None else ""],
+                                td[fmt(row[key])],
                             ]
                             for key, lbl in LABELS.items()
                         ],

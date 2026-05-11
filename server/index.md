@@ -69,7 +69,11 @@
 
 ### Why `index`?
 
-FIXME
+The name `index` comes from the early web, when servers mapped URLs directly to files on disk.
+Visiting `/some/path/` would return the file `index.html` in that directory—the starting point,
+like the index of a book.
+Modern frameworks keep the convention: the function that handles requests for `/` is called `index`
+because it serves the site's front page.
 
 </div>
 
@@ -85,7 +89,7 @@ observations where those details were not recorded.*
 -   Using `None` for missing values is more honest than using an empty string or zero,
     and it forces you to handle the missing case explicitly in the rest of the code
 
-[%inc dataset.py %]
+[%inc dataset.py head=11 %]
 
 *Write a Litestar route at `/` that imports `SIGHTINGS` from `dataset.py` and returns
 an HTML page with a table of all sightings*

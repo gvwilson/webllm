@@ -120,8 +120,16 @@
         <span class="n">h2</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"recent"</span><span class="p">)[</span><span class="s2">"Recent Sightings"</span><span class="p">],</span>
         <span class="n">ul</span><span class="p">[</span>
             <span class="n">li</span><span class="p">[</span><span class="s2">"2024-01-15: "</span><span class="p">,</span> <span class="n">em</span><span class="p">[</span><span class="s2">"G. canadensis"</span><span class="p">],</span> <span class="s2">" near Hope, BC. Weight &gt; 200 kg."</span><span class="p">],</span>
-            <span class="n">li</span><span class="p">[</span><span class="s2">"2024-02-03: "</span><span class="p">,</span> <span class="n">em</span><span class="p">[</span><span class="s2">"G. horribilus"</span><span class="p">],</span> <span class="s2">" near Whistler. Female; weight &lt; 150 kg."</span><span class="p">],</span>
-            <span class="n">li</span><span class="p">[</span><span class="s2">"2024-03-21: "</span><span class="p">,</span> <span class="n">em</span><span class="p">[</span><span class="s2">"G. canadensis"</span><span class="p">],</span> <span class="s2">" in Manning Park. Color: </span><span class="se">\"</span><span class="s2">reddish-brown</span><span class="se">\"</span><span class="s2">."</span><span class="p">],</span>
+            <span class="n">li</span><span class="p">[</span>
+                <span class="s2">"2024-02-03: "</span><span class="p">,</span>
+                <span class="n">em</span><span class="p">[</span><span class="s2">"G. horribilus"</span><span class="p">],</span>
+                <span class="s2">" near Whistler. Female; weight &lt; 150 kg."</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">li</span><span class="p">[</span>
+                <span class="s2">"2024-03-21: "</span><span class="p">,</span>
+                <span class="n">em</span><span class="p">[</span><span class="s2">"G. canadensis"</span><span class="p">],</span>
+                <span class="s1">' in Manning Park. Color: "reddish-brown".'</span><span class="p">,</span>
+            <span class="p">],</span>
         <span class="p">],</span>
         <span class="n">h2</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"about"</span><span class="p">)[</span><span class="s2">"About This Project"</span><span class="p">],</span>
         <span class="n">p</span><span class="p">[</span>
@@ -153,9 +161,19 @@
 <div data-inc="table_page.py"><span aria-label="Source: genhtml/table_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/table_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
 
 <span class="n">SIGHTINGS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"2024-01-15"</span><span class="p">,</span> <span class="s2">"G. canadensis"</span><span class="p">,</span> <span class="s2">"Near Hope, BC"</span><span class="p">,</span> <span class="s2">"Weight &gt; 200 kg; sex not recorded"</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"2024-01-15"</span><span class="p">,</span>
+        <span class="s2">"G. canadensis"</span><span class="p">,</span>
+        <span class="s2">"Near Hope, BC"</span><span class="p">,</span>
+        <span class="s2">"Weight &gt; 200 kg; sex not recorded"</span><span class="p">,</span>
+    <span class="p">),</span>
     <span class="p">(</span><span class="s2">"2024-02-03"</span><span class="p">,</span> <span class="s2">"G. horribilus"</span><span class="p">,</span> <span class="s2">"Whistler area"</span><span class="p">,</span> <span class="s2">"Female; weight &lt; 150 kg"</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"2024-03-21"</span><span class="p">,</span> <span class="s2">"G. canadensis"</span><span class="p">,</span> <span class="s2">"Manning Park"</span><span class="p">,</span> <span class="s1">'Male; color described as "reddish-brown"'</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"2024-03-21"</span><span class="p">,</span>
+        <span class="s2">"G. canadensis"</span><span class="p">,</span>
+        <span class="s2">"Manning Park"</span><span class="p">,</span>
+        <span class="s1">'Male; color described as "reddish-brown"'</span><span class="p">,</span>
+    <span class="p">),</span>
 <span class="p">]</span>
 
 <span class="n">page</span> <span class="o">=</span> <span class="n">html</span><span class="p">(</span><span class="n">lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">)[</span>
@@ -173,8 +191,10 @@
         <span class="n">h2</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"recent"</span><span class="p">)[</span><span class="s2">"Recent Sightings"</span><span class="p">],</span>
         <span class="n">table</span><span class="p">[</span>
             <span class="n">tr</span><span class="p">[</span><span class="n">th</span><span class="p">[</span><span class="s2">"Date"</span><span class="p">],</span> <span class="n">th</span><span class="p">[</span><span class="s2">"Species"</span><span class="p">],</span> <span class="n">th</span><span class="p">[</span><span class="s2">"Location"</span><span class="p">],</span> <span class="n">th</span><span class="p">[</span><span class="s2">"Notes"</span><span class="p">]],</span>
-            <span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">td</span><span class="p">[</span><span class="n">date</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">species</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">location</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">notes</span><span class="p">]]</span>
-             <span class="k">for</span> <span class="n">date</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">notes</span> <span class="ow">in</span> <span class="n">SIGHTINGS</span><span class="p">],</span>
+            <span class="p">[</span>
+                <span class="n">tr</span><span class="p">[</span><span class="n">td</span><span class="p">[</span><span class="n">date</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">species</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">location</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">notes</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">date</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">notes</span> <span class="ow">in</span> <span class="n">SIGHTINGS</span>
+            <span class="p">],</span>
         <span class="p">],</span>
         <span class="n">h2</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"about"</span><span class="p">)[</span><span class="s2">"About This Project"</span><span class="p">],</span>
         <span class="n">p</span><span class="p">[</span>
@@ -206,9 +226,19 @@
 <div data-inc="styled_page.py"><span aria-label="Source: genhtml/styled_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/styled_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
 
 <span class="n">SIGHTINGS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s2">"2024-01-15"</span><span class="p">,</span> <span class="s2">"G. canadensis"</span><span class="p">,</span> <span class="s2">"Near Hope, BC"</span><span class="p">,</span> <span class="s2">"Weight &gt; 200 kg; sex not recorded"</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"2024-01-15"</span><span class="p">,</span>
+        <span class="s2">"G. canadensis"</span><span class="p">,</span>
+        <span class="s2">"Near Hope, BC"</span><span class="p">,</span>
+        <span class="s2">"Weight &gt; 200 kg; sex not recorded"</span><span class="p">,</span>
+    <span class="p">),</span>
     <span class="p">(</span><span class="s2">"2024-02-03"</span><span class="p">,</span> <span class="s2">"G. horribilus"</span><span class="p">,</span> <span class="s2">"Whistler area"</span><span class="p">,</span> <span class="s2">"Female; weight &lt; 150 kg"</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"2024-03-21"</span><span class="p">,</span> <span class="s2">"G. canadensis"</span><span class="p">,</span> <span class="s2">"Manning Park"</span><span class="p">,</span> <span class="s1">'Male; color described as "reddish-brown"'</span><span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"2024-03-21"</span><span class="p">,</span>
+        <span class="s2">"G. canadensis"</span><span class="p">,</span>
+        <span class="s2">"Manning Park"</span><span class="p">,</span>
+        <span class="s1">'Male; color described as "reddish-brown"'</span><span class="p">,</span>
+    <span class="p">),</span>
 <span class="p">]</span>
 
 <span class="c1"># CSS as a plain string; htpy places it inside &lt;style&gt; without escaping</span>
@@ -241,8 +271,10 @@
         <span class="n">h2</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"recent"</span><span class="p">)[</span><span class="s2">"Recent Sightings"</span><span class="p">],</span>
         <span class="n">table</span><span class="p">[</span>
             <span class="n">tr</span><span class="p">[</span><span class="n">th</span><span class="p">[</span><span class="s2">"Date"</span><span class="p">],</span> <span class="n">th</span><span class="p">[</span><span class="s2">"Species"</span><span class="p">],</span> <span class="n">th</span><span class="p">[</span><span class="s2">"Location"</span><span class="p">],</span> <span class="n">th</span><span class="p">[</span><span class="s2">"Notes"</span><span class="p">]],</span>
-            <span class="p">[</span><span class="n">tr</span><span class="p">[</span><span class="n">td</span><span class="p">[</span><span class="n">date</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">species</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">location</span><span class="p">],</span> <span class="n">td</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="s2">"note"</span><span class="p">)[</span><span class="n">notes</span><span class="p">]]</span>
-             <span class="k">for</span> <span class="n">date</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">notes</span> <span class="ow">in</span> <span class="n">SIGHTINGS</span><span class="p">],</span>
+            <span class="p">[</span>
+                <span class="n">tr</span><span class="p">[</span><span class="n">td</span><span class="p">[</span><span class="n">date</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">species</span><span class="p">],</span> <span class="n">td</span><span class="p">[</span><span class="n">location</span><span class="p">],</span> <span class="n">td</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="s2">"note"</span><span class="p">)[</span><span class="n">notes</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">date</span><span class="p">,</span> <span class="n">species</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">notes</span> <span class="ow">in</span> <span class="n">SIGHTINGS</span>
+            <span class="p">],</span>
         <span class="p">],</span>
         <span class="n">h2</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"about"</span><span class="p">)[</span><span class="s2">"About This Project"</span><span class="p">],</span>
         <span class="n">p</span><span class="p">[</span>

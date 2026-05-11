@@ -14,9 +14,6 @@ from litestar.response import Redirect
 LESSON_DIR = Path(__file__).parent
 DB_PATH = LESSON_DIR.parent / "database" / "sightings.db"
 
-HEADERS = ["ID", "Species", "Sex", "Weight (kg)", "Color", "Date/Time", "Latitude", "Longitude"]
-KEYS = ["id", "species", "sex", "weight", "color", "datetime", "latitude", "longitude"]
-
 LABELS = {
     "id": "ID",
     "species": "Species",
@@ -27,6 +24,13 @@ LABELS = {
     "latitude": "Latitude",
     "longitude": "Longitude",
 }
+HEADERS = list(LABELS.values())
+KEYS = list(LABELS.keys())
+
+
+def fmt(v):
+    return str(v) if v is not None else ""
+
 
 INSERT_ROW = (
     "insert into sightings (species, sex, weight, color, datetime, latitude, longitude) "
@@ -53,7 +57,7 @@ def make_app(db_path=DB_PATH):
                         [
                             tr[
                                 td[a(href=f"/sighting/{row['id']}")[str(row["id"])]],
-                                [td[str(row[k]) if row[k] is not None else ""] for k in KEYS[1:]],
+                                [td[fmt(row[k])] for k in KEYS[1:]],
                             ]
                             for row in rows
                         ],
@@ -84,7 +88,7 @@ def make_app(db_path=DB_PATH):
                         [
                             tr[
                                 td(class_="label")[lbl],
-                                td[str(row[key]) if row[key] is not None else ""],
+                                td[fmt(row[key])],
                             ]
                             for key, lbl in LABELS.items()
                         ],
@@ -116,13 +120,37 @@ def make_app(db_path=DB_PATH):
                 body[
                     h1["Add a New Sighting"],
                     form(method="post", action="/add")[
-                        label["Species", inp(type="text", name="species", required=True)],
+                        label[
+                            "Species", inp(type="text", name="species", required=True)
+                        ],
                         label["Sex (optional)", inp(type="text", name="sex")],
-                        label["Weight in kg (optional)", inp(type="number", name="weight", step="0.1")],
+                        label[
+                            "Weight in kg (optional)",
+                            inp(type="number", name="weight", step="0.1"),
+                        ],
                         label["Color", inp(type="text", name="color", required=True)],
-                        label["Date and time (YYYY-MM-DD HH:MM)", inp(type="text", name="datetime", required=True)],
-                        label["Latitude", inp(type="number", name="latitude", step="0.01", required=True)],
-                        label["Longitude", inp(type="number", name="longitude", step="0.01", required=True)],
+                        label[
+                            "Date and time (YYYY-MM-DD HH:MM)",
+                            inp(type="text", name="datetime", required=True),
+                        ],
+                        label[
+                            "Latitude",
+                            inp(
+                                type="number",
+                                name="latitude",
+                                step="0.01",
+                                required=True,
+                            ),
+                        ],
+                        label[
+                            "Longitude",
+                            inp(
+                                type="number",
+                                name="longitude",
+                                step="0.01",
+                                required=True,
+                            ),
+                        ],
                         button(type="submit")["Add Sighting"],
                     ],
                     a(href="/")["Back to all sightings"],
@@ -132,7 +160,7 @@ def make_app(db_path=DB_PATH):
 
     @post("/add")
     async def add_sighting(
-        data: Annotated[dict, Body(media_type=RequestEncodingType.URL_ENCODED)]
+        data: Annotated[dict, Body(media_type=RequestEncodingType.URL_ENCODED)],
     ) -> Redirect:
         conn = sqlite3.connect(db_path)
         conn.execute(

@@ -8,9 +8,6 @@ from dataset import SIGHTINGS
 
 LESSON_DIR = Path(__file__).parent
 
-HEADERS = ["ID", "Species", "Sex", "Weight (kg)", "Color", "Date/Time", "Latitude", "Longitude"]
-KEYS = ["id", "species", "sex", "weight", "color", "datetime", "latitude", "longitude"]
-
 LABELS = {
     "id": "ID",
     "species": "Species",
@@ -21,6 +18,12 @@ LABELS = {
     "latitude": "Latitude",
     "longitude": "Longitude",
 }
+HEADERS = list(LABELS.values())
+KEYS = list(LABELS.keys())
+
+
+def fmt(v):
+    return str(v) if v is not None else ""
 
 
 @get("/", media_type=MediaType.HTML)
@@ -37,7 +40,7 @@ async def index() -> str:
                     [
                         tr[
                             td[a(href=f"/sighting/{s['id']}")[str(s["id"])]],
-                            [td[str(s[k]) if s[k] is not None else ""] for k in KEYS[1:]],
+                            [td[fmt(s[k])] for k in KEYS[1:]],
                         ]
                         for s in SIGHTINGS
                     ],
@@ -62,7 +65,7 @@ async def detail(sighting_id: int) -> str:
                             [
                                 tr[
                                     td(class_="label")[label],
-                                    td[str(s[key]) if s[key] is not None else ""],
+                                    td[fmt(s[key])],
                                 ]
                                 for key, label in LABELS.items()
                             ],

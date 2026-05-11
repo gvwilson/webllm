@@ -6,12 +6,26 @@ from litestar.testing import TestClient
 from server_db import make_app
 
 SMALL = [
-    {"id": 1, "species": "G. canadensis", "sex": "Female", "weight": 142,
-     "color": "dark brown", "datetime": "2024-01-08 07:14",
-     "latitude": 49.23, "longitude": -121.45},
-    {"id": 2, "species": "G. horribilus", "sex": None, "weight": None,
-     "color": "black", "datetime": "2024-01-19 14:32",
-     "latitude": 50.71, "longitude": -119.38},
+    {
+        "id": 1,
+        "species": "G. canadensis",
+        "sex": "Female",
+        "weight": 142,
+        "color": "dark brown",
+        "datetime": "2024-01-08 07:14",
+        "latitude": 49.23,
+        "longitude": -121.45,
+    },
+    {
+        "id": 2,
+        "species": "G. horribilus",
+        "sex": None,
+        "weight": None,
+        "color": "black",
+        "datetime": "2024-01-19 14:32",
+        "latitude": 50.71,
+        "longitude": -119.38,
+    },
 ]
 
 CREATE_TABLE = """
@@ -36,8 +50,19 @@ def small_db(tmp_path):
     conn = sqlite3.connect(db_path)
     conn.execute(CREATE_TABLE)
     for s in SMALL:
-        conn.execute(INSERT_ROW, [s["id"], s["species"], s["sex"], s["weight"],
-                                  s["color"], s["datetime"], s["latitude"], s["longitude"]])
+        conn.execute(
+            INSERT_ROW,
+            [
+                s["id"],
+                s["species"],
+                s["sex"],
+                s["weight"],
+                s["color"],
+                s["datetime"],
+                s["latitude"],
+                s["longitude"],
+            ],
+        )
     conn.commit()
     conn.close()
     return db_path

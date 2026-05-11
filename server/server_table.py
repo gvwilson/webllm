@@ -7,8 +7,22 @@ from dataset import SIGHTINGS
 
 LESSON_DIR = Path(__file__).parent
 
-HEADERS = ["ID", "Species", "Sex", "Weight (kg)", "Color", "Date/Time", "Latitude", "Longitude"]
-KEYS = ["id", "species", "sex", "weight", "color", "datetime", "latitude", "longitude"]
+LABELS = {
+    "id": "ID",
+    "species": "Species",
+    "sex": "Sex",
+    "weight": "Weight (kg)",
+    "color": "Color",
+    "datetime": "Date/Time",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+}
+HEADERS = list(LABELS.values())
+KEYS = list(LABELS.keys())
+
+
+def fmt(v):
+    return str(v) if v is not None else ""
 
 
 @get("/", media_type=MediaType.HTML)
@@ -22,10 +36,7 @@ async def index() -> str:
             body[
                 table[
                     tr[[th[col] for col in HEADERS]],
-                    [
-                        tr[[td[str(s[k]) if s[k] is not None else ""] for k in KEYS]]
-                        for s in SIGHTINGS
-                    ],
+                    [tr[[td[fmt(s[k])] for k in KEYS]] for s in SIGHTINGS],
                 ],
             ],
         ]

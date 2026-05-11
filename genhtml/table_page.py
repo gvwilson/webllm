@@ -1,9 +1,19 @@
 from htpy import a, body, em, h1, h2, head, html, p, table, td, th, title, tr
 
 SIGHTINGS = [
-    ("2024-01-15", "G. canadensis", "Near Hope, BC", "Weight > 200 kg; sex not recorded"),
+    (
+        "2024-01-15",
+        "G. canadensis",
+        "Near Hope, BC",
+        "Weight > 200 kg; sex not recorded",
+    ),
     ("2024-02-03", "G. horribilus", "Whistler area", "Female; weight < 150 kg"),
-    ("2024-03-21", "G. canadensis", "Manning Park", 'Male; color described as "reddish-brown"'),
+    (
+        "2024-03-21",
+        "G. canadensis",
+        "Manning Park",
+        'Male; color described as "reddish-brown"',
+    ),
 ]
 
 page = html(lang="en")[
@@ -21,8 +31,10 @@ page = html(lang="en")[
         h2(id="recent")["Recent Sightings"],
         table[
             tr[th["Date"], th["Species"], th["Location"], th["Notes"]],
-            [tr[td[date], td[species], td[location], td[notes]]
-             for date, species, location, notes in SIGHTINGS],
+            [
+                tr[td[date], td[species], td[location], td[notes]]
+                for date, species, location, notes in SIGHTINGS
+            ],
         ],
         h2(id="about")["About This Project"],
         p[
