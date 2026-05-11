@@ -25,6 +25,7 @@
 <li><a class="active" href="../server/">Serving Data</a></li>
 <li><a href="../testserver/">Testing the Server</a></li>
 <li><a href="../database/">Using a Database</a></li>
+<li><a href="../forms/">Forms</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -86,7 +87,7 @@
 <li>The <code>async</code> keyword tells Python this function can run while waiting on other work;
     Litestar works with both <code>async def</code> and plain <code>def</code>, but LLMs typically generate <code>async def</code></li>
 </ul>
-<div data-inc="server1.py"><span aria-label="Source: server/server1.py" class="inc-path" role="img" tabindex="0" title="server/server1.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">get</span>
+<div data-inc="server_hello.py"><span aria-label="Source: server/server_hello.py" class="inc-path" role="img" tabindex="0" title="server/server_hello.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">get</span>
 
 
 <span class="nd">@get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
@@ -104,7 +105,7 @@
 </ul>
 </li>
 </ul>
-<div data-inc="run1.sh"><span aria-label="Source: server/run1.sh" class="inc-path" role="img" tabindex="0" title="server/run1.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server1:app
+<div data-inc="run1.sh"><span aria-label="Source: server/run1.sh" class="inc-path" role="img" tabindex="0" title="server/run1.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server_hello:app
 </code></pre></div>
 </div>
 <ul>
@@ -185,7 +186,7 @@ Also add a route at <code>/style.css</code> to read and return that file.</em></
     so the server needs a route to handle it</li>
 <li>The CSS route reads the file from disk relative to the server script using <code>Path(__file__).parent</code></li>
 </ul>
-<div data-inc="server2.py"><span aria-label="Source: server/server2.py" class="inc-path" role="img" tabindex="0" title="server/server2.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<div data-inc="server_table.py"><span aria-label="Source: server/server_table.py" class="inc-path" role="img" tabindex="0" title="server/server_table.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">body</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">MediaType</span><span class="p">,</span> <span class="n">get</span>
@@ -282,7 +283,7 @@ in a two-column table with the field names on the left and values on the right.<
 <li>Each sighting ID in the index table becomes a link:
     <code>a(href=f"/sighting/{s['id']}")[str(s["id"])]</code></li>
 </ul>
-<div data-inc="server3.py"><span aria-label="Source: server/server3.py" class="inc-path" role="img" tabindex="0" title="server/server3.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<div data-inc="server_detail.py"><span aria-label="Source: server/server_detail.py" class="inc-path" role="img" tabindex="0" title="server/server_detail.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">MediaType</span><span class="p">,</span> <span class="n">get</span>
@@ -366,7 +367,7 @@ in a two-column table with the field names on the left and values on the right.<
 <span class="n">app</span> <span class="o">=</span> <span class="n">Litestar</span><span class="p">([</span><span class="n">index</span><span class="p">,</span> <span class="n">detail</span><span class="p">,</span> <span class="n">styles</span><span class="p">])</span>
 </code></pre></div>
 </div>
-<div data-inc="run3.sh"><span aria-label="Source: server/run3.sh" class="inc-path" role="img" tabindex="0" title="server/run3.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server3:app
+<div data-inc="run3.sh"><span aria-label="Source: server/run3.sh" class="inc-path" role="img" tabindex="0" title="server/run3.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server_detail:app
 </code></pre></div>
 </div>
 <p><em>Trace what happens when a user visits <code>/sighting/99</code> and ID 99 is not in the data.</em></p>
@@ -390,7 +391,7 @@ A Litestar app can have as many routes as you like, each at a different path.</p
 <details>
 <summary>You visit <code>http://127.0.0.1:8000</code>, but the browser shows
 "This site can't be reached". What is the most likely cause?</summary>
-<p>The server is not running: either you have not run <code>litestar run --app server1:app</code>,
+<p>The server is not running: either you have not run <code>litestar run --app server_hello:app</code>,
 or it crashed on startup, or you stopped it.
 Check the terminal where you launched the server for error messages.</p>
 </details>
@@ -414,7 +415,7 @@ The fix is:</p>
 The HTML the server returns contains <code>&lt;link rel="stylesheet" href="/style.css"&gt;</code>.
 When the browser parses that tag, it automatically makes a second request (<code>GET /style.css</code>)
 to fetch the stylesheet.
-This is why <code>server2.py</code> needs both an <code>index</code> route and a <code>styles</code> route.</p>
+This is why <code>server_table.py</code> needs both an <code>index</code> route and a <code>styles</code> route.</p>
 </details>
 <details>
 <summary>The route below is supposed to display a sighting's details, but visiting
@@ -431,15 +432,15 @@ Writing <code>{sighting_id:int}</code> tells Litestar to convert the segment to 
 If the segment is not a valid integer, such as <code>abc</code>, Litestar itself returns a 400 Bad Request response
 before your function is ever called.</p>
 </details>
-<p>See [<a class="bib-ref" href="../bibliography/#litestar2025">litestar2025</a>] for the full Litestar documentation and [<a class="bib-ref" href="../bibliography/#MDN2024">MDN2024</a>] for the HTTP reference.</p>
+<p>See [<a class="bib-ref" href="../bibliography/#litestar2025">litestar2025</a>] for the full Litestar documentation and [<a class="bib-ref" href="../bibliography/#mdn-html2024">mdn-html2024</a>] for the HTTP reference.</p>
 <h2>Exercises</h2>
 <h3>Add a Heading to Every Page</h3>
-<p>Add an <code>&lt;h1&gt;</code> heading to the <code>&lt;body&gt;</code> of both the index page and the detail page in <code>server3.py</code>.
+<p>Add an <code>&lt;h1&gt;</code> heading to the <code>&lt;body&gt;</code> of both the index page and the detail page in <code>server_detail.py</code>.
 The index page heading should say "Sasquatch Sightings in British Columbia";
 the detail page heading should include the sighting ID, for example "Sighting 7".</p>
 <h3>Link Back from the Detail Page</h3>
-<p>The detail page already has a "Back to all sightings" link in <code>server3.py</code>.
-Open <code>server3.py</code>, find where that link is built, and move it above the table
+<p>The detail page already has a "Back to all sightings" link in <code>server_detail.py</code>.
+Open <code>server_detail.py</code>, find where that link is built, and move it above the table
 so it appears at the top of the page rather than below it.</p>
 <h3>Filter by Species</h3>
 <p>Add a new route at <code>/species/{name}</code> that returns only the sightings whose <code>species</code> field

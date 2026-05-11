@@ -11,16 +11,22 @@
 
 ## C
 
+<span id="css">Cascading Style Sheets</span> (CSS)
+:   A language for describing how HTML elements should be displayed,
+    including fonts, colors, spacing, and layout.  "Cascading" refers
+    to the rules that determine which style wins when more than one
+    rule applies to the same element.
+
 <span id="column">column</span>
 :   A named field in a database table that holds one kind of value for every row.
     For example, the `sightings` table has columns named `species`, `sex`, and `weight`.
     Every row must have a value for each column, or store null if the value is unknown.
 
-<span id="css">CSS (Cascading Style Sheets)</span>
-:   A language for describing how HTML elements should be displayed,
-    including fonts, colors, spacing, and layout.  "Cascading" refers
-    to the rules that determine which style wins when more than one
-    rule applies to the same element.
+<span id="csv">comma-separated values</span> (CSV)
+:   A plain-text file format for tabular data in which each line is one row and values
+    within a row are separated by commas.
+    The first line is usually a header row listing column names.
+    Empty values are represented by two consecutive commas.
 
 <span id="css-class">CSS class</span>
 :   A label given to one or more HTML elements with the `class` attribute
@@ -63,14 +69,14 @@
     A relative file path is interpreted starting from the location of the file that contains it,
     not from a fixed root, which means it works regardless of where the project is stored on disk.
 
+<span id="form">form</span>
+:   An HTML element that groups one or more inputs together with a submit button so the browser
+    can collect values from the user and send them to the server.
+    The `method` attribute specifies GET or POST, and `action` specifies the URL to send to.
+
 ## G
 
 ## H
-
-<span id="html">HTML (HyperText Markup Language)</span>
-:   The standard language for creating web pages.
-    An HTML document describes content using nested elements marked by tags,
-    and a browser renders those elements as visible text, images, and links.
 
 <span id="html-entity">HTML entity</span>
 :   A short code used in HTML to represent a character that would otherwise be
@@ -94,6 +100,11 @@
 :   A message sent from a web server back to the browser in reply to an HTTP request.
     It includes a status code (200 for success, 404 for not found, etc.),
     headers such as the media type, and a body containing the requested content.
+
+<span id="html">HyperText Markup Language</span> (HTML)
+:   The standard language for creating web pages.
+    An HTML document describes content using nested elements marked by tags,
+    and a browser renders those elements as visible text, images, and links.
 
 ## I
 
@@ -134,6 +145,12 @@
     and `application/json` for JSON data.
     Browsers use the media type to decide how to render or process the response.
 
+<span id="multipart">multipart encoding</span>
+:   A way of packaging an HTTP request body into separate labelled sections, one for each
+    form field, so that file contents can be sent alongside ordinary text values.
+    Any form that includes a file input must use `enctype="multipart/form-data"` to trigger
+    this encoding; without it the browser sends only the filename, not the file's contents.
+
 ## N
 
 <span id="db-null">null (database)</span>
@@ -145,17 +162,17 @@
 
 ## P
 
-<span id="placeholder">placeholder</span>
-:   A `?` marker in a SQL query that `sqlite3` replaces with a supplied value at runtime.
-    Using placeholders instead of inserting values directly into the query string prevents
-    SQL injection, a common attack in which a malicious value changes the meaning of the query.
-
 <span id="path-parameter">path parameter</span>
 :   A variable segment in a URL route pattern, written in curly braces, such as
     `{sighting_id:int}` in `/sighting/{sighting_id:int}`.
     The web framework extracts the value from the URL and passes it to the handler function.
     The optional type suffix (`:int`) tells the framework to convert the extracted text
     to the specified type before calling the function.
+
+<span id="placeholder">placeholder</span>
+:   A `?` marker in a SQL query that `sqlite3` replaces with a supplied value at runtime.
+    Using placeholders instead of inserting values directly into the query string prevents
+    SQL injection, a common attack in which a malicious value changes the meaning of the query.
 
 <span id="port">port</span>
 :   A number from 0 to 65535 that identifies a specific service on a networked computer,
@@ -173,9 +190,10 @@
 
 ## R
 
-<span id="row">row</span>
-:   A single record in a database table, containing one value (or null) for each column.
-    A row in the `sightings` table represents one reported sasquatch observation.
+<span id="redirect">redirect</span>
+:   An HTTP response that tells the browser to immediately send a new request to a different URL.
+    A 303 "See Other" redirect is used after a POST request so that refreshing the page
+    replays a safe GET rather than re-submitting the form and repeating the action.
 
 <span id="root-element">root element</span>
 :   The single outermost element in an HTML document that contains all other elements.
@@ -188,12 +206,16 @@
     For example, the route `GET /sighting/{id}` matches any GET request
     whose path starts with `/sighting/` followed by an identifier.
 
+<span id="row">row</span>
+:   A single record in a database table, containing one value (or null) for each column.
+    A row in the `sightings` table represents one reported sasquatch observation.
+
 ## S
 
-<span id="sql">SQL (Structured Query Language)</span>
-:   The standard language for creating, querying, and modifying data in a relational database.
-    SQL uses English-like keywords such as `select`, `insert`, `create table`, and `where`
-    to describe what data to retrieve or change.
+<span id="sql_injection">SQL injection</span>
+:   An attack where a malicious user inserts SQL code into
+    user-supplied input that gets executed as part of a database
+    query.
 
 <span id="status-code">status code</span>
 :   The three-digit number at the start of an HTTP response that indicates whether the request
@@ -202,6 +224,11 @@
     400 means the request was malformed;
     404 means the requested resource was not found;
     500 means something went wrong on the server.
+
+<span id="sql">Structured Query Language</span> (SQL)
+:   The standard language for creating, querying, and modifying data in a relational database.
+    SQL uses English-like keywords such as `select`, `insert`, `create table`, and `where`
+    to describe what data to retrieve or change.
 
 ## T
 

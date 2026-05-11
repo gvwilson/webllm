@@ -1,1 +1,1 @@
-uv run litestar run --app server5:app
+uv run litestar run --app server_db:app

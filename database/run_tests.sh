@@ -1,1 +1,1 @@
-uv run pytest test_db.py -v
+uv run pytest test_server_db.py -v

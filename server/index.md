@@ -40,7 +40,7 @@
 -   The `async` keyword tells Python this function can run while waiting on other work;
     Litestar works with both `async def` and plain `def`, but LLMs typically generate `async def`
 
-[%inc server1.py %]
+[%inc server_hello.py %]
 
 -   Run the server from inside the `litestar/` directory with the command below
     -   Stop it with Ctrl-C when you are done
@@ -102,7 +102,7 @@ Also add a route at `/style.css` to read and return that file.*
     so the server needs a route to handle it
 -   The CSS route reads the file from disk relative to the server script using `Path(__file__).parent`
 
-[%inc server2.py %]
+[%inc server_table.py %]
 
 *Explain what `MediaType.HTML` does and what the browser would show if it was left out.*
 
@@ -132,7 +132,7 @@ in a two-column table with the field names on the left and values on the right.*
 -   Each sighting ID in the index table becomes a link:
     `a(href=f"/sighting/{s['id']}")[str(s["id"])]`
 
-[%inc server3.py %]
+[%inc server_detail.py %]
 
 [%inc run3.sh %]
 
@@ -160,7 +160,7 @@ A Litestar app can have as many routes as you like, each at a different path.
 <summary markdown="1">You visit `http://127.0.0.1:8000`, but the browser shows
 "This site can't be reached". What is the most likely cause?</summary>
 
-The server is not running: either you have not run `litestar run --app server1:app`,
+The server is not running: either you have not run `litestar run --app server_hello:app`,
 or it crashed on startup, or you stopped it.
 Check the terminal where you launched the server for error messages.
 
@@ -194,7 +194,7 @@ The first request is for the page itself (`GET /`).
 The HTML the server returns contains `<link rel="stylesheet" href="/style.css">`.
 When the browser parses that tag, it automatically makes a second request (`GET /style.css`)
 to fetch the stylesheet.
-This is why `server2.py` needs both an `index` route and a `styles` route.
+This is why `server_table.py` needs both an `index` route and a `styles` route.
 
 </details>
 
@@ -218,20 +218,20 @@ before your function is ever called.
 
 </details>
 
-See [%b litestar2025 %] for the full Litestar documentation and [%b MDN2024 %] for the HTTP reference.
+See [%b litestar2025 %] for the full Litestar documentation and [%b mdn-html2024 %] for the HTTP reference.
 
 ## Exercises
 
 ### Add a Heading to Every Page
 
-Add an `<h1>` heading to the `<body>` of both the index page and the detail page in `server3.py`.
+Add an `<h1>` heading to the `<body>` of both the index page and the detail page in `server_detail.py`.
 The index page heading should say "Sasquatch Sightings in British Columbia";
 the detail page heading should include the sighting ID, for example "Sighting 7".
 
 ### Link Back from the Detail Page
 
-The detail page already has a "Back to all sightings" link in `server3.py`.
-Open `server3.py`, find where that link is built, and move it above the table
+The detail page already has a "Back to all sightings" link in `server_detail.py`.
+Open `server_detail.py`, find where that link is built, and move it above the table
 so it appears at the top of the page rather than below it.
 
 ### Filter by Species

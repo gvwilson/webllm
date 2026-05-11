@@ -3,3 +3,4 @@
 [jinja]: https://jinja.palletsprojects.com/
 [litestar]: https://litestar.dev/
 [pytest]: https://docs.pytest.org/
+[sqlite]: https://sqlite.org/

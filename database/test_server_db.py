@@ -3,7 +3,7 @@ import sqlite3
 import pytest
 from litestar.testing import TestClient
 
-from server5 import make_app
+from server_db import make_app
 
 SMALL = [
     {"id": 1, "species": "G. canadensis", "sex": "Female", "weight": 142,

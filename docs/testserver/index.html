@@ -25,6 +25,7 @@
 <li><a href="../server/">Serving Data</a></li>
 <li><a class="active" href="../testserver/">Testing the Server</a></li>
 <li><a href="../database/">Using a Database</a></li>
+<li><a href="../forms/">Forms</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -71,7 +72,7 @@
 <li>Both packages are now available whenever you run pytest</li>
 </ul>
 <h2>A First Test</h2>
-<p><em>Write a pytest test file called <code>test_server1.py</code> that uses Litestar's TestClient to check that
+<p><em>Write a pytest test file called <code>test_server_status.py</code> that uses Litestar's TestClient to check that
 <code>GET /</code> returns a 200 status code and that the page contains the text "Sasquatch Sightings".</em></p>
 <ul>
 <li><code>TestClient</code> from <code>litestar.testing</code> is a <a class="gl-ref" href="../glossary/#test-client">test client</a>:
@@ -88,9 +89,9 @@
 <div data-inc="run_tests.sh"><span aria-label="Source: testserver/run_tests.sh" class="inc-path" role="img" tabindex="0" title="testserver/run_tests.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>pytest<span class="w"> </span>-v
 </code></pre></div>
 </div>
-<div data-inc="test_server1.py"><span aria-label="Source: testserver/test_server1.py" class="inc-path" role="img" tabindex="0" title="testserver/test_server1.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
+<div data-inc="test_server_status.py"><span aria-label="Source: testserver/test_server_status.py" class="inc-path" role="img" tabindex="0" title="testserver/test_server_status.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">server4</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_app</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">server_testable</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_app</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_index_returns_ok</span><span class="p">():</span>
@@ -118,7 +119,7 @@
 </code></pre></div>
 </div>
 <h2>Testing Error Responses</h2>
-<p><em>Add two more tests to <code>test_server1.py</code>: one that checks a valid sighting ID returns 200,
+<p><em>Add two more tests to <code>test_server_status.py</code>: one that checks a valid sighting ID returns 200,
 and one that checks a missing ID returns 404.</em></p>
 <ul>
 <li>Testing both the success path and the error path builds confidence that the code handles both correctly<ul>
@@ -138,19 +139,19 @@ when "G. horribilus" comes from the <code>SIGHTINGS</code> list in <code>dataset
 <li>A test that fails for the wrong reason wastes time and erodes trust in the whole test suite</li>
 <li>The fix is to control exactly what data the server uses during the test</li>
 </ul>
-<p><em>Refactor <code>server3.py</code> into a new file <code>server4.py</code> by wrapping the route definitions in a function
+<p><em>Refactor <code>server_detail.py</code> into a new file <code>server_testable.py</code> by wrapping the route definitions in a function
 called <code>make_app</code> that takes the sightings list as a parameter.</em></p>
 <ul>
 <li><code>make_app(sightings=SIGHTINGS)</code> is a function that defines the route handlers and returns the app<ul>
-<li>The default value means calling <code>make_app()</code> with no arguments behaves exactly like <code>server3.py</code></li>
+<li>The default value means calling <code>make_app()</code> with no arguments behaves exactly like <code>server_detail.py</code></li>
 <li>Calling <code>make_app(SMALL)</code> returns an app that serves <code>SMALL</code> instead of the full dataset</li>
 </ul>
 </li>
 <li>The handlers inside <code>make_app</code> use <code>sightings</code> just like any function uses a parameter:
-    wherever <code>server3.py</code> wrote <code>for s in SIGHTINGS</code>, <code>server4.py</code> writes <code>for s in sightings</code></li>
-<li><code>app = make_app()</code> at the bottom keeps <code>litestar run --app server4:app</code> working from the terminal</li>
+    wherever <code>server_detail.py</code> wrote <code>for s in SIGHTINGS</code>, <code>server_testable.py</code> writes <code>for s in sightings</code></li>
+<li><code>app = make_app()</code> at the bottom keeps <code>litestar run --app server_testable:app</code> working from the terminal</li>
 </ul>
-<div data-inc="server4.py"><span aria-label="Source: testserver/server4.py" class="inc-path" role="img" tabindex="0" title="testserver/server4.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<div data-inc="server_testable.py"><span aria-label="Source: testserver/server_testable.py" class="inc-path" role="img" tabindex="0" title="testserver/server_testable.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">MediaType</span><span class="p">,</span> <span class="n">get</span>
@@ -236,7 +237,7 @@ called <code>make_app</code> that takes the sightings list as a parameter.</em><
 </code></pre></div>
 </div>
 <h2>Testing with Controlled Data</h2>
-<p><em>Write a second test file called <code>test_server2.py</code> that defines a two-row list called <code>SMALL</code>
+<p><em>Write a second test file called <code>test_server_data.py</code> that defines a two-row list called <code>SMALL</code>
 and uses <code>make_app(SMALL)</code> to test the index links, the detail page content,
 and the display of <code>None</code> values.</em></p>
 <ul>
@@ -251,9 +252,9 @@ and the display of <code>None</code> values.</em></p>
 </ul>
 </li>
 </ul>
-<div data-inc="test_server2.py"><span aria-label="Source: testserver/test_server2.py" class="inc-path" role="img" tabindex="0" title="testserver/test_server2.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
+<div data-inc="test_server_data.py"><span aria-label="Source: testserver/test_server_data.py" class="inc-path" role="img" tabindex="0" title="testserver/test_server_data.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">server4</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_app</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">server_testable</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_app</span>
 
 <span class="n">SMALL</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span>
@@ -300,15 +301,15 @@ and the display of <code>None</code> values.</em></p>
 </div>
 <h2>Check Understanding</h2>
 <details>
-<summary>What is the difference between running <code>litestar run --app server4:app</code> and calling <code>client.get("/")</code> in a test?</summary>
+<summary>What is the difference between running <code>litestar run --app server_testable:app</code> and calling <code>client.get("/")</code> in a test?</summary>
 <p><code>litestar run</code> starts a real server process that listens on port 8000 and waits for browser requests
 over the network.
 <code>client.get("/")</code> sends a request directly to the application in memory without any network connection.
 Tests therefore run without a browser and without needing a free port.</p>
 </details>
 <details>
-<summary>Why does <code>server4.py</code> still have the line <code>app = make_app()</code> at the bottom?</summary>
-<p><code>litestar run --app server4:app</code> looks for a module-level name called <code>app</code>.
+<summary>Why does <code>server_testable.py</code> still have the line <code>app = make_app()</code> at the bottom?</summary>
+<p><code>litestar run --app server_testable:app</code> looks for a module-level name called <code>app</code>.
 Without that line, running the server from the terminal would fail with an import error.
 The factory function is for tests; the module-level <code>app</code> is for the command line.</p>
 </details>
@@ -353,12 +354,12 @@ The fix is to drop the quotes: <code>assert response.status_code == 200</code>.<
 <summary>If <code>make_app()</code> is called with no arguments in a test, which dataset does the server use, and why?</summary>
 <p>It uses <code>SIGHTINGS</code> from <code>dataset.py</code>, because that is the default value of the <code>sightings</code> parameter.
 The line <code>def make_app(sightings=SIGHTINGS):</code> means any call that omits the argument gets the full
-twenty-row dataset, exactly as <code>server3.py</code> behaved.</p>
+twenty-row dataset, exactly as <code>server_detail.py</code> behaved.</p>
 </details>
 <p>See [<a class="bib-ref" href="../bibliography/#pytest2025">pytest2025</a>] for the full pytest documentation and [<a class="bib-ref" href="../bibliography/#litestar2025">litestar2025</a>] for Litestar's testing reference.</p>
 <h2>Exercises</h2>
 <h3>Test the CSS Route</h3>
-<p>Add a test to <code>test_server1.py</code> that sends <code>GET /style.css</code> and checks that the response
+<p>Add a test to <code>test_server_status.py</code> that sends <code>GET /style.css</code> and checks that the response
 status code is 200 and that the response text contains the word <code>"table"</code>.</p>
 <h3>Test a Specific Detail Page</h3>
 <p>Add a test using <code>make_app(SMALL)</code> that visits <code>/sighting/2</code> and confirms that the
@@ -383,12 +384,12 @@ Then visit the index page and assert that the same text does <em>not</em> appear
 <code>app = make_app(SMALL)</code> created at module level, and one where each test calls <code>make_app(SMALL)</code>
 inside its own body.
 Run both versions and confirm they pass.
-Then add a route to <code>server4.py</code> that keeps a count of how many requests it has received
+Then add a route to <code>server_testable.py</code> that keeps a count of how many requests it has received
 and returns it at <code>/count</code>.
 Add a test that calls <code>/count</code> twice and checks whether the count resets between tests
 depending on which version you use.</p>
 <h3>Add a Route for a Missing Page</h3>
-<p>Add a new route to <code>server5.py</code> that handles any URL not matched by the existing routes
+<p>Add a new route to <code>server_db.py</code> that handles any URL not matched by the existing routes
 and returns a page with the text "Page not found" and HTTP status 404.
 Look up Litestar's <code>ExceptionHandler</code> to see how to do this,
 and then add a test for it.</p>

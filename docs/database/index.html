@@ -25,6 +25,7 @@
 <li><a href="../server/">Serving Data</a></li>
 <li><a href="../testserver/">Testing the Server</a></li>
 <li><a class="active" href="../database/">Using a Database</a></li>
+<li><a href="../forms/">Forms</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -71,7 +72,7 @@
 <li>A <a class="gl-ref" href="../glossary/#database">database</a> stores data in a way that survives program restarts</li>
 <li>A <a class="gl-ref" href="../glossary/#sql">SQL</a> database organizes data into <a class="gl-ref" href="../glossary/#db-table">tables</a>,
     where each table has named <a class="gl-ref" href="../glossary/#column">columns</a> and zero or more <a class="gl-ref" href="../glossary/#row">rows</a></li>
-<li>[SQLite][sqlite] stores an entire database in a single file on disk,
+<li><a href="https://sqlite.org/">SQLite</a> stores an entire database in a single file on disk,
     which is easy to back up, share, and version-control</li>
 <li>Python includes the <code>sqlite3</code> module in its standard library, so no extra packages are needed</li>
 </ul>
@@ -156,7 +157,7 @@ The table should be populated with the data from <code>dataset.py</code>.</em></
 </code></pre></div>
 </div>
 <h2>A Database-Backed Server</h2>
-<p><em>Rewrite <code>server4.py</code> as <code>server5.py</code> so that <code>make_app</code> takes a database path instead of a
+<p><em>Rewrite <code>server_testable.py</code> as <code>server_db.py</code> so that <code>make_app</code> takes a database path instead of a
 list of sightings.
 The index route should read all rows from the database, and the detail route should look up
 one row by ID.</em></p>
@@ -192,7 +193,7 @@ the data.
 The <code>?</code> placeholder prevents this by telling <code>sqlite3</code> to treat the value as data,
 never as SQL.</p>
 </div>
-<div data-inc="server5.py"><span aria-label="Source: database/server5.py" class="inc-path" role="img" tabindex="0" title="database/server5.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<div data-inc="server_db.py"><span aria-label="Source: database/server_db.py" class="inc-path" role="img" tabindex="0" title="database/server_db.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
@@ -287,11 +288,11 @@ never as SQL.</p>
 </code></pre></div>
 </div>
 <p>Start the server the same way as before (after running <code>create_db.py</code> first):</p>
-<div data-inc="run.sh"><span aria-label="Source: database/run.sh" class="inc-path" role="img" tabindex="0" title="database/run.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server5:app
+<div data-inc="run.sh"><span aria-label="Source: database/run.sh" class="inc-path" role="img" tabindex="0" title="database/run.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server_db:app
 </code></pre></div>
 </div>
 <h2>Testing with a Temporary Database</h2>
-<p><em>Write a test file called <code>test_db.py</code> that uses pytest's <code>tmp_path</code> fixture to create
+<p><em>Write a test file called <code>test_server_db.py</code> that uses pytest's <code>tmp_path</code> fixture to create
 a small temporary database for each test, and uses <code>make_app</code> with that database path to
 test the index, detail, and 404 routes.</em></p>
 <ul>
@@ -310,12 +311,12 @@ test the index, detail, and 404 routes.</em></p>
 </ul>
 </li>
 </ul>
-<div data-inc="test_db.py"><span aria-label="Source: database/test_db.py" class="inc-path" role="img" tabindex="0" title="database/test_db.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<div data-inc="test_server_db.py"><span aria-label="Source: database/test_server_db.py" class="inc-path" role="img" tabindex="0" title="database/test_server_db.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">server5</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_app</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">server_db</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_app</span>
 
 <span class="n">SMALL</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"G. canadensis"</span><span class="p">,</span> <span class="s2">"sex"</span><span class="p">:</span> <span class="s2">"Female"</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">142</span><span class="p">,</span>
@@ -383,7 +384,7 @@ test the index, detail, and 404 routes.</em></p>
 </code></pre></div>
 </div>
 <p>Run the tests from the <code>database/</code> directory:</p>
-<div data-inc="run_tests.sh"><span aria-label="Source: database/run_tests.sh" class="inc-path" role="img" tabindex="0" title="database/run_tests.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test_db.py<span class="w"> </span>-v
+<div data-inc="run_tests.sh"><span aria-label="Source: database/run_tests.sh" class="inc-path" role="img" tabindex="0" title="database/run_tests.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test_server_db.py<span class="w"> </span>-v
 </code></pre></div>
 </div>
 <h2>Check Understanding</h2>
@@ -409,7 +410,7 @@ Add <code>conn.commit()</code> between the <code>execute</code> and the <code>se
 <details>
 <summary>What does <code>fetchone()</code> return when no row matches the <code>where</code> clause?</summary>
 <p>It returns <code>None</code>.
-This is why <code>server5.py</code> checks <code>if row is None</code> before trying to read values from the row:
+This is why <code>server_db.py</code> checks <code>if row is None</code> before trying to read values from the row:
 accessing a column on <code>None</code> would raise an <code>AttributeError</code>.</p>
 </details>
 <p>See [<a class="bib-ref" href="../bibliography/#sqlite2025">sqlite2025</a>] for the SQLite documentation and [<a class="bib-ref" href="../bibliography/#python-sqlite2025">python-sqlite2025</a>]
@@ -424,7 +425,7 @@ Look up the SQL function <code>count(*)</code> to do this in a single query.</p>
 The <code>create table if not exists</code> clause already handles the table; think about how to handle
 the <code>insert</code> statements.</p>
 <h3>Filter by Species in the Tests</h3>
-<p>Add a test to <code>test_db.py</code> that visits the index page and confirms that both
+<p>Add a test to <code>test_server_db.py</code> that visits the index page and confirms that both
 <code>"G. canadensis"</code> and <code>"G. horribilus"</code> appear in the response when <code>SMALL</code> contains one
 row of each.</p>
 <h3>Inspect the Database Directly</h3>
@@ -444,7 +445,7 @@ Exit with <code>.quit</code>.</p>
 	  <a href="../#acknowledgments">the authors</a>
 </div>
 <div class="col-3 right">
-<a href="../finale/">Conclusion</a> <span aria-hidden="true">⇒</span>
+<a href="../forms/">Forms</a> <span aria-hidden="true">⇒</span>
 </div>
 </div>
 </footer>

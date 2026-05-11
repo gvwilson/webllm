@@ -1,6 +1,6 @@
 from litestar.testing import TestClient
 
-from server4 import make_app
+from server_testable import make_app
 
 
 def test_index_returns_ok():

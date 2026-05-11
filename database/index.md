@@ -52,7 +52,7 @@ Run the script once to create the database:
 
 ## A Database-Backed Server
 
-*Rewrite `server4.py` as `server5.py` so that `make_app` takes a database path instead of a
+*Rewrite `server_testable.py` as `server_db.py` so that `make_app` takes a database path instead of a
 list of sightings.
 The index route should read all rows from the database, and the detail route should look up
 one row by ID.*
@@ -88,7 +88,7 @@ never as SQL.
 
 </div>
 
-[%inc server5.py %]
+[%inc server_db.py %]
 
 Start the server the same way as before (after running `create_db.py` first):
 
@@ -96,7 +96,7 @@ Start the server the same way as before (after running `create_db.py` first):
 
 ## Testing with a Temporary Database
 
-*Write a test file called `test_db.py` that uses pytest's `tmp_path` fixture to create
+*Write a test file called `test_server_db.py` that uses pytest's `tmp_path` fixture to create
 a small temporary database for each test, and uses `make_app` with that database path to
 test the index, detail, and 404 routes.*
 
@@ -109,7 +109,7 @@ test the index, detail, and 404 routes.*
     not from `sightings.db`
     -   Tests no longer break if someone adds rows to the production database
 
-[%inc test_db.py %]
+[%inc test_server_db.py %]
 
 Run the tests from the `database/` directory:
 
@@ -148,7 +148,7 @@ Add `conn.commit()` between the `execute` and the `select`.
 <summary markdown="1">What does `fetchone()` return when no row matches the `where` clause?</summary>
 
 It returns `None`.
-This is why `server5.py` checks `if row is None` before trying to read values from the row:
+This is why `server_db.py` checks `if row is None` before trying to read values from the row:
 accessing a column on `None` would raise an `AttributeError`.
 
 </details>
@@ -172,7 +172,7 @@ the `insert` statements.
 
 ### Filter by Species in the Tests
 
-Add a test to `test_db.py` that visits the index page and confirms that both
+Add a test to `test_server_db.py` that visits the index page and confirms that both
 `"G. canadensis"` and `"G. horribilus"` appear in the response when `SMALL` contains one
 row of each.
 

@@ -25,6 +25,7 @@
 <li><a href="../server/">Serving Data</a></li>
 <li><a href="../testserver/">Testing the Server</a></li>
 <li><a href="../database/">Using a Database</a></li>
+<li><a href="../forms/">Forms</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -52,15 +53,20 @@ For example, <code>href</code> in <code>&lt;a href="..."&gt;</code> specifies wh
 <h2>B</h2>
 <h2>C</h2>
 <dl>
-<dt><span id="column">column</span></dt>
-<dd>A named field in a database table that holds one kind of value for every row.
-For example, the <code>sightings</code> table has columns named <code>species</code>, <code>sex</code>, and <code>weight</code>.
-Every row must have a value for each column, or store null if the value is unknown.</dd>
-<dt><span id="css">CSS (Cascading Style Sheets)</span></dt>
+<dt><span id="css">Cascading Style Sheets</span> (CSS)</dt>
 <dd>A language for describing how HTML elements should be displayed,
 including fonts, colors, spacing, and layout.  "Cascading" refers
 to the rules that determine which style wins when more than one
 rule applies to the same element.</dd>
+<dt><span id="column">column</span></dt>
+<dd>A named field in a database table that holds one kind of value for every row.
+For example, the <code>sightings</code> table has columns named <code>species</code>, <code>sex</code>, and <code>weight</code>.
+Every row must have a value for each column, or store null if the value is unknown.</dd>
+<dt><span id="csv">comma-separated values</span> (CSV)</dt>
+<dd>A plain-text file format for tabular data in which each line is one row and values
+within a row are separated by commas.
+The first line is usually a header row listing column names.
+Empty values are represented by two consecutive commas.</dd>
 <dt><span id="css-class">CSS class</span></dt>
 <dd>A label given to one or more HTML elements with the <code>class</code> attribute
 so that they can be styled as a group.
@@ -98,14 +104,14 @@ For example, <code>&lt;p&gt;A paragraph.&lt;/p&gt;</code> is a paragraph element
 such as <code>./images/map.png</code>.
 A relative file path is interpreted starting from the location of the file that contains it,
 not from a fixed root, which means it works regardless of where the project is stored on disk.</dd>
+<dt><span id="form">form</span></dt>
+<dd>An HTML element that groups one or more inputs together with a submit button so the browser
+can collect values from the user and send them to the server.
+The <code>method</code> attribute specifies GET or POST, and <code>action</code> specifies the URL to send to.</dd>
 </dl>
 <h2>G</h2>
 <h2>H</h2>
 <dl>
-<dt><span id="html">HTML (HyperText Markup Language)</span></dt>
-<dd>The standard language for creating web pages.
-An HTML document describes content using nested elements marked by tags,
-and a browser renders those elements as visible text, images, and links.</dd>
 <dt><span id="html-entity">HTML entity</span></dt>
 <dd>A short code used in HTML to represent a character that would otherwise be
 interpreted as markup or is not easily typed.
@@ -124,6 +130,10 @@ Each request includes the URL path, any headers, and (for POST) a body.</dd>
 <dd>A message sent from a web server back to the browser in reply to an HTTP request.
 It includes a status code (200 for success, 404 for not found, etc.),
 headers such as the media type, and a body containing the requested content.</dd>
+<dt><span id="html">HyperText Markup Language</span> (HTML)</dt>
+<dd>The standard language for creating web pages.
+An HTML document describes content using nested elements marked by tags,
+and a browser renders those elements as visible text, images, and links.</dd>
 </dl>
 <h2>I</h2>
 <dl>
@@ -161,6 +171,11 @@ the response body contains.
 Common values are <code>text/html</code> for web pages, <code>text/css</code> for stylesheets,
 and <code>application/json</code> for JSON data.
 Browsers use the media type to decide how to render or process the response.</dd>
+<dt><span id="multipart">multipart encoding</span></dt>
+<dd>A way of packaging an HTTP request body into separate labelled sections, one for each
+form field, so that file contents can be sent alongside ordinary text values.
+Any form that includes a file input must use <code>enctype="multipart/form-data"</code> to trigger
+this encoding; without it the browser sends only the filename, not the file's contents.</dd>
 </dl>
 <h2>N</h2>
 <dl>
@@ -172,16 +187,16 @@ though Python's <code>sqlite3</code> module represents SQL null as <code>None</c
 <h2>O</h2>
 <h2>P</h2>
 <dl>
-<dt><span id="placeholder">placeholder</span></dt>
-<dd>A <code>?</code> marker in a SQL query that <code>sqlite3</code> replaces with a supplied value at runtime.
-Using placeholders instead of inserting values directly into the query string prevents
-SQL injection, a common attack in which a malicious value changes the meaning of the query.</dd>
 <dt><span id="path-parameter">path parameter</span></dt>
 <dd>A variable segment in a URL route pattern, written in curly braces, such as
 <code>{sighting_id:int}</code> in <code>/sighting/{sighting_id:int}</code>.
 The web framework extracts the value from the URL and passes it to the handler function.
 The optional type suffix (<code>:int</code>) tells the framework to convert the extracted text
 to the specified type before calling the function.</dd>
+<dt><span id="placeholder">placeholder</span></dt>
+<dd>A <code>?</code> marker in a SQL query that <code>sqlite3</code> replaces with a supplied value at runtime.
+Using placeholders instead of inserting values directly into the query string prevents
+SQL injection, a common attack in which a malicious value changes the meaning of the query.</dd>
 <dt><span id="port">port</span></dt>
 <dd>A number from 0 to 65535 that identifies a specific service on a networked computer,
 like a door number on a building.
@@ -198,9 +213,10 @@ changes the database and returns nothing.</dd>
 </dl>
 <h2>R</h2>
 <dl>
-<dt><span id="row">row</span></dt>
-<dd>A single record in a database table, containing one value (or null) for each column.
-A row in the <code>sightings</code> table represents one reported sasquatch observation.</dd>
+<dt><span id="redirect">redirect</span></dt>
+<dd>An HTTP response that tells the browser to immediately send a new request to a different URL.
+A 303 "See Other" redirect is used after a POST request so that refreshing the page
+replays a safe GET rather than re-submitting the form and repeating the action.</dd>
 <dt><span id="root-element">root element</span></dt>
 <dd>The single outermost element in an HTML document that contains all other elements.
 In HTML this is the <code>&lt;html&gt;</code> element.</dd>
@@ -210,13 +226,16 @@ When the server receives a request, it matches the URL against its routes
 and calls the handler for the first match.
 For example, the route <code>GET /sighting/{id}</code> matches any GET request
 whose path starts with <code>/sighting/</code> followed by an identifier.</dd>
+<dt><span id="row">row</span></dt>
+<dd>A single record in a database table, containing one value (or null) for each column.
+A row in the <code>sightings</code> table represents one reported sasquatch observation.</dd>
 </dl>
 <h2>S</h2>
 <dl>
-<dt><span id="sql">SQL (Structured Query Language)</span></dt>
-<dd>The standard language for creating, querying, and modifying data in a relational database.
-SQL uses English-like keywords such as <code>select</code>, <code>insert</code>, <code>create table</code>, and <code>where</code>
-to describe what data to retrieve or change.</dd>
+<dt><span id="sql_injection">SQL injection</span></dt>
+<dd>An attack where a malicious user inserts SQL code into
+user-supplied input that gets executed as part of a database
+query.</dd>
 <dt><span id="status-code">status code</span></dt>
 <dd>The three-digit number at the start of an HTTP response that indicates whether the request
 succeeded or failed.
@@ -224,6 +243,10 @@ succeeded or failed.
 400 means the request was malformed;
 404 means the requested resource was not found;
 500 means something went wrong on the server.</dd>
+<dt><span id="sql">Structured Query Language</span> (SQL)</dt>
+<dd>The standard language for creating, querying, and modifying data in a relational database.
+SQL uses English-like keywords such as <code>select</code>, <code>insert</code>, <code>create table</code>, and <code>where</code>
+to describe what data to retrieve or change.</dd>
 </dl>
 <h2>T</h2>
 <dl>

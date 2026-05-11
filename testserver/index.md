@@ -29,7 +29,7 @@
 
 ## A First Test
 
-*Write a pytest test file called `test_server1.py` that uses Litestar's TestClient to check that
+*Write a pytest test file called `test_server_status.py` that uses Litestar's TestClient to check that
 `GET /` returns a 200 status code and that the page contains the text "Sasquatch Sightings".*
 
 -   `TestClient` from `litestar.testing` is a [%g test-client "test client" %]:
@@ -45,11 +45,11 @@
 
 [%inc run_tests.sh %]
 
-[%inc test_server1.py %]
+[%inc test_server_status.py %]
 
 ## Testing Error Responses
 
-*Add two more tests to `test_server1.py`: one that checks a valid sighting ID returns 200,
+*Add two more tests to `test_server_status.py`: one that checks a valid sighting ID returns 200,
 and one that checks a missing ID returns 404.*
 
 -   Testing both the success path and the error path builds confidence that the code handles both correctly
@@ -68,21 +68,21 @@ when "G. horribilus" comes from the `SIGHTINGS` list in `dataset.py`?*
 -   A test that fails for the wrong reason wastes time and erodes trust in the whole test suite
 -   The fix is to control exactly what data the server uses during the test
 
-*Refactor `server3.py` into a new file `server4.py` by wrapping the route definitions in a function
+*Refactor `server_detail.py` into a new file `server_testable.py` by wrapping the route definitions in a function
 called `make_app` that takes the sightings list as a parameter.*
 
 -   `make_app(sightings=SIGHTINGS)` is a function that defines the route handlers and returns the app
-    -   The default value means calling `make_app()` with no arguments behaves exactly like `server3.py`
+    -   The default value means calling `make_app()` with no arguments behaves exactly like `server_detail.py`
     -   Calling `make_app(SMALL)` returns an app that serves `SMALL` instead of the full dataset
 -   The handlers inside `make_app` use `sightings` just like any function uses a parameter:
-    wherever `server3.py` wrote `for s in SIGHTINGS`, `server4.py` writes `for s in sightings`
--   `app = make_app()` at the bottom keeps `litestar run --app server4:app` working from the terminal
+    wherever `server_detail.py` wrote `for s in SIGHTINGS`, `server_testable.py` writes `for s in sightings`
+-   `app = make_app()` at the bottom keeps `litestar run --app server_testable:app` working from the terminal
 
-[%inc server4.py %]
+[%inc server_testable.py %]
 
 ## Testing with Controlled Data
 
-*Write a second test file called `test_server2.py` that defines a two-row list called `SMALL`
+*Write a second test file called `test_server_data.py` that defines a two-row list called `SMALL`
 and uses `make_app(SMALL)` to test the index links, the detail page content,
 and the display of `None` values.*
 
@@ -93,12 +93,12 @@ and the display of `None` values.*
     does not show the word `"None"` anywhere in the page
     -   This is the kind of edge case that is easy to miss when clicking manually
 
-[%inc test_server2.py %]
+[%inc test_server_data.py %]
 
 ## Check Understanding
 
 <details markdown="1">
-<summary markdown="1">What is the difference between running `litestar run --app server4:app` and calling `client.get("/")` in a test?</summary>
+<summary markdown="1">What is the difference between running `litestar run --app server_testable:app` and calling `client.get("/")` in a test?</summary>
 
 `litestar run` starts a real server process that listens on port 8000 and waits for browser requests
 over the network.
@@ -108,9 +108,9 @@ Tests therefore run without a browser and without needing a free port.
 </details>
 
 <details markdown="1">
-<summary markdown="1">Why does `server4.py` still have the line `app = make_app()` at the bottom?</summary>
+<summary markdown="1">Why does `server_testable.py` still have the line `app = make_app()` at the bottom?</summary>
 
-`litestar run --app server4:app` looks for a module-level name called `app`.
+`litestar run --app server_testable:app` looks for a module-level name called `app`.
 Without that line, running the server from the terminal would fail with an import error.
 The factory function is for tests; the module-level `app` is for the command line.
 
@@ -173,7 +173,7 @@ The fix is to drop the quotes: `assert response.status_code == 200`.
 
 It uses `SIGHTINGS` from `dataset.py`, because that is the default value of the `sightings` parameter.
 The line `def make_app(sightings=SIGHTINGS):` means any call that omits the argument gets the full
-twenty-row dataset, exactly as `server3.py` behaved.
+twenty-row dataset, exactly as `server_detail.py` behaved.
 
 </details>
 
@@ -183,7 +183,7 @@ See [%b pytest2025 %] for the full pytest documentation and [%b litestar2025 %] 
 
 ### Test the CSS Route
 
-Add a test to `test_server1.py` that sends `GET /style.css` and checks that the response
+Add a test to `test_server_status.py` that sends `GET /style.css` and checks that the response
 status code is 200 and that the response text contains the word `"table"`.
 
 ### Test a Specific Detail Page
@@ -220,14 +220,14 @@ Write two versions of `test_index_ok` and `test_detail_ok`: one where both tests
 `app = make_app(SMALL)` created at module level, and one where each test calls `make_app(SMALL)`
 inside its own body.
 Run both versions and confirm they pass.
-Then add a route to `server4.py` that keeps a count of how many requests it has received
+Then add a route to `server_testable.py` that keeps a count of how many requests it has received
 and returns it at `/count`.
 Add a test that calls `/count` twice and checks whether the count resets between tests
 depending on which version you use.
 
 ### Add a Route for a Missing Page
 
-Add a new route to `server5.py` that handles any URL not matched by the existing routes
+Add a new route to `server_db.py` that handles any URL not matched by the existing routes
 and returns a page with the text "Page not found" and HTTP status 404.
 Look up Litestar's `ExceptionHandler` to see how to do this,
 and then add a test for it.

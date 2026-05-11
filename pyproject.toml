@@ -31,6 +31,7 @@ skips = [
     "log/**",
     "*/style.css",
     "uv.lock",
+    "*.csv",
     "*.db",
     "*.html",
     "*.py",

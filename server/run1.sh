@@ -1,1 +1,1 @@
-litestar run --app server1:app
+litestar run --app server_hello:app

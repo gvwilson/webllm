@@ -241,7 +241,7 @@ with many pages, because one file can style all of them.
 
 </details>
 
-See [%b MDN2024 %] for (much) more information.
+See [%b mdn-html2024 %] for (much) more information.
 
 <details markdown="1">
 <summary markdown="1">A page has `<img src="photo.jpg">` and the image shows a broken icon in the browser. The file `photo.jpg` is in a folder called `images` that sits next to the HTML file. What is wrong and how do you fix it?</summary>

@@ -161,7 +161,7 @@ You can verify this yourself by running `uv run python table_page.py` and search
 
 </details>
 
-See [%b htpy2025 %] for the full htpy documentation and [%b MDN2024 %] for reference on HTML elements and attributes.
+See [%b htpy2025 %] for the full htpy documentation and [%b mdn-html2024 %] for reference on HTML elements and attributes.
 
 ## Exercises
 
