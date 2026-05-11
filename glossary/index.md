@@ -170,6 +170,26 @@
     Playwright evaluates locators lazily, just before an action is performed,
     so the element does not need to exist when the locator is created.
 
+<span id="log-handler">log handler</span>
+:   An object attached to a logger that decides where log messages go.
+    Common handlers send messages to the terminal (`StreamHandler`),
+    to a file (`FileHandler`), or to a size-limited file that rotates automatically
+    (`RotatingFileHandler`).
+    A single logger can have more than one handler,
+    so the same message can appear in the terminal and in a file simultaneously.
+
+<span id="log-level">log level</span>
+:   A label that classifies the severity of a log message.
+    Python's `logging` module defines five standard levels in increasing order of severity:
+    `DEBUG`, `INFO`, `WARNING`, `ERROR`, and `CRITICAL`.
+    Setting the active level to `INFO`, for example, silences all `DEBUG` messages
+    without changing any code.
+
+<span id="logger">logger</span>
+:   An object that records log messages on behalf of a module.
+    Each module should create its own logger with `logging.getLogger(__name__)`,
+    which names the logger after the module so that log entries can be traced back to their source.
+
 ## M
 
 <span id="media-type">media type</span>

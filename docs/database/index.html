@@ -28,6 +28,7 @@
 <li><a href="../testdatabase/">Testing with Fixtures</a></li>
 <li><a href="../forms/">Forms</a></li>
 <li><a href="../testclient/">Testing with a Browser</a></li>
+<li><a href="../logging/">Logging</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -346,7 +347,7 @@ The table should be populated with the data from <code>dataset.py</code>.</em></
 </code></pre></div>
 </div>
 <p>Run the script once to create the database:</p>
-<div data-inc="create_db.sh"><span aria-label="Source: database/create_db.sh" class="inc-path" role="img" tabindex="0" title="database/create_db.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>create_db.py
+<div data-inc="create_db.sh"><span aria-label="Source: database/create_db.sh" class="inc-path" role="img" tabindex="0" title="database/create_db.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>python<span class="w"> </span>create_db.py
 </code></pre></div>
 </div>
 <h2>A Database-Backed Server</h2>
@@ -484,7 +485,7 @@ never as SQL.</p>
 </code></pre></div>
 </div>
 <p>Start the server the same way as before (after running <code>create_db.py</code> first):</p>
-<div data-inc="run.sh"><span aria-label="Source: database/run.sh" class="inc-path" role="img" tabindex="0" title="database/run.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server_db:app
+<div data-inc="run.sh"><span aria-label="Source: database/run.sh" class="inc-path" role="img" tabindex="0" title="database/run.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>litestar<span class="w"> </span>run<span class="w"> </span>--app<span class="w"> </span>server_db:app
 </code></pre></div>
 </div>
 <h2>Testing with a Temporary Database</h2>
@@ -605,7 +606,7 @@ test the index, detail, and 404 routes.</em></p>
 </code></pre></div>
 </div>
 <p>Run the tests from the <code>database/</code> directory:</p>
-<div data-inc="run_tests.sh"><span aria-label="Source: database/run_tests.sh" class="inc-path" role="img" tabindex="0" title="database/run_tests.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test_server_db.py<span class="w"> </span>-v
+<div data-inc="run_tests.sh"><span aria-label="Source: database/run_tests.sh" class="inc-path" role="img" tabindex="0" title="database/run_tests.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>pytest<span class="w"> </span>test_server_db.py<span class="w"> </span>-v
 </code></pre></div>
 </div>
 <h2>Check Understanding</h2>

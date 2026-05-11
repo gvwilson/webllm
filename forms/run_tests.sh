@@ -1,1 +1,1 @@
-uv run pytest test_server_forms.py -v
+pytest test_server_forms.py -v

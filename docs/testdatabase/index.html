@@ -28,6 +28,7 @@
 <li><a class="active" href="../testdatabase/">Testing with Fixtures</a></li>
 <li><a href="../forms/">Forms</a></li>
 <li><a href="../testclient/">Testing with a Browser</a></li>
+<li><a href="../logging/">Logging</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -221,7 +222,7 @@ Both files should use <code>small_db</code>.</em></p>
 <ul>
 <li>Run both files together from the <code>testdatabase/</code> directory:</li>
 </ul>
-<div data-inc="run_tests.sh"><span aria-label="Source: testdatabase/run_tests.sh" class="inc-path" role="img" tabindex="0" title="testdatabase/run_tests.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test_index.py<span class="w"> </span>test_detail.py<span class="w"> </span>-v
+<div data-inc="run_tests.sh"><span aria-label="Source: testdatabase/run_tests.sh" class="inc-path" role="img" tabindex="0" title="testdatabase/run_tests.sh">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>pytest<span class="w"> </span>test_index.py<span class="w"> </span>test_detail.py<span class="w"> </span>-v
 </code></pre></div>
 </div>
 <ul>

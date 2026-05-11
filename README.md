@@ -16,6 +16,7 @@
 1.  [Testing with Fixtures](@/testdatabase/)
 1.  [Forms](@/forms/)
 1.  [Testing with a Browser](@/testclient/)
+1.  [Logging](@/logging/)
 1.  [Conclusion](@/finale/)
 
 </div>

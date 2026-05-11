@@ -157,7 +157,7 @@ The original HTML file used `&quot;`, which is the named entity for the same cha
 Both are valid HTML and display identically in a browser.
 Double-quotes do not actually need escaping in text content (only inside attribute values),
 but htpy escapes them anyway using the numeric form.
-You can verify this yourself by running `uv run python table_page.py` and searching the output.
+You can verify this yourself by running `python table_page.py` and searching the output.
 
 </details>
 

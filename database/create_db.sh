@@ -1,1 +1,1 @@
-uv run python create_db.py
+python create_db.py

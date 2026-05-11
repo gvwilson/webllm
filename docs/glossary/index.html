@@ -28,6 +28,7 @@
 <li><a href="../testdatabase/">Testing with Fixtures</a></li>
 <li><a href="../forms/">Forms</a></li>
 <li><a href="../testclient/">Testing with a Browser</a></li>
+<li><a href="../logging/">Logging</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -192,6 +193,23 @@ The name <code>localhost</code> is an alias for <code>127.0.0.1</code>.</dd>
 such as <code>"table a"</code> to mean "any link inside a table".
 Playwright evaluates locators lazily, just before an action is performed,
 so the element does not need to exist when the locator is created.</dd>
+<dt><span id="log-handler">log handler</span></dt>
+<dd>An object attached to a logger that decides where log messages go.
+Common handlers send messages to the terminal (<code>StreamHandler</code>),
+to a file (<code>FileHandler</code>), or to a size-limited file that rotates automatically
+(<code>RotatingFileHandler</code>).
+A single logger can have more than one handler,
+so the same message can appear in the terminal and in a file simultaneously.</dd>
+<dt><span id="log-level">log level</span></dt>
+<dd>A label that classifies the severity of a log message.
+Python's <code>logging</code> module defines five standard levels in increasing order of severity:
+<code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, and <code>CRITICAL</code>.
+Setting the active level to <code>INFO</code>, for example, silences all <code>DEBUG</code> messages
+without changing any code.</dd>
+<dt><span id="logger">logger</span></dt>
+<dd>An object that records log messages on behalf of a module.
+Each module should create its own logger with <code>logging.getLogger(__name__)</code>,
+which names the logger after the module so that log entries can be traced back to their source.</dd>
 </dl>
 <h2>M</h2>
 <dl>

@@ -24,7 +24,7 @@
 -   [Litestar][litestar] is a Python [%g web-framework "web framework" %]:
     -   A library that handles the low-level details of receiving requests and sending responses
         so you can focus on your application logic
--   Add it to the project with `uv add litestar`, then confirm with `uv run python -c "import litestar"`
+-   Add it to the project with `uv add litestar`, then confirm with `python -c "import litestar"`
 -   A Litestar application is made of [%g route "routes" %]
     -   Each route pairs a URL pattern with the Python function that handles requests to that URL
 

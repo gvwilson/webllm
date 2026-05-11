@@ -42,6 +42,12 @@
     <https://docs.python.org/3/library/csv.html>,
     2025.
 
+<span id="python-logging2025">python-logging2025</span>
+:   Python Software Foundation:
+    "logging — Logging facility for Python".
+    <https://docs.python.org/3/library/logging.html>,
+    2025.
+
 <span id="python-sqlite2025">python-sqlite2025</span>
 :   Python Software Foundation:
     "sqlite3 — DB-API 2.0 interface for SQLite databases".
