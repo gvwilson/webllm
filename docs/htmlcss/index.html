@@ -301,11 +301,7 @@ For pages you are developing locally, file paths let you work without running a 
 <li><code>th, td { border: 1px solid #cccccc; }</code> puts a border on both header and data cells</li>
 <li><code>styled_page.html</code> adds a <code>&lt;style&gt;</code> block to <code>table_page.html</code> to produce this result:</li>
 </ul>
-<div data-inc="styled_page.html"><span aria-label="Source: htmlcss/styled_page.html" class="inc-path" role="img" tabindex="0" title="htmlcss/styled_page.html">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Sasquatch Sightings<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<div data-inc="styled_page.html" data-mark="style"><span aria-label="Source: htmlcss/styled_page.html" class="inc-path" role="img" tabindex="0" title="htmlcss/styled_page.html">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
 <span class="w">      </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span>
 <span class="w">        </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="kt">em</span><span class="p">;</span>
@@ -348,54 +344,6 @@ For pages you are developing locally, file paths let you work without running a 
 <span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#999999</span><span class="p">;</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Sasquatch Sightings in British Columbia<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
-      This page records recent sightings of <span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>Gigantopithecus canadensis<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
-      and <span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>G. horribilus<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span> in British Columbia.
-      Data was collected by volunteers <span class="ni">&amp;amp;</span> researchers between January and March 2024.
-    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-
-    <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">id</span><span class="o">=</span><span class="s">"recent"</span><span class="p">&gt;</span>Recent Sightings<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Date<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Species<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Location<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Notes<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>2024-01-15<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>G. canadensis<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Near Hope, BC<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span> <span class="na">class</span><span class="o">=</span><span class="s">"note"</span><span class="p">&gt;</span>Weight <span class="ni">&amp;gt;</span> 200 kg; sex not recorded<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>2024-02-03<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>G. horribilus<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Whistler area<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span> <span class="na">class</span><span class="o">=</span><span class="s">"note"</span><span class="p">&gt;</span>Female; weight <span class="ni">&amp;lt;</span> 150 kg<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>2024-03-21<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>G. canadensis<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Manning Park<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">td</span> <span class="na">class</span><span class="o">=</span><span class="s">"note"</span><span class="p">&gt;</span>Male; color described as <span class="ni">&amp;quot;</span>reddish-brown<span class="ni">&amp;quot;</span><span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
-
-    <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">id</span><span class="o">=</span><span class="s">"about"</span><span class="p">&gt;</span>About This Project<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
-      The Sasquatch Observation Registry collects verified sightings
-      from trained volunteers across British Columbia.
-      Jump back to <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"#recent"</span><span class="p">&gt;</span>recent sightings<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-      or visit <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://example.com/sasquatch"</span><span class="p">&gt;</span>the project website<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>.
-    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-
-    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">"copyright"</span><span class="p">&gt;</span><span class="ni">&amp;copy;</span> 2024 Sasquatch Research Institute<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>
 </div>
 <div class="callout">

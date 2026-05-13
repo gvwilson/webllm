@@ -55,6 +55,8 @@ Save the result as `server_add.py`.*
 -   Optional fields like `sex` and `weight` omit `required`,
     so the form can be submitted even when they are blank
 
+[%inc server_add.py mark=add-form %]
+
 *Add a `POST /add` route to `server_add.py` that reads the submitted form data, inserts a new row,
 and redirects the user to the home page.*
 
@@ -67,7 +69,8 @@ and redirects the user to the home page.*
         `data["sex"] or None` converts them to `None` before inserting into the database
     -   Number fields also arrive as strings; `float(data["latitude"])` converts them before inserting
 
-[%inc server_add.py %]
+[%inc server_add.py mark=add-sighting %]
+[%inc server_add.py mark=make-app %]
 
 ## Uploading Many Records at Once
 

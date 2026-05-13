@@ -93,41 +93,8 @@ into a new file called <code>conftest.py</code> in the same directory.</em></p>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 
-<span class="n">SMALL</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"G. canadensis"</span><span class="p">,</span>
-        <span class="s2">"sex"</span><span class="p">:</span> <span class="s2">"Female"</span><span class="p">,</span>
-        <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">142</span><span class="p">,</span>
-        <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"dark brown"</span><span class="p">,</span>
-        <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"2024-01-08 07:14"</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">49.23</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="p">:</span> <span class="o">-</span><span class="mf">121.45</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-        <span class="s2">"id"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="s2">"species"</span><span class="p">:</span> <span class="s2">"G. horribilus"</span><span class="p">,</span>
-        <span class="s2">"sex"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s2">"weight"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="s2">"color"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span>
-        <span class="s2">"datetime"</span><span class="p">:</span> <span class="s2">"2024-01-19 14:32"</span><span class="p">,</span>
-        <span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">50.71</span><span class="p">,</span>
-        <span class="s2">"longitude"</span><span class="p">:</span> <span class="o">-</span><span class="mf">119.38</span><span class="p">,</span>
-    <span class="p">},</span>
-<span class="p">]</span>
-
-<span class="n">CREATE_TABLE</span> <span class="o">=</span> <span class="s2">"""</span>
-<span class="s2">    create table sightings (</span>
-<span class="s2">        id integer primary key,</span>
-<span class="s2">        species text not null,</span>
-<span class="s2">        sex text,</span>
-<span class="s2">        weight real,</span>
-<span class="s2">        color text not null,</span>
-<span class="s2">        datetime text not null,</span>
-<span class="s2">        latitude real not null,</span>
-<span class="s2">        longitude real not null</span>
-<span class="s2">    )</span>
-<span class="s2">"""</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">CREATE_TABLE</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">small</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMALL</span>
 
 <span class="n">INSERT_ROW</span> <span class="o">=</span> <span class="s2">"insert into sightings values (?, ?, ?, ?, ?, ?, ?, ?)"</span>
 

@@ -5,25 +5,10 @@ from htpy import a, body, head, html, link, table, td, th, title, tr
 from litestar import Litestar, MediaType, get
 from litestar.exceptions import NotFoundException
 
+from utils import LABELS, HEADERS, KEYS, fmt
+
 LESSON_DIR = Path(__file__).parent
 DB_PATH = LESSON_DIR / "sightings.db"
-
-LABELS = {
-    "id": "ID",
-    "species": "Species",
-    "sex": "Sex",
-    "weight": "Weight (kg)",
-    "color": "Color",
-    "datetime": "Date/Time",
-    "latitude": "Latitude",
-    "longitude": "Longitude",
-}
-HEADERS = list(LABELS.values())
-KEYS = list(LABELS.keys())
-
-
-def fmt(v):
-    return str(v) if v is not None else ""
 
 
 def make_app(db_path=DB_PATH):

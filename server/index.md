@@ -70,8 +70,7 @@
 ### Why `index`?
 
 The name `index` comes from the early web, when servers mapped URLs directly to files on disk.
-Visiting `/some/path/` would return the file `index.html` in that directory—the starting point,
-like the index of a book.
+`index.html` was like the index of a book.
 Modern frameworks keep the convention: the function that handles requests for `/` is called `index`
 because it serves the site's front page.
 

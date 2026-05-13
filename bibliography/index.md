@@ -14,7 +14,7 @@
 
 <span id="mdn-forms2025">mdn-forms2025</span>
 :   Mozilla Developer Network:
-    "Web forms — Working with user data".
+    "Web forms - Working with user data".
     <https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms>,
     2025.
 
@@ -38,19 +38,19 @@
 
 <span id="python-csv2025">python-csv2025</span>
 :   Python Software Foundation:
-    "csv — CSV File Reading and Writing".
+    "csv - CSV File Reading and Writing".
     <https://docs.python.org/3/library/csv.html>,
     2025.
 
 <span id="python-logging2025">python-logging2025</span>
 :   Python Software Foundation:
-    "logging — Logging facility for Python".
+    "logging - Logging facility for Python".
     <https://docs.python.org/3/library/logging.html>,
     2025.
 
 <span id="python-sqlite2025">python-sqlite2025</span>
 :   Python Software Foundation:
-    "sqlite3 — DB-API 2.0 interface for SQLite databases".
+    "sqlite3 - DB-API 2.0 interface for SQLite databases".
     <https://docs.python.org/3/library/sqlite3.html>,
     2025.
 

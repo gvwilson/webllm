@@ -3,43 +3,9 @@ import sqlite3
 import pytest
 from litestar.testing import TestClient
 
+from schema import CREATE_TABLE
 from server_db import make_app
-
-SMALL = [
-    {
-        "id": 1,
-        "species": "G. canadensis",
-        "sex": "Female",
-        "weight": 142,
-        "color": "dark brown",
-        "datetime": "2024-01-08 07:14",
-        "latitude": 49.23,
-        "longitude": -121.45,
-    },
-    {
-        "id": 2,
-        "species": "G. horribilus",
-        "sex": None,
-        "weight": None,
-        "color": "black",
-        "datetime": "2024-01-19 14:32",
-        "latitude": 50.71,
-        "longitude": -119.38,
-    },
-]
-
-CREATE_TABLE = """
-    create table sightings (
-        id integer primary key,
-        species text not null,
-        sex text,
-        weight real,
-        color text not null,
-        datetime text not null,
-        latitude real not null,
-        longitude real not null
-    )
-"""
+from small import SMALL
 
 INSERT_ROW = "insert into sightings values (?, ?, ?, ?, ?, ?, ?, ?)"
 

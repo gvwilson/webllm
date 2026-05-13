@@ -167,7 +167,7 @@ selector {
 -   `th, td { border: 1px solid #cccccc; }` puts a border on both header and data cells
 -   `styled_page.html` adds a `<style>` block to `table_page.html` to produce this result:
 
-[%inc styled_page.html %]
+[%inc styled_page.html mark=style %]
 
 <div class="callout" markdown="1">
 
