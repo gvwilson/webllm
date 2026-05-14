@@ -31,6 +31,7 @@ INSERT_ROW = (
 )
 
 
+# mccole:configure-logging
 def configure_logging():
     logging.basicConfig(
         level=logging.DEBUG,
@@ -42,6 +43,7 @@ def configure_logging():
             ),
         ],
     )
+# mccole:/configure-logging
 
 
 @dataclass
@@ -225,6 +227,7 @@ def make_app(db_path=DB_PATH):
             ]
         )
 
+# mccole:upload-csv
     @post("/upload")
     async def upload_csv(
         data: Annotated[CsvUpload, Body(media_type=RequestEncodingType.MULTI_PART)],
@@ -254,6 +257,7 @@ def make_app(db_path=DB_PATH):
         conn.close()
         logger.info("CSV upload complete: %d rows inserted", count)
         return Redirect("/", status_code=303)
+# mccole:/upload-csv
 
     @get("/style.css", media_type="text/css")
     async def styles() -> str:

@@ -38,7 +38,9 @@ page that sends a POST request to remove the sighting and then sends the browser
     -   If the user presses Refresh afterward, the browser replays the GET, not the POST,
         so the record is not deleted a second time
 
-[%inc server_delete.py %]
+[%inc server_delete.py mark=detail-with-delete %]
+
+[%inc server_delete.py mark=delete-route %]
 
 ## Adding a Record
 
@@ -100,7 +102,13 @@ all its rows into the database.*
     -   `io.StringIO` wraps the string so `DictReader` treats it like a file
 -   One `conn.commit()` at the end saves all the new rows in a single write to disk
 
-[%inc server_upload.py %]
+[%inc server_upload.py mark=csv-dataclass %]
+
+[%inc server_upload.py mark=upload-form %]
+
+[%inc server_upload.py mark=upload-csv %]
+
+[%inc server_upload.py mark=make-app %]
 
 A sample CSV for testing the upload:
 
@@ -131,7 +139,9 @@ Start the server:
     a multipart request with a file attached
     -   The tuple contains the filename, the file contents as bytes, and the media type
 
-[%inc test_server_forms.py %]
+[%inc test_server_forms.py mark=count-rows %]
+
+[%inc test_server_forms.py mark=form-tests %]
 
 Run the tests from the `forms/` directory:
 

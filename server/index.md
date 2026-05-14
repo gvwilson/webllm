@@ -135,7 +135,9 @@ in a two-column table with the field names on the left and values on the right.*
 -   Each sighting ID in the index table becomes a link:
     `a(href=f"/sighting/{s['id']}")[str(s["id"])]`
 
-[%inc server_detail.py %]
+[%inc server_detail.py mark=index-with-links %]
+
+[%inc server_detail.py mark=detail-route %]
 
 [%inc run3.sh %]
 

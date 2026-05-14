@@ -10,6 +10,7 @@ from utils import LABELS, HEADERS, KEYS, fmt
 LESSON_DIR = Path(__file__).parent
 
 
+# mccole:make-app
 def make_app(sightings=SIGHTINGS):
     @get("/", media_type=MediaType.HTML)
     async def index() -> str:
@@ -33,7 +34,9 @@ def make_app(sightings=SIGHTINGS):
                 ],
             ]
         )
+# mccole:/make-app
 
+# mccole:detail-and-close
     @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
     async def detail(sighting_id: int) -> str:
         for s in sightings:
@@ -68,3 +71,4 @@ def make_app(sightings=SIGHTINGS):
 
 
 app = make_app()
+# mccole:/detail-and-close

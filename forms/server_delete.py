@@ -40,6 +40,7 @@ def make_app(db_path=DB_PATH):
             ]
         )
 
+# mccole:detail-with-delete
     @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
     async def detail(sighting_id: int) -> str:
         conn = sqlite3.connect(db_path)
@@ -73,7 +74,9 @@ def make_app(db_path=DB_PATH):
                 ],
             ]
         )
+# mccole:/detail-with-delete
 
+# mccole:delete-route
     @post("/delete/{sighting_id:int}")
     async def delete_sighting(sighting_id: int) -> Redirect:
         conn = sqlite3.connect(db_path)
@@ -81,6 +84,7 @@ def make_app(db_path=DB_PATH):
         conn.commit()
         conn.close()
         return Redirect("/", status_code=303)
+# mccole:/delete-route
 
     @get("/style.css", media_type="text/css")
     async def styles() -> str:

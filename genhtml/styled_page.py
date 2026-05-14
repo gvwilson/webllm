@@ -16,6 +16,7 @@ SIGHTINGS = [
     ),
 ]
 
+# mccole:css-definition
 # CSS as a plain string; htpy places it inside <style> without escaping
 CSS = """
     body { font-family: sans-serif; max-width: 40em; margin: 1em auto; padding: 0 1em; }
@@ -33,6 +34,8 @@ page = html(lang="en")[
         title["Sasquatch Sightings"],
         style[CSS],
     ],
+# mccole:/css-definition
+# mccole:styled-rows
     body[
         h1["Sasquatch Sightings in British Columbia"],
         p[
@@ -66,3 +69,4 @@ page = html(lang="en")[
 ]
 
 print(str(page))
+# mccole:/styled-rows

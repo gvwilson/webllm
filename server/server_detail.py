@@ -10,6 +10,7 @@ from utils import HEADERS, KEYS, LABELS, fmt
 LESSON_DIR = Path(__file__).parent
 
 
+# mccole:index-with-links
 @get("/", media_type=MediaType.HTML)
 async def index() -> str:
     return str(
@@ -32,8 +33,10 @@ async def index() -> str:
             ],
         ]
     )
+# mccole:/index-with-links
 
 
+# mccole:detail-route
 @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
 async def detail(sighting_id: int) -> str:
     for s in SIGHTINGS:
@@ -67,3 +70,4 @@ async def styles() -> str:
 
 
 app = Litestar([index, detail, styles])
+# mccole:/detail-route

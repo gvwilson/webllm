@@ -227,6 +227,7 @@ def make_app(db_path=DB_PATH):
     async def styles() -> str:
         return (LESSON_DIR / "style.css").read_text()
 
+# mccole:make-app
     return Litestar(
         [
             index,
@@ -242,3 +243,4 @@ def make_app(db_path=DB_PATH):
 
 
 app = make_app()
+# mccole:/make-app

@@ -11,6 +11,7 @@ LESSON_DIR = Path(__file__).parent
 DB_PATH = LESSON_DIR / "sightings.db"
 
 
+# mccole:db-index
 def make_app(db_path=DB_PATH):
     @get("/", media_type=MediaType.HTML)
     async def index() -> str:
@@ -38,7 +39,9 @@ def make_app(db_path=DB_PATH):
                 ],
             ]
         )
+# mccole:/db-index
 
+# mccole:db-detail
     @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
     async def detail(sighting_id: int) -> str:
         conn = sqlite3.connect(db_path)
@@ -78,3 +81,4 @@ def make_app(db_path=DB_PATH):
 
 
 app = make_app()
+# mccole:/db-detail

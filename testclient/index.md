@@ -84,7 +84,7 @@
     index, detail, delete, add form, and CSV upload
 -   No changes to the server are needed for Playwright testing
 
-[%inc server_pw.py %]
+[%inc server_pw.py mark=make-app %]
 
 *Write a test file called `test_browser.py` with a single test that opens the home page
 and checks its title.*

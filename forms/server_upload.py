@@ -27,9 +27,11 @@ INSERT_ROW = (
 )
 
 
+# mccole:csv-dataclass
 @dataclass
 class CsvUpload:
     csv_file: UploadFile
+# mccole:/csv-dataclass
 
 
 def make_app(db_path=DB_PATH):
@@ -176,6 +178,7 @@ def make_app(db_path=DB_PATH):
         conn.close()
         return Redirect("/", status_code=303)
 
+# mccole:upload-form
     @get("/upload", media_type=MediaType.HTML)
     async def upload_form() -> str:
         return str(
@@ -198,7 +201,9 @@ def make_app(db_path=DB_PATH):
                 ],
             ]
         )
+# mccole:/upload-form
 
+# mccole:upload-csv
     @post("/upload")
     async def upload_csv(
         data: Annotated[CsvUpload, Body(media_type=RequestEncodingType.MULTI_PART)],
@@ -222,11 +227,13 @@ def make_app(db_path=DB_PATH):
         conn.commit()
         conn.close()
         return Redirect("/", status_code=303)
+# mccole:/upload-csv
 
     @get("/style.css", media_type="text/css")
     async def styles() -> str:
         return (LESSON_DIR / "style.css").read_text()
 
+# mccole:make-app
     return Litestar(
         [
             index,
@@ -242,3 +249,4 @@ def make_app(db_path=DB_PATH):
 
 
 app = make_app()
+# mccole:/make-app

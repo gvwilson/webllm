@@ -228,25 +228,7 @@
     <code>td(class_="note")[notes]</code></li>
 <li>Apply <code>class_="copyright"</code> to the copyright paragraph the same way</li>
 </ul>
-<div data-inc="styled_page.py"><span aria-label="Source: genhtml/styled_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/styled_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
-
-<span class="n">SIGHTINGS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span>
-        <span class="s2">"2024-01-15"</span><span class="p">,</span>
-        <span class="s2">"G. canadensis"</span><span class="p">,</span>
-        <span class="s2">"Near Hope, BC"</span><span class="p">,</span>
-        <span class="s2">"Weight &gt; 200 kg; sex not recorded"</span><span class="p">,</span>
-    <span class="p">),</span>
-    <span class="p">(</span><span class="s2">"2024-02-03"</span><span class="p">,</span> <span class="s2">"G. horribilus"</span><span class="p">,</span> <span class="s2">"Whistler area"</span><span class="p">,</span> <span class="s2">"Female; weight &lt; 150 kg"</span><span class="p">),</span>
-    <span class="p">(</span>
-        <span class="s2">"2024-03-21"</span><span class="p">,</span>
-        <span class="s2">"G. canadensis"</span><span class="p">,</span>
-        <span class="s2">"Manning Park"</span><span class="p">,</span>
-        <span class="s1">'Male; color described as "reddish-brown"'</span><span class="p">,</span>
-    <span class="p">),</span>
-<span class="p">]</span>
-
-<span class="c1"># CSS as a plain string; htpy places it inside &lt;style&gt; without escaping</span>
+<div data-inc="styled_page.py" data-mark="css-definition"><span aria-label="Source: genhtml/styled_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/styled_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="c1"># CSS as a plain string; htpy places it inside &lt;style&gt; without escaping</span>
 <span class="n">CSS</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    body { font-family: sans-serif; max-width: 40em; margin: 1em auto; padding: 0 1em; }</span>
 <span class="s2">    h1 { text-align: center; color: #333333; }</span>
@@ -263,7 +245,9 @@
         <span class="n">title</span><span class="p">[</span><span class="s2">"Sasquatch Sightings"</span><span class="p">],</span>
         <span class="n">style</span><span class="p">[</span><span class="n">CSS</span><span class="p">],</span>
     <span class="p">],</span>
-    <span class="n">body</span><span class="p">[</span>
+</code></pre></div>
+</div>
+<div data-inc="styled_page.py" data-mark="styled-rows"><span aria-label="Source: genhtml/styled_page.py" class="inc-path" role="img" tabindex="0" title="genhtml/styled_page.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>    <span class="n">body</span><span class="p">[</span>
         <span class="n">h1</span><span class="p">[</span><span class="s2">"Sasquatch Sightings in British Columbia"</span><span class="p">],</span>
         <span class="n">p</span><span class="p">[</span>
             <span class="s2">"This page records recent sightings of "</span><span class="p">,</span>

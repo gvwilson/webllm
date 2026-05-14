@@ -1,3 +1,4 @@
+# mccole:logging-setup
 import csv
 import io
 import logging
@@ -35,6 +36,7 @@ def configure_logging():
         format="%(asctime)s %(levelname)-8s %(name)s %(message)s",
         handlers=[logging.StreamHandler()],
     )
+# mccole:/logging-setup
 
 
 @dataclass
@@ -75,6 +77,7 @@ def make_app(db_path=DB_PATH):
             ]
         )
 
+# mccole:detail-handler
     @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
     async def detail(sighting_id: int) -> str:
         conn = sqlite3.connect(db_path)
@@ -110,6 +113,7 @@ def make_app(db_path=DB_PATH):
                 ],
             ]
         )
+# mccole:/detail-handler
 
     @post("/delete/{sighting_id:int}")
     async def delete_sighting(sighting_id: int) -> Redirect:
@@ -169,6 +173,7 @@ def make_app(db_path=DB_PATH):
             ]
         )
 
+# mccole:add-handler
     @post("/add")
     async def add_sighting(
         data: Annotated[dict, Body(media_type=RequestEncodingType.URL_ENCODED)],
@@ -194,6 +199,7 @@ def make_app(db_path=DB_PATH):
         conn.close()
         logger.info("inserted sighting: species=%s", data["species"])
         return Redirect("/", status_code=303)
+# mccole:/add-handler
 
     @get("/upload", media_type=MediaType.HTML)
     async def upload_form() -> str:

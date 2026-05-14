@@ -34,13 +34,16 @@ def small_db(tmp_path):
     return db_path
 
 
+# mccole:count-rows
 def count_rows(db_path):
     conn = sqlite3.connect(db_path)
     n = conn.execute("select count(*) from sightings").fetchone()[0]
     conn.close()
     return n
+# mccole:/count-rows
 
 
+# mccole:form-tests
 def test_delete_removes_row(small_db):
     with TestClient(app=make_app(small_db)) as client:
         client.post("/delete/1")
@@ -80,3 +83,4 @@ def test_upload_csv_inserts_rows(small_db):
             files={"csv_file": ("upload.csv", csv_content.encode(), "text/csv")},
         )
     assert count_rows(small_db) == 4
+# mccole:/form-tests

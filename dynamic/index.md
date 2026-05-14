@@ -67,7 +67,11 @@ When the user scrolls to the bottom, the table should automatically request and 
 -   If the page has fewer than `PAGE_SIZE` rows, this is the last page;
     no sentinel is added and scrolling stops
 
-[%inc server_scroll.py %]
+[%inc server_scroll.py mark=helpers %]
+
+[%inc server_scroll.py mark=index-route %]
+
+[%inc server_scroll.py mark=more-rows %]
 
 -   Start the server from the `htmx/` directory:
 
@@ -104,7 +108,11 @@ The panel must update in place without reloading the page or affecting the scrol
 -   If the sighting ID does not exist, the route returns `<p>Sighting not found.</p>`
     -   A plain paragraph is enough; a full HTML error page would look broken inside the detail pane
 
-[%inc server_detail.py %]
+[%inc server_detail.py mark=make-row %]
+
+[%inc server_detail.py mark=index %]
+
+[%inc server_detail.py mark=detail-fragment %]
 
 See [%b htmx2025 %] for the full HTMX attribute reference.
 

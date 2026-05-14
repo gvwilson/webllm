@@ -86,7 +86,9 @@ print(str(ul[li["item one"], li["item two"]]))
     `td(class_="note")[notes]`
 -   Apply `class_="copyright"` to the copyright paragraph the same way
 
-[%inc styled_page.py %]
+[%inc styled_page.py mark=css-definition %]
+
+[%inc styled_page.py mark=styled-rows %]
 
 ## Check Understanding
 

@@ -156,19 +156,7 @@ called <code>make_app</code> that takes the sightings list as a parameter.</em><
     wherever <code>server_detail.py</code> wrote <code>for s in SIGHTINGS</code>, <code>server_testable.py</code> writes <code>for s in sightings</code></li>
 <li><code>app = make_app()</code> at the bottom keeps <code>litestar run --app server_testable:app</code> working from the terminal</li>
 </ul>
-<div data-inc="server_testable.py"><span aria-label="Source: testserver/server_testable.py" class="inc-path" role="img" tabindex="0" title="testserver/server_testable.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">htpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">td</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">tr</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">MediaType</span><span class="p">,</span> <span class="n">get</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">litestar.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundException</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">SIGHTINGS</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">LABELS</span><span class="p">,</span> <span class="n">HEADERS</span><span class="p">,</span> <span class="n">KEYS</span><span class="p">,</span> <span class="n">fmt</span>
-
-<span class="n">LESSON_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">make_app</span><span class="p">(</span><span class="n">sightings</span><span class="o">=</span><span class="n">SIGHTINGS</span><span class="p">):</span>
+<div data-inc="server_testable.py" data-mark="make-app"><span aria-label="Source: testserver/server_testable.py" class="inc-path" role="img" tabindex="0" title="testserver/server_testable.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">make_app</span><span class="p">(</span><span class="n">sightings</span><span class="o">=</span><span class="n">SIGHTINGS</span><span class="p">):</span>
     <span class="nd">@get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="n">MediaType</span><span class="o">.</span><span class="n">HTML</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span>
@@ -191,8 +179,9 @@ called <code>make_app</code> that takes the sightings list as a parameter.</em><
                 <span class="p">],</span>
             <span class="p">]</span>
         <span class="p">)</span>
-
-    <span class="nd">@get</span><span class="p">(</span><span class="s2">"/sighting/{sighting_id:int}"</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="n">MediaType</span><span class="o">.</span><span class="n">HTML</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div data-inc="server_testable.py" data-mark="detail-and-close"><span aria-label="Source: testserver/server_testable.py" class="inc-path" role="img" tabindex="0" title="testserver/server_testable.py">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>    <span class="nd">@get</span><span class="p">(</span><span class="s2">"/sighting/{sighting_id:int}"</span><span class="p">,</span> <span class="n">media_type</span><span class="o">=</span><span class="n">MediaType</span><span class="o">.</span><span class="n">HTML</span><span class="p">)</span>
     <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">detail</span><span class="p">(</span><span class="n">sighting_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sightings</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">==</span> <span class="n">sighting_id</span><span class="p">:</span>

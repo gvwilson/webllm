@@ -13,6 +13,7 @@ DB_PATH = LESSON_DIR.parent / "database" / "sightings.db"
 PAGE_SIZE = 20
 
 
+# mccole:make-row
 def make_row(row):
     return tr(
         hx_get=f"/sighting/{row['id']}/detail",
@@ -22,6 +23,7 @@ def make_row(row):
         td[str(row["id"])],
         [td[fmt(row[k])] for k in KEYS[1:]],
     ]
+# mccole:/make-row
 
 
 def make_sentinel(offset):
@@ -33,6 +35,7 @@ def make_sentinel(offset):
     )[td(colspan=len(HEADERS))["Loading..."]]
 
 
+# mccole:index
 def make_app(db_path=DB_PATH):
     @get("/", media_type=MediaType.HTML)
     async def index() -> str:
@@ -66,6 +69,7 @@ def make_app(db_path=DB_PATH):
                 ],
             ]
         )
+# mccole:/index
 
     @get("/rows", media_type=MediaType.HTML)
     async def more_rows(offset: int = 0) -> str:
@@ -80,6 +84,7 @@ def make_app(db_path=DB_PATH):
             result += str(make_sentinel(offset + PAGE_SIZE))
         return result
 
+# mccole:detail-fragment
     @get("/sighting/{sighting_id:int}/detail", media_type=MediaType.HTML)
     async def detail_fragment(sighting_id: int) -> str:
         conn = sqlite3.connect(db_path)
@@ -110,3 +115,4 @@ def make_app(db_path=DB_PATH):
 
 
 app = make_app()
+# mccole:/detail-fragment

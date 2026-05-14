@@ -71,7 +71,11 @@ so the f-string approach does unnecessary work on every call even when the outpu
 -   `logger.warning("sighting %d not found", sighting_id)` before raising `NotFoundException`
     records every 404 before the framework handles it
 
-[%inc server_stream.py %]
+[%inc server_stream.py mark=logging-setup %]
+
+[%inc server_stream.py mark=detail-handler %]
+
+[%inc server_stream.py mark=add-handler %]
 
 Start the server from the `logging/` directory:
 
@@ -141,7 +145,9 @@ KeyError: 'species'
 -   The log file now contains a permanent record of the failure even after the server restarts,
     which makes it possible to diagnose problems that happened hours ago
 
-[%inc server_rotate.py %]
+[%inc server_rotate.py mark=configure-logging %]
+
+[%inc server_rotate.py mark=upload-csv %]
 
 See [%b python-logging2025 %] for the full Python logging documentation.
 

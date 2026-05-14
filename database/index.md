@@ -88,7 +88,9 @@ never as SQL.
 
 </div>
 
-[%inc server_db.py %]
+[%inc server_db.py mark=db-index %]
+
+[%inc server_db.py mark=db-detail %]
 
 Start the server the same way as before (after running `create_db.py` first):
 

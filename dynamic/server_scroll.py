@@ -12,7 +12,7 @@ DB_PATH = LESSON_DIR.parent / "database" / "sightings.db"
 # Number of rows fetched from the database in each request.
 PAGE_SIZE = 20
 
-
+# mccole:helpers
 def make_row(row):
     return tr[
         td[str(row["id"])],
@@ -27,8 +27,10 @@ def make_sentinel(offset):
         hx_trigger="revealed",
         hx_swap="outerHTML",
     )[td(colspan=len(HEADERS))["Loading..."]]
+# mccole:/helpers
 
 
+# mccole:index-route
 def make_app(db_path=DB_PATH):
     @get("/", media_type=MediaType.HTML)
     async def index() -> str:
@@ -59,7 +61,9 @@ def make_app(db_path=DB_PATH):
                 ],
             ]
         )
+# mccole:/index-route
 
+# mccole:more-rows
     @get("/rows", media_type=MediaType.HTML)
     async def more_rows(offset: int = 0) -> str:
         conn = sqlite3.connect(db_path)
@@ -81,3 +85,4 @@ def make_app(db_path=DB_PATH):
 
 
 app = make_app()
+# mccole:/more-rows

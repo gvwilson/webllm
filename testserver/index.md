@@ -78,7 +78,9 @@ called `make_app` that takes the sightings list as a parameter.*
     wherever `server_detail.py` wrote `for s in SIGHTINGS`, `server_testable.py` writes `for s in sightings`
 -   `app = make_app()` at the bottom keeps `litestar run --app server_testable:app` working from the terminal
 
-[%inc server_testable.py %]
+[%inc server_testable.py mark=make-app %]
+
+[%inc server_testable.py mark=detail-and-close %]
 
 ## Testing with Controlled Data
 
