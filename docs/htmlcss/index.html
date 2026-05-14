@@ -29,6 +29,7 @@
 <li><a href="../forms/">Forms</a></li>
 <li><a href="../testclient/">Testing with a Browser</a></li>
 <li><a href="../logging/">Logging</a></li>
+<li><a href="../dynamic/">Dynamic pages</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -42,6 +43,7 @@
 <li><a href="../glossary/">Glossary</a></li>
 </ul>
 </div>
+<a href="https://github.com/gvwilson/webllm">Repository</a>
 </div>
 </nav>
 <main id="main-content">
@@ -301,49 +303,7 @@ For pages you are developing locally, file paths let you work without running a 
 <li><code>th, td { border: 1px solid #cccccc; }</code> puts a border on both header and data cells</li>
 <li><code>styled_page.html</code> adds a <code>&lt;style&gt;</code> block to <code>table_page.html</code> to produce this result:</li>
 </ul>
-<div data-inc="styled_page.html" data-mark="style"><span aria-label="Source: htmlcss/styled_page.html" class="inc-path" role="img" tabindex="0" title="htmlcss/styled_page.html">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="w">      </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span>
-<span class="w">        </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="kt">em</span><span class="p">;</span>
-<span class="w">        </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
-<span class="w">        </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-
-<span class="w">      </span><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
-<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#333333</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-
-<span class="w">      </span><span class="nt">h2</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#cccccc</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-
-<span class="w">      </span><span class="nt">table</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">border-collapse</span><span class="p">:</span><span class="w"> </span><span class="kc">collapse</span><span class="p">;</span>
-<span class="w">        </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-
-<span class="w">      </span><span class="nt">th</span><span class="o">,</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#cccccc</span><span class="p">;</span>
-<span class="w">        </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="kt">em</span><span class="w"> </span><span class="mf">0.8</span><span class="kt">em</span><span class="p">;</span>
-<span class="w">        </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-
-<span class="w">      </span><span class="nt">th</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#eeeeee</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-
-<span class="w">      </span><span class="p">.</span><span class="nc">note</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">font-style</span><span class="p">:</span><span class="w"> </span><span class="kc">italic</span><span class="p">;</span>
-<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#666666</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-
-<span class="w">      </span><span class="p">.</span><span class="nc">copyright</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
-<span class="w">        </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.85</span><span class="kt">em</span><span class="p">;</span>
-<span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#999999</span><span class="p">;</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<div data-inc="styled_page.html" data-mark="style"><span aria-label="Source: htmlcss/styled_page.html" class="inc-path" role="img" tabindex="0" title="htmlcss/styled_page.html">i</span><div class="codehilite"><pre class="" tabindex="0"><span></span><code>
 </code></pre></div>
 </div>
 <div class="callout">

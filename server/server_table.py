@@ -4,7 +4,7 @@ from htpy import body, head, html, link, table, td, th, title, tr
 from litestar import Litestar, MediaType, get
 
 from dataset import SIGHTINGS
-from utils import HEADERS, KEYS, LABELS, fmt
+from utils import HEADERS, KEYS, fmt
 
 LESSON_DIR = Path(__file__).parent
 

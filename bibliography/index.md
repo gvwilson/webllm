@@ -1,5 +1,11 @@
 # Bibliography
 
+<span id="htmx2025">htmx2025</span>
+:   Carson Gross et al.:
+    "HTMX Documentation".
+    <https://htmx.org/docs/>,
+    2025.
+
 <span id="htpy2025">htpy2025</span>
 :   Johannes Hartveit:
     "htpy".

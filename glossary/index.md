@@ -109,6 +109,19 @@
     Entities begin with `&` and end with `;`, for example `&lt;` for `<`,
     `&amp;` for `&`, and `&copy;` for &copy;.
 
+<span id="html-fragment">HTML fragment</span>
+:   A snippet of HTML returned by a server that contains only the content needed to update
+    part of an existing page, such as a handful of table rows or a detail panel.
+    Unlike a full HTML page, a fragment has no `<html>`, `<head>`, or `<body>` tags.
+    Libraries such as HTMX insert fragments directly into the appropriate place in the page
+    without triggering a full reload.
+
+<span id="htmx">HTMX</span>
+:   A JavaScript library that adds interactivity to web pages through HTML attributes
+    rather than custom JavaScript code.
+    Attributes such as `hx-get`, `hx-trigger`, `hx-target`, and `hx-swap` tell the browser
+    when to fetch a URL, what event should trigger the fetch, and where to insert the returned HTML fragment.
+
 <span id="http-200">HTTP 200</span>
 :   The HTTP status code a server returns when the request succeeded.
 

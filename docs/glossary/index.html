@@ -29,6 +29,7 @@
 <li><a href="../forms/">Forms</a></li>
 <li><a href="../testclient/">Testing with a Browser</a></li>
 <li><a href="../logging/">Logging</a></li>
+<li><a href="../dynamic/">Dynamic pages</a></li>
 <li><a href="../finale/">Conclusion</a></li>
 </ul>
 </div>
@@ -42,6 +43,7 @@
 <li><a class="active" href="../glossary/">Glossary</a></li>
 </ul>
 </div>
+<a href="https://github.com/gvwilson/webllm">Repository</a>
 </div>
 </nav>
 <main id="main-content">
@@ -141,6 +143,17 @@ for debugging.</dd>
 interpreted as markup or is not easily typed.
 Entities begin with <code>&amp;</code> and end with <code>;</code>, for example <code>&amp;lt;</code> for <code>&lt;</code>,
 <code>&amp;amp;</code> for <code>&amp;</code>, and <code>&amp;copy;</code> for ©.</dd>
+<dt><span id="html-fragment">HTML fragment</span></dt>
+<dd>A snippet of HTML returned by a server that contains only the content needed to update
+part of an existing page, such as a handful of table rows or a detail panel.
+Unlike a full HTML page, a fragment has no <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, or <code>&lt;body&gt;</code> tags.
+Libraries such as HTMX insert fragments directly into the appropriate place in the page
+without triggering a full reload.</dd>
+<dt><span id="htmx">HTMX</span></dt>
+<dd>A JavaScript library that adds interactivity to web pages through HTML attributes
+rather than custom JavaScript code.
+Attributes such as <code>hx-get</code>, <code>hx-trigger</code>, <code>hx-target</code>, and <code>hx-swap</code> tell the browser
+when to fetch a URL, what event should trigger the fetch, and where to insert the returned HTML fragment.</dd>
 <dt><span id="http-200">HTTP 200</span></dt>
 <dd>The HTTP status code a server returns when the request succeeded.</dd>
 <dt><span id="http-303">HTTP 303</span></dt>

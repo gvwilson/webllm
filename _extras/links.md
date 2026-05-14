@@ -1,3 +1,4 @@
+[htmx]: https://htmx.org/
 [htpy]: https://htpy.dev/
 [httpx]: https://www.python-httpx.org/
 [jinja]: https://jinja.palletsprojects.com/
