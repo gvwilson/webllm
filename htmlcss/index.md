@@ -11,7 +11,7 @@
 
 ## What HTML Looks Like
 
-*Show me a simple HTML page about Sasquatch sightings with a heading, a paragraph, and a list.*
+> Show me a simple HTML page about Sasquatch sightings with a heading, a paragraph, and a list.
 
 -   [%g html "HyperText Markup Language" %] (HTML) is the language browsers use to display content
 -   An HTML document is made of [%g element "elements" %] marked by [%g tag "tags" %]
@@ -19,7 +19,7 @@
     -   A closing tag `</tagname>` shows where it ends
     -   Content goes between them: `<p>A paragraph.</p>`
 
-*Explain how multiple tags can be used together.*
+> Explain how multiple tags can be used together.
 
 -   Elements must form a [%g tree "tree" %]: they can nest but cannot overlap
     -   `<ul><li>first</li><li>second</li></ul>` is correct
@@ -42,7 +42,7 @@ which is why understanding HTML matters even if you rarely type it yourself.
 
 ## Page Structure
 
-*What does every valid HTML page need to have?*
+> What does every valid HTML page need to have?
 
 -   Every valid HTML page has four required parts in order:
     -   `<!DOCTYPE html>` on the very first line tells the browser this is modern HTML
@@ -50,7 +50,7 @@ which is why understanding HTML matters even if you rarely type it yourself.
     -   A `<head>` element containing metadata (information *about* the page, not shown in the window)
     -   A `<body>` element containing the visible content
 
-*How do I add notes inside an HTML file that won't appear in the browser?*
+> How do I add notes inside an HTML file that won't appear in the browser?
 
 -   Indentation and blank lines don't change how the browser renders the page: they exist for human readers
 -   `<!-- this is a comment -->` adds notes the browser ignores
@@ -58,27 +58,27 @@ which is why understanding HTML matters even if you rarely type it yourself.
 
 ## Common Tags
 
-*What are the most common HTML tags?*
+> What are the most common HTML tags?
 
 -   A short list of tags covers most structural needs:
     -   `<h1>` through `<h6>` for headings: use them in order, don't skip levels
     -   `<p>` for paragraphs
     -   `<ul>` and `<ol>` for unordered and ordered lists, with `<li>` for each item
 
-*What tags do I use to add emphasis, links, and images?*
+> What tags do I use to add emphasis, links, and images?
 
 -   `<em>` and `<strong>` for emphasis and strong emphasis
     -   Use these instead of `<i>` (italics) and `<b>` (bold)
 
 ## Special Characters
 
-*If a less-than sign is special, how do I include one in HTML without the browser treating it as a tag?*
+> If a less-than sign is special, how do I include one in HTML without the browser treating it as a tag?
 
 -   `<` and `>` mark the boundaries of tags, so they cannot appear as-is in text content
 -   [%g html-entity "HTML entities" %] are a way to include them and other special characters safely
 -   An entity starts with `&`, ends with `;`, and has a name or number in between
 
-*What are the most common HTML entities I will actually need?*
+> What are the most common HTML entities I will actually need?
 
 -   The entities that come up most often are:
     -   `&lt;` displays as `<`
@@ -91,7 +91,7 @@ which is why understanding HTML matters even if you rarely type it yourself.
 
 ## Attributes and Links
 
-*How do I link from one part of a page to another in HTML?*
+> How do I link from one part of a page to another in HTML?
 
 -   [%g attribute "Attributes" %] appear inside the opening tag and customize how an element behaves: `<tagname name="value">`
 -   The `<a>` tag creates a link; its `href` attribute says where the link goes:
@@ -101,7 +101,7 @@ which is why understanding HTML matters even if you rarely type it yourself.
     -   `href` stands for "hypertext reference"
 -   Create an anchor target with an `id` attribute on any element: `<h2 id="recent">Recent Sightings</h2>`
 
-*How do I embed an image in an HTML page?*
+> How do I embed an image in an HTML page?
 
 -   The `<img>` tag embeds an image; it is a [%g void-element "void element" %] with no closing tag,
     because it has no text content:
@@ -125,7 +125,7 @@ For pages you are developing locally, file paths let you work without running a 
 
 ## Tables
 
-*Rewrite the sightings list as a table with columns for date, species, location, and notes.*
+> Rewrite the sightings list as a table with columns for date, species, location, and notes.
 
 -   A table is made of rows, and each row is made of cells
 -   `<table>` wraps the whole table
@@ -133,7 +133,7 @@ For pages you are developing locally, file paths let you work without running a 
 -   `<th>` is a header cell (bold and centered by default)
 -   `<td>` is a data cell
 
-*What does the HTML for a table with a header row and three data rows look like?*
+> What does the HTML for a table with a header row and three data rows look like?
 
 -   Rows are listed top to bottom; cells within a row are listed left to right
 -   Without CSS a table has no visible borders: the structure is there but the grid lines are not
@@ -142,7 +142,7 @@ For pages you are developing locally, file paths let you work without running a 
 
 ## Styling with CSS
 
-*Add a stylesheet to the sightings page that sets the font and page width, and puts borders on the table.*
+> Add a stylesheet to the sightings page that sets the font and page width, and puts borders on the table.
 
 -   Putting visual styling directly in HTML attributes works but creates problems:
     -   `<h1 align="center">` makes every heading a separate style decision
@@ -159,7 +159,7 @@ selector {
 }
 ```
 
-*Show me CSS rules that center a heading, set a page font, and add borders to table cells.*
+> Show me CSS rules that center a heading, set a page font, and add borders to table cells.
 
 -   The selector says which elements the rule applies to
 -   `body { font-family: sans-serif; }` sets the font for the entire page
@@ -184,7 +184,7 @@ A stylesheet keeps all the style decisions in one place so one change affects ev
 
 ## CSS Classes
 
-*How do I make some table cells look different from others using CSS?*
+> How do I make some table cells look different from others using CSS?
 
 -   Give elements a [%g css-class "class" %] attribute to group them for styling:
     `<td class="note">Female; weight &lt; 150 kg</td>`
@@ -192,7 +192,7 @@ A stylesheet keeps all the style decisions in one place so one change affects ev
 -   Combine a tag name and a class to be more specific: `td.note { font-style: italic; }`
     (only `<td>` elements with class `note`, not `<p class="note">`)
 
-*How do I style one specific element differently from all others of the same type?*
+> How do I style one specific element differently from all others of the same type?
 
 -   Target a specific element by its unique `id`: `#main-title { font-size: 2em; }`
 -   An element can belong to multiple classes: `<td class="note warning">`
@@ -202,6 +202,8 @@ A stylesheet keeps all the style decisions in one place so one change affects ev
     and `copyright` centers and shrinks the footer line
 
 ## Check Understanding
+
+See [%b mdn-html2024 %] for (much) more information.
 
 <details markdown="1">
 <summary markdown="1">What is wrong with `<p>first <b>bold</p></b>`?</summary>
@@ -240,8 +242,6 @@ An external stylesheet (a separate `.css` file included with `<link>`) is even b
 with many pages, because one file can style all of them.
 
 </details>
-
-See [%b mdn-html2024 %] for (much) more information.
 
 <details markdown="1">
 <summary markdown="1">A page has `<img src="photo.jpg">` and the image shows a broken icon in the browser. The file `photo.jpg` is in a folder called `images` that sits next to the HTML file. What is wrong and how do you fix it?</summary>

@@ -9,7 +9,7 @@
 
 ## Why Not Just Click?
 
-*What are the problems with checking every route by opening a browser and clicking around?*
+> What are the problems with checking every route by opening a browser and clicking around?
 
 -   Every change means repeating the same steps by hand:
     -   Start the server
@@ -21,7 +21,7 @@
 -   Clicking is easy to rush or skip, so bugs slip through
 -   The more routes the application has, the more steps there are to forget
 
-*What do I need to install to test a Litestar application with pytest?*
+> What do I need to install to test a Litestar application with pytest?
 
 -   `uv add pytest` adds the [pytest][pytest] testing framework
 -   Litestar's test client uses the [httpx][httpx] library internally, so `uv add httpx` is needed too
@@ -29,8 +29,8 @@
 
 ## A First Test
 
-*Write a pytest test file called `test_server_status.py` that uses Litestar's TestClient to check that
-`GET /` returns a 200 status code and that the page contains the text "Sasquatch Sightings".*
+> Write a pytest test file called `test_server_status.py` that uses Litestar's TestClient to check that
+> `GET /` returns a 200 status code and that the page contains the text "Sasquatch Sightings".
 
 -   `TestClient` from `litestar.testing` is a [%g test-client "test client" %]:
     it wraps the application and lets you call routes directly in memory, with no real server or browser
@@ -49,8 +49,8 @@
 
 ## Testing Error Responses
 
-*Add two more tests to `test_server_status.py`: one that checks a valid sighting ID returns 200,
-and one that checks a missing ID returns 404.*
+> Add two more tests to `test_server_status.py`: one that checks a valid sighting ID returns 200,
+> and one that checks a missing ID returns 404.
 
 -   Testing both the success path and the error path builds confidence that the code handles both correctly
     -   A route that never returns 404 when it should is just as broken as one that returns 200 when it should not
@@ -60,16 +60,16 @@ and one that checks a missing ID returns 404.*
 
 ## A Testable Server
 
-*What is the risk of writing a test like `assert "G. horribilus" in response.text`
-when "G. horribilus" comes from the `SIGHTINGS` list in `dataset.py`?*
+> What is the risk of writing a test like `assert "G. horribilus" in response.text`
+> when "G. horribilus" comes from the `SIGHTINGS` list in `dataset.py`?
 
 -   If someone updates `dataset.py` by correcting a species name, adding rows, or removing old ones,
     the test breaks even though the route is working correctly
 -   A test that fails for the wrong reason wastes time and erodes trust in the whole test suite
 -   The fix is to control exactly what data the server uses during the test
 
-*Refactor `server_detail.py` into a new file `server_testable.py` by wrapping the route definitions in a function
-called `make_app` that takes the sightings list as a parameter.*
+> Refactor `server_detail.py` into a new file `server_testable.py` by wrapping the route definitions in a function
+> called `make_app` that takes the sightings list as a parameter.
 
 -   `make_app(sightings=SIGHTINGS)` is a function that defines the route handlers and returns the app
     -   The default value means calling `make_app()` with no arguments behaves exactly like `server_detail.py`
@@ -84,9 +84,9 @@ called `make_app` that takes the sightings list as a parameter.*
 
 ## Testing with Controlled Data
 
-*Write a second test file called `test_server_data.py` that defines a two-row list called `SMALL`
-and uses `make_app(SMALL)` to test the index links, the detail page content,
-and the display of `None` values.*
+> Write a second test file called `test_server_data.py` that defines a two-row list called `SMALL`
+> and uses `make_app(SMALL)` to test the index links, the detail page content,
+> and the display of `None` values.
 
 -   `SMALL` has exactly two rows, so it is easy to see at a glance what each test is checking
 -   `make_app(SMALL)` creates a fresh app that serves only those two rows
@@ -98,6 +98,8 @@ and the display of `None` values.*
 [%inc test_server_data.py %]
 
 ## Check Understanding
+
+See [%b pytest2025 %] for the full pytest documentation and [%b litestar2025 %] for Litestar's testing reference.
 
 <details markdown="1">
 <summary markdown="1">What is the difference between running `litestar run --app server_testable:app` and calling `client.get("/")` in a test?</summary>
@@ -178,8 +180,6 @@ The line `def make_app(sightings=SIGHTINGS):` means any call that omits the argu
 twenty-row dataset, exactly as `server_detail.py` behaved.
 
 </details>
-
-See [%b pytest2025 %] for the full pytest documentation and [%b litestar2025 %] for Litestar's testing reference.
 
 ## Exercises
 

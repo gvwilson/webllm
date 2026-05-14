@@ -10,7 +10,7 @@
 
 ## Deleting a Record
 
-*What is the difference between a GET request and a POST request?*
+> What is the difference between a GET request and a POST request?
 
 -   Every HTTP request uses a method that tells the server what the client wants to do
 -   GET asks the server to return data without changing anything
@@ -21,8 +21,9 @@
     -   Search engines and browser prefetch features send GET requests to URLs they discover automatically
     -   If a link could trigger a deletion, those tools could wipe out data without anyone asking them to
 
-*Modify `server_db.py` to create `server_delete.py`. Add a Delete button to the sighting detail
-page that sends a POST request to remove the sighting and then sends the browser back to the home page.*
+> Modify `server_db.py` to create `server_delete.py`.
+> Add a Delete button to the sighting detail page that sends a POST request
+> to remove the sighting and then sends the browser back to the home page.
 
 -   An HTML [%g form "form" %] groups one or more inputs together with a submit button
     -   `<form method="post" action="/delete/1">` sends a POST request to `/delete/1` when submitted
@@ -44,8 +45,8 @@ page that sends a POST request to remove the sighting and then sends the browser
 
 ## Adding a Record
 
-*Add a link to the home page and a `GET /add` route that displays a form for adding a new sighting.
-Save the result as `server_add.py`.*
+> Add a link to the home page and a `GET /add` route that displays a form for adding a new sighting.
+> Save the result as `server_add.py`.
 
 -   `<form method="post" action="/add">` sends the completed form to `/add` when submitted
 -   `<input type="text" name="species" required>` creates a one-line text box
@@ -59,8 +60,8 @@ Save the result as `server_add.py`.*
 
 [%inc server_add.py mark=add-form %]
 
-*Add a `POST /add` route to `server_add.py` that reads the submitted form data, inserts a new row,
-and redirects the user to the home page.*
+> Add a `POST /add` route to `server_add.py` that reads the submitted form data, inserts a new row,
+> and redirects the user to the home page.
 
 -   When a form is submitted, the browser encodes its fields as
     `species=G.+canadensis&color=brown&...` and sends them in the request body
@@ -76,8 +77,8 @@ and redirects the user to the home page.*
 
 ## Uploading Many Records at Once
 
-*What does a form look like when it needs to send a file instead of typed text,
-and how does the server receive and parse the contents?*
+> What does a form look like when it needs to send a file instead of typed text,
+> and how does the server receive and parse the contents?
 
 -   File uploads require `enctype="multipart/form-data"` on the `<form>` tag
     -   Without this attribute the browser sends only the filename, not the file's contents
@@ -89,9 +90,9 @@ and how does the server receive and parse the contents?*
     -   The first line lists column names; each subsequent line is one row of data
     -   Empty values appear as two consecutive commas
 
-*Add `GET /upload` and `POST /upload` routes to `server_add.py` to create `server_upload.py`.
-The GET route should show a file upload form; the POST route should read the CSV and insert
-all its rows into the database.*
+> Add `GET /upload` and `POST /upload` routes to `server_add.py` to create `server_upload.py`.
+> The GET route should show a file upload form; the POST route should read the CSV and insert
+> all its rows into the database.
 
 -   Litestar receives the uploaded file through a `dataclass` whose field names match
     the `name` attributes in the form
@@ -120,7 +121,7 @@ Start the server:
 
 ## Testing Routes That Change Data
 
-*How do you test a route that deletes a row from the database?*
+> How do you test a route that deletes a row from the database?
 
 -   Reuse the `small_db` fixture from the previous lesson to give each test a fresh temporary database
 -   Send the POST request with `client.post("/delete/1")`
@@ -130,7 +131,7 @@ Start the server:
 -   A helper function `count_rows(db_path)` avoids repeating the connect-query-close pattern
     in every test
 
-*Write tests for the add route and the CSV upload route in `test_server_forms.py`.*
+> Write tests for the add route and the CSV upload route in `test_server_forms.py`.
 
 -   `client.post("/add", data={...})` sends URL-encoded form data, exactly as a browser would
     -   Keys in `data` must match the `name` attributes on the form's `<input>` elements

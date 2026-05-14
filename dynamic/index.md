@@ -9,7 +9,7 @@
 
 ## What Is HTMX?
 
-*What problem does HTMX solve, and what would the same interaction look like without it?*
+> What problem does HTMX solve, and what would the same interaction look like without it?
 
 -   Every page built so far responds to user actions by reloading the entire page
     -   Clicking a link sends a GET request, and submitting a form sends a POST request
@@ -25,7 +25,7 @@
     -   Just the new rows or the updated panel, not a complete HTML page
     -   No build step, no bundler, no JavaScript to write: the behaviors live in the HTML attributes
 
-*How does HTMX get loaded, and what does a minimal HTMX attribute look like?*
+> How does HTMX get loaded, and what does a minimal HTMX attribute look like?
 
 -   HTMX is loaded with a single `<script>` tag pointing to a content delivery network (CDN):
 
@@ -45,8 +45,8 @@
 
 ## Loading More Rows on Scroll
 
-*Create a server that shows the first 20 sightings in a fixed-height scrollable table.
-When the user scrolls to the bottom, the table should automatically request and display the next 20 rows.*
+> Create a server that shows the first 20 sightings in a fixed-height scrollable table.
+> When the user scrolls to the bottom, the table should automatically request and display the next 20 rows.
 
 -   The table sits inside a `<div class="scroll-container">` whose CSS sets `height: 400px`
     and `overflow-y: scroll`, so only a few rows are visible at a time
@@ -57,7 +57,7 @@ When the user scrolls to the bottom, the table should automatically request and 
 -   `PAGE_SIZE = 20` is a named constant shared by `make_row`, `make_sentinel`, and both routes
     -   Using a named constant rather than a bare `20` means changing one line adjusts the whole server
 
-*What does the `/rows` route return, and how does it know when to stop adding sentinels?*
+> What does the `/rows` route return, and how does it know when to stop adding sentinels?
 
 -   `/rows?offset=N` fetches the next page of rows from the database and returns raw `<tr>` elements
     -   No `<html>`, `<head>`, or `<body>` tags: just the rows
@@ -83,8 +83,8 @@ When the user scrolls to the bottom, the table should automatically request and 
 
 ## Showing a Detail Pane on Click
 
-*Add a panel below the table that shows the full record for any row the user clicks.
-The panel must update in place without reloading the page or affecting the scroll position.*
+> Add a panel below the table that shows the full record for any row the user clicks.
+> The panel must update in place without reloading the page or affecting the scroll position.
 
 -   Copy `server_scroll.py` to `server_detail.py` and make two changes to the page
 -   Each data row gets three HTMX attributes:
@@ -98,7 +98,7 @@ The panel must update in place without reloading the page or affecting the scrol
     -   `tr[hx-target]` is an attribute selector that matches any `<tr>` that has an `hx-target` attribute
     -   In `server_scroll.py` no rows have `hx-target`, so this rule has no effect there
 
-*Write the server route that returns the detail fragment.*
+> Write the server route that returns the detail fragment.
 
 -   `GET /sighting/{sighting_id}/detail` queries the database for one record
     and returns a `<table>` of field-value pairs with no surrounding page structure
@@ -131,12 +131,6 @@ The correct trigger is `hx-trigger="revealed"`, which fires when the element ent
 <details markdown="1">
 <summary markdown="1">The `/rows` route below always appends a sentinel, even when it fetches the last rows. What does the user see, and what extra work does the server do?</summary>
 
-```python
-result = "".join(str(make_row(row)) for row in rows)
-result += str(make_sentinel(offset + PAGE_SIZE))
-return result
-```
-
 The sentinel appears after the last real row.
 When the user scrolls to it, the browser sends one more request to `/rows?offset=...`.
 The server queries the database, finds zero rows, and returns an empty string.
@@ -145,6 +139,12 @@ The user sees the sentinel flicker briefly; the server does one unnecessary data
 The fix is to only append the sentinel when `len(rows) == PAGE_SIZE`.
 
 </details>
+
+```python
+result = "".join(str(make_row(row)) for row in rows)
+result += str(make_sentinel(offset + PAGE_SIZE))
+return result
+```
 
 <details markdown="1">
 <summary markdown="1">Change `hx-swap="innerHTML"` on each data row to `hx-swap="outerHTML"`. What goes wrong after the first click?</summary>

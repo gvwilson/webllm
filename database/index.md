@@ -10,7 +10,7 @@
 
 ## Why Not a List?
 
-*What are the problems with storing the sightings data in a Python list?*
+> What are the problems with storing the sightings data in a Python list?
 
 -   Every time the server restarts, the list is re-created from the source code
     -   Any records added while the server was running are lost
@@ -19,7 +19,7 @@
 -   Searching through a list means reading every item in order
     -   For twenty sightings this is fast; for two million it is not
 
-*What is a database and why is SQLite a good choice for this application?*
+> What is a database and why is SQLite a good choice for this application?
 
 -   A [%g database "database" %] stores data in a way that survives program restarts
 -   A [%g sql "SQL" %] database organizes data into [%g db-table "tables" %],
@@ -30,9 +30,9 @@
 
 ## Creating a Database
 
-*Write a Python script called `create_db.py` that uses `sqlite3` to create a file called
-`sightings.db` with one table named `sightings`.
-The table should be populated with the data from `dataset.py`.*
+> Write a Python script called `create_db.py` that uses `sqlite3` to create a file called
+> `sightings.db` with one table named `sightings`.
+> The table should be populated with the data from `dataset.py`.
 
 -   `sqlite3.connect(path)` opens the database at `path`, creating the file if it does not exist
 -   `conn.execute(sql)` runs a [%g query "query" %] against the open database
@@ -52,10 +52,10 @@ Run the script once to create the database:
 
 ## A Database-Backed Server
 
-*Rewrite `server_testable.py` as `server_db.py` so that `make_app` takes a database path instead of a
-list of sightings.
-The index route should read all rows from the database, and the detail route should look up
-one row by ID.*
+> Rewrite `server_testable.py` as `server_db.py` so that `make_app` takes a database path
+> instead of a list of sightings.
+> The index route should read all rows from the database,
+> and the detail route should look up one row by ID.
 
 -   `sqlite3.connect(db_path)` opens the database; `conn.close()` releases it when done
 -   Setting `conn.row_factory = sqlite3.Row` makes each result row behave like a dictionary,
@@ -98,9 +98,9 @@ Start the server the same way as before (after running `create_db.py` first):
 
 ## Testing with a Temporary Database
 
-*Write a test file called `test_server_db.py` that uses pytest's `tmp_path` fixture to create
-a small temporary database for each test, and uses `make_app` with that database path to
-test the index, detail, and 404 routes.*
+> Write a test file called `test_server_db.py` that uses pytest's `tmp_path` fixture
+> to create a small temporary database for each test,
+> and uses `make_app` with that database path to test the index, detail, and 404 routes.
 
 -   pytest's built-in `tmp_path` fixture provides a fresh temporary directory for each test
     -   The directory and everything in it is automatically deleted when the test finishes
@@ -119,6 +119,9 @@ Run the tests from the `database/` directory:
 
 ## Check Understanding
 
+See [%b sqlite2025 %] for the SQLite documentation and [%b python-sqlite2025 %]
+for the Python `sqlite3` module reference.
+
 <details markdown="1">
 <summary markdown="1">What happens if you call `conn.execute(...)` several times but never call `conn.commit()`?</summary>
 
@@ -131,6 +134,13 @@ The database file on disk remains unchanged, as if the `execute` calls never hap
 <details markdown="1">
 <summary markdown="1">The code below always prints zero rows, even though `sightings.db` has twenty rows. What is wrong?</summary>
 
+`conn.commit()` is missing after the `insert`.
+Without it, the insert is not saved to disk, so the `select` that follows still sees the
+original twenty rows---and once `conn.close()` is called, the insert is discarded entirely.
+Add `conn.commit()` between the `execute` and the `select`.
+
+</details>
+
 ```python
 conn = sqlite3.connect("sightings.db")
 conn.execute("insert into sightings values (?, ?, ?, ?, ?, ?, ?, ?)", [21, "G. canadensis", None, 160, "brown", "2024-08-01 10:00", 50.0, -120.0])
@@ -138,13 +148,6 @@ rows = conn.execute("select * from sightings").fetchall()
 print(len(rows))
 conn.close()
 ```
-
-`conn.commit()` is missing after the `insert`.
-Without it, the insert is not saved to disk, so the `select` that follows still sees the
-original twenty rows---and once `conn.close()` is called, the insert is discarded entirely.
-Add `conn.commit()` between the `execute` and the `select`.
-
-</details>
 
 <details markdown="1">
 <summary markdown="1">What does `fetchone()` return when no row matches the `where` clause?</summary>
@@ -154,9 +157,6 @@ This is why `server_db.py` checks `if row is None` before trying to read values 
 accessing a column on `None` would raise an `AttributeError`.
 
 </details>
-
-See [%b sqlite2025 %] for the SQLite documentation and [%b python-sqlite2025 %]
-for the Python `sqlite3` module reference.
 
 ## Exercises
 

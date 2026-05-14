@@ -10,7 +10,7 @@
 
 ## Why Test in a Browser?
 
-*What kinds of bugs can a browser catch that Litestar's test client cannot?*
+> What kinds of bugs can a browser catch that Litestar's test client cannot?
 
 -   The test client from the previous lessons sends HTTP requests directly to the application in memory:
     it never runs a real browser
@@ -24,7 +24,7 @@
 -   [Playwright][playwright-python] is a library that remote-controls browsers from Python
     -   Navigate to URLs, click buttons, fill in text fields, and read what the browser shows
 
-*What do I need to install to run Playwright tests with pytest?*
+> What do I need to install to run Playwright tests with pytest?
 
 -   `uv add pytest-playwright` adds the Playwright library and a pytest plugin
     that provides browser fixtures automatically
@@ -39,7 +39,7 @@
 
 ## Starting a Server for Tests
 
-*What is the difference between tests that use Litestar's test client and tests that use Playwright?*
+> What is the difference between tests that use Litestar's test client and tests that use Playwright?
 
 -   The test client talks directly to the application object in Python memory
     -   no network connection, no open port, no running process
@@ -48,7 +48,7 @@
 -   `subprocess.Popen` starts a separate process from inside Python,
     exactly as if you had typed the command in a terminal
 
-*What does `scope="session"` mean for a pytest fixture, and why use it for a server?*
+> What does `scope="session"` mean for a pytest fixture, and why use it for a server?
 
 -   By default a fixture has `scope="function"`, which means pytest creates a fresh copy for every
     test function and tears it down when that function finishes
@@ -60,8 +60,8 @@
     -   Unlike a function-scoped fixture, a session-scoped fixture is shared across all tests,
         so tests that modify data will see each other's changes
 
-*Write a `conftest.py` with a session-scoped fixture called `server_url` that starts
-`server_pw.py` and shuts it down after all tests finish.*
+> Write a `conftest.py` with a session-scoped fixture called `server_url` that starts
+> `server_pw.py` and shuts it down after all tests finish.
 
 -   `subprocess.Popen(["uv", "run", "litestar", "run", "--app", "server_pw:app"], cwd=LESSON_DIR)`
     starts the server as a separate process, just as if you had typed the command in a terminal
@@ -78,7 +78,7 @@
 
 ## Navigating Pages
 
-*Copy the server from the forms lesson into this directory as `server_pw.py`.*
+> Copy the server from the forms lesson into this directory as `server_pw.py`.
 
 -   The server already supports every route the Playwright tests will use:
     index, detail, delete, add form, and CSV upload
@@ -86,8 +86,8 @@
 
 [%inc server_pw.py mark=make-app %]
 
-*Write a test file called `test_browser.py` with a single test that opens the home page
-and checks its title.*
+> Write a test file called `test_browser.py` with a single test that opens the home page
+> and checks its title.
 
 -   `page` is provided by pytest-playwright: it represents a single browser tab,
     created fresh for each test function
@@ -95,8 +95,8 @@ and checks its title.*
 -   `page.title()` returns the text from the `<title>` element,
     matching what the browser's title bar shows
 
-*Add two more tests: one that confirms the sightings table is present, and one that clicks
-a row link and waits for the detail page to load.*
+> Add two more tests: one that confirms the sightings table is present, and one that clicks
+> a row link and waits for the detail page to load.
 
 -   `page.locator("table")` finds all `<table>` elements on the page;
     `.count()` returns how many there are
@@ -113,7 +113,7 @@ a row link and waits for the detail page to load.*
 
 ## Filling in a Form
 
-*How does Playwright simulate typing in a form field, and how do you select which field to target?*
+> How does Playwright simulate typing in a form field, and how do you select which field to target?
 
 -   `page.fill('[name="species"]', "G. canadensis")` finds the input whose `name` attribute
     is `species` and types the value into it, firing the same keyboard events a real user would
@@ -122,8 +122,8 @@ a row link and waits for the detail page to load.*
     -   Required fields still prevent submission if left empty, because Playwright interacts
         with the browser's own validation the same way a user would
 
-*Add a test to `test_browser.py` that opens the add-sighting form, fills in the required fields,
-submits the form, and confirms the browser ends up back on the home page.*
+> Add a test to `test_browser.py` that opens the add-sighting form, fills in the required fields,
+> submits the form, and confirms the browser ends up back on the home page.
 
 -   `page.click('[type="submit"]')` clicks the submit button, which triggers the form POST
     -   The server processes the request and responds with a 303 redirect to `/`
@@ -167,18 +167,18 @@ and tears it down only after the last one finishes.
 <details markdown="1">
 <summary markdown="1">The test below fails intermittently: it passes on a fast machine and fails on a slow one. What is the most likely cause, and how do you fix it?</summary>
 
+After `.click()`, the browser sends the request and starts loading the detail page, but the assertion may run before the new page has finished loading.
+On a fast machine the timing happens to work out; on a slow one it reads the old title and fails.
+Adding `page.wait_for_url("**/sighting/**")` after the click tells Playwright to pause until the navigation is complete before reading the title.
+
+</details>
+
 ```python
 def test_click_link(page, server_url):
     page.goto(server_url)
     page.locator("table a").first.click()
     assert "Sighting" in page.title()
 ```
-
-After `.click()`, the browser sends the request and starts loading the detail page, but the assertion may run before the new page has finished loading.
-On a fast machine the timing happens to work out; on a slow one it reads the old title and fails.
-Adding `page.wait_for_url("**/sighting/**")` after the click tells Playwright to pause until the navigation is complete before reading the title.
-
-</details>
 
 <details markdown="1">
 <summary markdown="1">After `proc.terminate()`, why does `conftest.py` also call `proc.wait()`?</summary>

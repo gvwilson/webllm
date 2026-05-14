@@ -8,8 +8,8 @@
 
 ## The Duplication Problem
 
-*The previous lesson put `small_db` directly in `test_server_db.py`.
-What happens if you want to write a second test file that also needs a small database?*
+> The previous lesson put `small_db` directly in `test_server_db.py`.
+> What happens if you want to write a second test file that also needs a small database?
 
 -   A [%g fixture "fixture" %] defined inside a test file is private to that file
     -   Importing it from another test file would work, but it breaks pytest's fixture discovery
@@ -18,7 +18,7 @@ What happens if you want to write a second test file that also needs a small dat
 -   The fixture is doing real work: creating a temporary database, inserting rows, and returning a path
     -   That work belongs in one place, shared by all the tests that need it
 
-*Where does pytest look when it needs a fixture that is not defined in the current test file?*
+> Where does pytest look when it needs a fixture that is not defined in the current test file?
 
 -   pytest looks for a file named [%g conftest-file "`conftest.py`" %] in the same directory as the test file,
     then in each parent directory up to the project root
@@ -28,8 +28,8 @@ What happens if you want to write a second test file that also needs a small dat
 
 ## Extracting the Fixture
 
-*Move the `SMALL` list, the SQL constants, and the `small_db` fixture from `test_server_db.py`
-into a new file called `conftest.py` in the same directory.*
+> Move the `SMALL` list, the SQL constants, and the `small_db` fixture from `test_server_db.py`
+> into a new file called `conftest.py` in the same directory.
 
 -   Everything the fixture needs moves with it: `SMALL`, `CREATE_TABLE`, and `INSERT_ROW`
     -   Test files that use `small_db` do not import anything from `conftest.py`;
@@ -41,9 +41,9 @@ into a new file called `conftest.py` in the same directory.*
 
 ## Testing in Separate Files
 
-*Write a file called `test_index.py` with tests that check the index route,
-and a file called `test_detail.py` with tests that check the detail route.
-Both files should use `small_db`.*
+> Write a file called `test_index.py` with tests that check the index route,
+> and a file called `test_detail.py` with tests that check the detail route.
+> Both files should use `small_db`.
 
 -   `test_index.py` imports only `TestClient` and `make_app`
     -   `small_db` arrives as a parameter
@@ -69,15 +69,11 @@ Both files should use `small_db`.*
 
 ## Check Understanding
 
+See [%b pytest2025 %] for the full pytest documentation,
+including the reference page on fixtures and `conftest.py`.
+
 <details markdown="1">
 <summary markdown="1">The code below causes an error even though `small_db` is defined in `conftest.py`. What is wrong?</summary>
-
-```python
-from conftest import small_db
-
-def test_index_ok(small_db):
-    ...
-```
 
 pytest injects fixtures automatically by matching parameter names.
 Importing a fixture function and passing it as a parameter bypasses that mechanism.
@@ -85,6 +81,13 @@ pytest no longer recognizes it as a fixture and raises an error.
 Remove the import line and let pytest inject `small_db` on its own.
 
 </details>
+
+```python
+from conftest import small_db
+
+def test_index_ok(small_db):
+    ...
+```
 
 <details markdown="1">
 <summary markdown="1">Each test that uses `small_db` gets its own database. What would happen if they all shared one database instead?</summary>
@@ -99,21 +102,18 @@ Keeping each test isolated means it can be run alone or in any order and still p
 <details markdown="1">
 <summary markdown="1">The test below always passes, even when it should not. What is wrong?</summary>
 
-```python
-def test_missing_sighting(small_db):
-    with TestClient(app=make_app(small_db)) as client:
-        response = client.get("/sighting/9999")
-    assert response.status_code != 200
-```
-
 `status_code != 200` passes for any code other than 200, including 500 (server error).
 A bug that causes the server to crash would make this test pass when it should fail.
 The assertion should be `assert response.status_code == 404` to confirm the right kind of failure.
 
 </details>
 
-See [%b pytest2025 %] for the full pytest documentation,
-including the reference page on fixtures and `conftest.py`.
+```python
+def test_missing_sighting(small_db):
+    with TestClient(app=make_app(small_db)) as client:
+        response = client.get("/sighting/9999")
+    assert response.status_code != 200
+```
 
 ## Exercises
 

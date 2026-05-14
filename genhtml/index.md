@@ -10,7 +10,7 @@
 
 ## Three Ways to Do It
 
-*What are the main ways to generate HTML from Python, and what are the tradeoffs?*
+> What are the main ways to generate HTML from Python, and what are the tradeoffs?
 
 -   Every web application has to turn data into HTML
 -   Method 1: f-strings and concatenation
@@ -29,7 +29,7 @@
     -   Instead of HTML with Python holes, write Python that produces HTML
     -   Every tag is a Python object whose children go inside square brackets
 
-*Show an example of how htpy works.*
+> Show an example of how htpy works.
 
 ```python
 from htpy import ul, li
@@ -46,13 +46,13 @@ print(str(ul[li["item one"], li["item two"]]))
 
 ## Building the Basic Page
 
-*Rewrite `htmlcss/basic_page.html` as a Python script using htpy.*
+> Rewrite `htmlcss/basic_page.html` as a Python script using htpy.
 
 -   Import each tag you need from `htpy` at the top of the file
 -   Build the page by nesting elements inside each other using `[...]`
 -   Call `print(str(page))` at the end to write the HTML to the terminal
 
-*How do I add an `id` attribute to an element in htpy?*
+> How do I add an `id` attribute to an element in htpy?
 
 -   Pass attributes as [%g keyword-argument "keyword arguments" %]
     when you call the element: `h2(id="recent")["Recent Sightings"]`
@@ -64,7 +64,7 @@ print(str(ul[li["item one"], li["item two"]]))
 
 ## Building the Table Page
 
-*Rewrite `htmlcss/table_page.html` as a Python script using htpy. Store the sightings data in a list of tuples.*
+> Rewrite `htmlcss/table_page.html` as a Python script using htpy. Store the sightings data in a list of tuples.
 
 -   Import `table`, `tr`, `th`, and `td` from `htpy`
 -   Put the data in a list of tuples near the top of the file so it is easy to find and change
@@ -77,7 +77,8 @@ print(str(ul[li["item one"], li["item two"]]))
 
 ## Adding a Stylesheet
 
-*Rewrite `htmlcss/styled_page.html` as a Python script using htpy. Include the CSS stylesheet and apply the `note` and `copyright` classes.*
+> Rewrite `htmlcss/styled_page.html` as a Python script using htpy.
+> Include the CSS stylesheet and apply the `note` and `copyright` classes.
 
 -   Import `style` from `htpy` and put your CSS inside it as a plain Python string
 -   htpy does *not* escape the contents of `<style>` elements,
@@ -91,6 +92,8 @@ print(str(ul[li["item one"], li["item two"]]))
 [%inc styled_page.py mark=styled-rows %]
 
 ## Check Understanding
+
+See [%b htpy2025 %] for the full htpy documentation and [%b mdn-html2024 %] for reference on HTML elements and attributes.
 
 <details markdown="1">
 <summary markdown="1">What does htpy use instead of `class="..."` as a keyword argument, and why?</summary>
@@ -152,7 +155,7 @@ A better approach is to define `.centered { text-align: center; }` in the CSS st
 </details>
 
 <details markdown="1">
-<summary markdown="1">The `SIGHTINGS` list in `table_page.py` contains the string `'Male; color described as "reddish-brown"'`. The original `table_page.html` uses `&quot;` for those double-quotes. What does htpy put in the output---`&quot;`, `&#34;`, the literal `"`, or something else?</summary>
+<summary markdown="1">The `SIGHTINGS` list in `table_page.py` contains the string `'Male; color described as "reddish-brown"'`. The original `table_page.html` uses `&quot;` for those double-quotes. What does htpy put in the output: `&quot;`, `&#34;`, the literal `"`, or something else?</summary>
 
 htpy outputs `&#34;`, the numeric character reference for `"`.
 The original HTML file used `&quot;`, which is the named entity for the same character.
@@ -162,8 +165,6 @@ but htpy escapes them anyway using the numeric form.
 You can verify this yourself by running `python table_page.py` and searching the output.
 
 </details>
-
-See [%b htpy2025 %] for the full htpy documentation and [%b mdn-html2024 %] for reference on HTML elements and attributes.
 
 ## Exercises
 

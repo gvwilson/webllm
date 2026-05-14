@@ -9,7 +9,7 @@
 
 ## What a Web Server Does
 
-*What is a web server and how is it different from opening an HTML file in a browser?*
+> What is a web server and how is it different from opening an HTML file in a browser?
 
 -   When you double-click an HTML file, the browser reads it from disk: no network involved
 -   A [%g web-server "web server" %] is a program that listens for requests from browsers
@@ -19,7 +19,7 @@
 -   This matters because a server can generate different pages for different requests,
     read from a database, and accept form submissions, none of which work with static files
 
-*What is Litestar and how do I add it to the project?*
+> What is Litestar and how do I add it to the project?
 
 -   [Litestar][litestar] is a Python [%g web-framework "web framework" %]:
     -   A library that handles the low-level details of receiving requests and sending responses
@@ -30,8 +30,8 @@
 
 ## A First Server
 
-*Write a Litestar server with a single route at `/` that returns the message
-"Hello from the Sasquatch Observatory!".*
+> Write a Litestar server with a single route at `/` that returns the message
+> "Hello from the Sasquatch Observatory!".
 
 -   The `@get("/")` decorator marks the function as a handler for GET requests to `/`
 -   The function's return [%g type-annotation "type annotation" %] (`-> str`)
@@ -55,7 +55,7 @@
 -   `8000` is the [%g port "port" %] number, like a door number in a building
     -   Different programs listen on different ports so they do not collide
 
-*Explain what happens step by step when the browser visits `http://127.0.0.1:8000`.*
+> Explain what happens step by step when the browser visits `http://127.0.0.1:8000`.
 
 -   The browser opens a connection to port 8000 on the loopback address
     and sends an [%g http-request "HTTP request" %]: "GET / HTTP/1.1"
@@ -78,10 +78,10 @@ because it serves the site's front page.
 
 ## A Table of Sightings
 
-*Create a file called `dataset.py` containing twenty rows of synthetic sasquatch sighting data.
-Each row must be a dict with keys for ID, species, sex, weight, color, date/time,
-latitude, and longitude. Some sex and weight values should be `None` to represent
-observations where those details were not recorded.*
+> Create a file called `dataset.py` containing twenty rows of synthetic sasquatch sighting data.
+> Each row must be a dict with keys for ID, species, sex, weight, color, date/time,
+> latitude, and longitude. Some sex and weight values should be `None` to represent
+> observations where those details were not recorded.
 
 -   The LLM produces a list of dicts
 -   Store it in a variable called `SIGHTINGS`
@@ -90,15 +90,15 @@ observations where those details were not recorded.*
 
 [%inc dataset.py head=11 %]
 
-*Write a Litestar route at `/` that imports `SIGHTINGS` from `dataset.py` and returns
-an HTML page with a table of all sightings*
+> Write a Litestar route at `/` that imports `SIGHTINGS` from `dataset.py` and returns
+> an HTML page with a table of all sightings
 
 -   Pass `media_type=MediaType.HTML` to `@get` so the browser renders the response as HTML
     rather than displaying the raw tags as text
 -   Display `None` values as an empty string with `str(s[k]) if s[k] is not None else ""`
 
-*Modify the Litestar route to Link to an external CSS file called `style.css`.
-Also add a route at `/style.css` to read and return that file.*
+> Modify the Litestar route to Link to an external CSS file called `style.css`.
+> Also add a route at `/style.css` to read and return that file.
 
 -   Link to the stylesheet with `link(rel="stylesheet", href="/style.css")` in the `<head>`
 -   When the browser parses that link it makes a second GET request to `/style.css`,
@@ -107,7 +107,7 @@ Also add a route at `/style.css` to read and return that file.*
 
 [%inc server_table.py %]
 
-*Explain what `MediaType.HTML` does and what the browser would show if it was left out.*
+> Explain what `MediaType.HTML` does and what the browser would show if it was left out.
 
 -   HTTP responses carry a [%g media-type "media type" %] (sometimes called a MIME type)
     that tells the browser what kind of content it is receiving
@@ -115,16 +115,16 @@ Also add a route at `/style.css` to read and return that file.*
 -   With `text/plain` the browser treats the content as literal characters,
     so `<table>` appears on screen as `<table>` rather than becoming a rendered table
 
-*Write a simple CSS stylesheet that sets the font and page width, puts borders on the table cells,
-and makes the header row slightly gray.*
+> Write a simple CSS stylesheet that sets the font and page width, puts borders on the table cells,
+> and makes the header row slightly gray.
 
 [%inc style.css %]
 
 ## Detail Pages
 
-*Make each sighting ID in the table a link to `/sighting/{id}`.
-Add a route that looks up that ID and displays the sighting's details
-in a two-column table with the field names on the left and values on the right.*
+> Make each sighting ID in the table a link to `/sighting/{id}`.
+> Add a route that looks up that ID and displays the sighting's details
+> in a two-column table with the field names on the left and values on the right.
 
 -   A [%g path-parameter "path parameter" %] is a variable segment of the URL:
     `{sighting_id:int}` matches `/sighting/1`, `/sighting/2`, and so on,
@@ -141,7 +141,7 @@ in a two-column table with the field names on the left and values on the right.*
 
 [%inc run3.sh %]
 
-*Trace what happens when a user visits `/sighting/99` and ID 99 is not in the data.*
+> Trace what happens when a user visits `/sighting/99` and ID 99 is not in the data.
 
 -   Litestar matches the URL to `detail` and calls it with `sighting_id=99`
 -   The `for` loop finishes without finding a match, so execution reaches `raise NotFoundException`
@@ -150,6 +150,8 @@ in a two-column table with the field names on the left and values on the right.*
     -   No Python traceback appears in the browser window, but Litestar prints a log line in the terminal
 
 ## Check Understanding
+
+See [%b litestar2025 %] for the full Litestar documentation and [%b mdn-html2024 %] for the HTTP reference.
 
 <details markdown="1">
 <summary markdown="1">What is the difference between `@get("/")` and `@get("/sightings")`?</summary>
@@ -174,12 +176,6 @@ Check the terminal where you launched the server for error messages.
 <details markdown="1">
 <summary markdown="1">The code below is supposed to show an HTML page, but the browser displays the raw tags as text. What is wrong and how do you fix it?</summary>
 
-```python
-@get("/")
-async def index() -> str:
-    return str(html[body[p["Hello"]]])
-```
-
 The route is missing `media_type=MediaType.HTML`, so Litestar sends the response as `text/plain`.
 The browser therefore treats the content as literal text rather than markup.
 The fix is:
@@ -191,6 +187,12 @@ async def index() -> str:
 ```
 
 </details>
+
+```python
+@get("/")
+async def index() -> str:
+    return str(html[body[p["Hello"]]])
+```
 
 <details markdown="1">
 <summary markdown="1">Why does the browser make two requests when it loads the sightings table page?</summary>
@@ -208,12 +210,6 @@ This is why `server_table.py` needs both an `index` route and a `styles` route.
 `/sighting/abc` crashes the server with an unhandled exception. Why, and how does adding `:int`
 to the path parameter fix it?</summary>
 
-```python
-@get("/sighting/{sighting_id}")
-async def detail(sighting_id: str) -> str:
-    ...
-```
-
 Without `:int`, Litestar captures the URL segment as a plain string and passes it to the handler.
 When the handler tries to compare it to the integer IDs in `SIGHTINGS` the logic may fail,
 and any code that treats it as a number will raise a `ValueError` or `TypeError`.
@@ -223,7 +219,11 @@ before your function is ever called.
 
 </details>
 
-See [%b litestar2025 %] for the full Litestar documentation and [%b mdn-html2024 %] for the HTTP reference.
+```python
+@get("/sighting/{sighting_id}")
+async def detail(sighting_id: str) -> str:
+    ...
+```
 
 ## Exercises
 

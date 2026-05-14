@@ -10,7 +10,7 @@
 
 ## Why Not Just Print?
 
-*What is wrong with using `print` to debug an application?*
+> What is wrong with using `print` to debug an application?
 
 -   Every `print` call runs unconditionally, whether you want its output or not
 -   When you are done debugging, you have to find and remove each one by hand
@@ -18,7 +18,7 @@
 -   All `print` output looks the same: there is no way to tell a routine status message from a serious error
 -   A server handling dozens of requests per minute produces a wall of text that is hard to read
 
-*What does Python's `logging` module give you that `print` does not?*
+> What does Python's `logging` module give you that `print` does not?
 
 -   Every message has a [%g log-level "log level" %]: `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL`,
     in increasing order of severity
@@ -34,8 +34,8 @@
 
 ## Adding a Logger to the Server
 
-*Add logging to `server_stream.py` so that the server records what it is doing.
-Add a `configure_logging` function that can be called once at startup.*
+> Add logging to `server_stream.py` so that the server records what it is doing.
+> Add a `configure_logging` function that can be called once at startup.
 
 -   `logger = logging.getLogger(__name__)` goes below the imports and above the first function,
     at module level so every handler in the file shares the same logger
@@ -50,8 +50,8 @@ Add a `configure_logging` function that can be called once at startup.*
 -   Calling `configure_logging()` at module level, before `app = make_app()`, means logging is
     ready before any request arrives
 
-*Add log calls to the handlers. Use `INFO` when a sighting is inserted or deleted,
-`WARNING` when an optional field is left blank, and `DEBUG` when a detail page loads successfully.*
+> Add log calls to the handlers. Use `INFO` when a sighting is inserted or deleted,
+> `WARNING` when an optional field is left blank, and `DEBUG` when a detail page loads successfully.
 
 -   `logger.info("home page: %d sightings", len(rows))` records the count each time the index loads
 
@@ -88,8 +88,8 @@ The terminal shows timestamped lines like these:
 
 ## Writing Logs to a File
 
-*Copy `server_stream.py` to `server_rotate.py`
-and update `configure_logging` to also write to a file alongside the terminal output.*
+> Copy `server_stream.py` to `server_rotate.py`
+> and update `configure_logging` to also write to a file alongside the terminal output.
 
 -   `LOG_PATH = LESSON_DIR / "sightings.log"` puts the file next to the server code
 -   `logging.FileHandler(LOG_PATH)` opens the file and writes each message to it
@@ -99,7 +99,7 @@ and update `configure_logging` to also write to a file alongside the terminal ou
 -   Log files should not be committed to version control
     -   Add `*.log` to `.gitignore` so the file never ends up in a repository by accident
 
-*What happens if the log file grows too large, and how do you handle it?*
+> What happens if the log file grows too large, and how do you handle it?
 
 -   A server running for months can produce a log file large enough to fill the disk
 -   `logging.handlers.RotatingFileHandler(LOG_PATH, maxBytes=1_000_000, backupCount=3)`
@@ -113,8 +113,8 @@ and update `configure_logging` to also write to a file alongside the terminal ou
 
 ## Catching Exceptions in the Log
 
-*Modify the CSV upload handler in `server_rotate.py` to catch exceptions and record the full
-traceback instead of crashing and returning a 500 response.*
+> Modify the CSV upload handler in `server_rotate.py` to catch exceptions and record the full
+> traceback instead of crashing and returning a 500 response.
 
 -   Without a try/except, a malformed CSV row terminates the handler immediately and returns a
     blank 500 error; the log shows nothing useful
@@ -126,8 +126,8 @@ traceback instead of crashing and returning a 500 response.*
     -   `exception` is shorthand for `error` combined with `traceback.format_exc()`;
         using `logger.error` alone would log the message but lose the traceback
 
-*What does the log file contain after a CSV upload whose column names do not match what the
-handler expects?*
+> What does the log file contain after a CSV upload whose column names do not match what the
+> handler expects?
 
 -   The Python dictionary lookup `row["species"]` raises `KeyError` if the CSV header is
     `Species` (capital S) instead of `species`
@@ -196,16 +196,16 @@ so total disk use stays bounded regardless of how long the server runs.
 <details markdown="1">
 <summary markdown="1">The code below is meant to log a failure, but the traceback never appears in the log file. What is wrong?</summary>
 
-```python
-except Exception as e:
-    logger.error("upload failed: %s", e)
-```
-
 `logger.error` logs the message but discards the traceback.
 Replace it with `logger.exception("upload failed: %s", e)`,
 which automatically appends the current exception's full traceback to the log entry.
 
 </details>
+
+```python
+except Exception as e:
+    logger.error("upload failed: %s", e)
+```
 
 ## Exercises
 
