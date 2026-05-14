@@ -1,3 +1,4 @@
+[homebrew]: https://brew.sh/
 [htmx]: https://htmx.org/
 [htpy]: https://htpy.dev/
 [httpx]: https://www.python-httpx.org/
@@ -6,4 +7,6 @@
 [python-logging]: https://docs.python.org/3/library/logging.html
 [playwright-python]: https://playwright.dev/python/
 [pytest]: https://docs.pytest.org/
+[mkcert]: https://github.com/FiloSottile/mkcert
+[mkcert-releases]: https://github.com/FiloSottile/mkcert/releases
 [sqlite]: https://sqlite.org/

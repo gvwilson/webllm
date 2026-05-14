@@ -29,6 +29,7 @@
 
 <div id="appendices" markdown="1">
 
+1.  [Securing the Site](@/secure/)
 1.  [License](@/license/)
 1.  [Code of Conduct](@/conduct/)
 1.  [Contributing](@/contributing/)

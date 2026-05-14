@@ -17,6 +17,20 @@
     to the rules that determine which style wins when more than one
     rule applies to the same element.
 
+<span id="certificate">certificate</span>
+:   A file that proves a server's identity during a secure connection.
+    It contains the server's hostname, a public key used for encryption, and a digital signature
+    from a certificate authority that vouches for its authenticity.
+    Browsers check this signature before allowing an encrypted connection to proceed.
+
+<span id="certificate-authority">certificate authority</span> (CA)
+:   An organization that issues and digitally signs certificates, vouching for the identity of
+    the server named in each certificate.
+    Browsers ship with a built-in list of trusted CAs; a certificate signed by any of them is
+    accepted without a warning.
+    For local development, `mkcert` acts as a private CA whose root certificate you add to your
+    own machine's trust store.
+
 <span id="column">column</span>
 :   A named field in a database table that holds one kind of value for every row.
     For example, the `sightings` table has columns named `species`, `sex`, and `weight`.
@@ -141,6 +155,12 @@
 :   A message sent from a web server back to the browser in reply to an HTTP request.
     It includes a status code (200 for success, 404 for not found, etc.),
     headers such as the media type, and a body containing the requested content.
+
+<span id="https">HTTPS</span> (Hypertext Transfer Protocol Secure)
+:   An extension of HTTP that encrypts all traffic between the browser and the server using TLS.
+    A URL beginning with `https://` signals that the connection is encrypted;
+    browsers display a padlock icon to confirm this.
+    HTTPS also requires the server to present a certificate so the browser can verify its identity.
 
 <span id="html">HyperText Markup Language</span> (HTML)
 :   The standard language for creating web pages.
@@ -319,6 +339,12 @@
     without starting a real server or opening a browser.
     The application handles requests normally, so tests can check status codes and response content
     without any network setup.
+
+<span id="tls">TLS</span> (Transport Layer Security)
+:   A protocol that encrypts the connection between a browser and a server so that
+    data cannot be read or modified in transit.
+    TLS is the mechanism that makes HTTPS secure; when you see a padlock in the browser,
+    TLS is doing the work of protecting the connection.
 
 <span id="tree">tree</span>
 :   A data structure in which each item has at most one parent and any number of children,
