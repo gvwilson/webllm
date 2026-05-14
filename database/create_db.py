@@ -12,6 +12,7 @@ SIGHTINGS = [
         "latitude": 49.23,
         "longitude": -121.45,
     },
+    # mccole:skip
     {
         "id": 2,
         "species": "G. horribilus",
@@ -202,6 +203,7 @@ SIGHTINGS = [
         "latitude": 58.22,
         "longitude": -120.89,
     },
+    # mccole:/skip
 ]
 
 DB_PATH = Path(__file__).parent / "sightings.db"

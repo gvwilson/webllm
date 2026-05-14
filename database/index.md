@@ -44,7 +44,7 @@ The table should be populated with the data from `dataset.py`.*
     connection closes
 -   `conn.close()` releases the file so other programs can access it
 
-[%inc create_db.py %]
+[%inc create_db.py omit=skip %]
 
 Run the script once to create the database:
 

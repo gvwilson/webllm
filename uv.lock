@@ -129,11 +129,11 @@ wheels = [
 
 [[package]]
 name = "idna"
-version = "3.13"
+version = "3.15"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/ce/cc/762dfb036166873f0059f3b7de4565e1b5bc3d6f28a414c13da27e442f99/idna-3.13.tar.gz", hash = "sha256:585ea8fe5d69b9181ec1afba340451fba6ba764af97026f92a91d4eef164a242", size = 194210, upload-time = "2026-04-22T16:42:42.314Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz", hash = "sha256:ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc", size = 199245, upload-time = "2026-05-12T22:45:57.011Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5d/13/ad7d7ca3808a898b4612b6fe93cde56b53f3034dcde235acb1f0e1df24c6/idna-3.13-py3-none-any.whl", hash = "sha256:892ea0cde124a99ce773decba204c5552b69c3c67ffd5f232eb7696135bc8bb3", size = 68629, upload-time = "2026-04-22T16:42:40.909Z" },
+    { url = "https://files.pythonhosted.org/packages/d2/23/408243171aa9aaba178d3e2559159c24c1171a641aa83b67bdd3394ead8e/idna-3.15-py3-none-any.whl", hash = "sha256:048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8", size = 72340, upload-time = "2026-05-12T22:45:55.733Z" },
 ]
 
 [[package]]
@@ -265,7 +265,7 @@ wheels = [
 
 [[package]]
 name = "mccole"
-version = "4.0.0"
+version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beautifulsoup4" },
@@ -276,9 +276,9 @@ dependencies = [
     { name = "python-frontmatter" },
     { name = "tomli" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/59/7b/29951cfb4249ef9a0b1a8b7319d6ee1977b1dfdaebf906c68dec1f276349/mccole-4.0.0.tar.gz", hash = "sha256:5a37dc6b595c659413649e2c3b04e5fcb2d5cc771454ed7519c4e95cc411d417", size = 707094, upload-time = "2026-05-07T13:57:04.117Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/6f/8b/0171e6a538c774b5adbcea42f2d5b15ea2577b27671b2232736278417dd8/mccole-4.2.0.tar.gz", hash = "sha256:9cf6e3acf7b4d24a57d03dd110abfe0341d8e3bcd22e33aaab38d4b2897f481a", size = 707792, upload-time = "2026-05-14T01:44:02.273Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/62/00/fc03c7c046d6e6f83066ef293b5a7dec58b9bd9f55f190780a97590c4594/mccole-4.0.0-py3-none-any.whl", hash = "sha256:7ce95344d8fd334e613957c52567c33eaa683a2262eb5b9fc365c7c12a90c47b", size = 40027, upload-time = "2026-05-07T13:57:03.121Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/80/d4c4f0094ca4c047a5c7f92fb3708f7d8073e408d0d48a46d008094b5d51/mccole-4.2.0-py3-none-any.whl", hash = "sha256:c62d87bf46615bef434dee408be69a626bde8c8047085bda6cf18612e611c6dc", size = 41330, upload-time = "2026-05-14T01:44:00.757Z" },
 ]
 
 [[package]]
