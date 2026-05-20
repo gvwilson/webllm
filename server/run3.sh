@@ -1,1 +1,1 @@
-litestar run --app server_detail:app
+uvicorn server_detail:app --reload

@@ -10,7 +10,7 @@
 
 ## Why Test in a Browser?
 
-> What kinds of bugs can a browser catch that Litestar's test client cannot?
+> What kinds of bugs can a browser catch that the test client cannot?
 
 -   The test client from the previous lessons sends HTTP requests directly to the application in memory:
     it never runs a real browser
@@ -39,7 +39,7 @@
 
 ## Starting a Server for Tests
 
-> What is the difference between tests that use Litestar's test client and tests that use Playwright?
+> What is the difference between tests that use a test client and tests that use Playwright?
 
 -   The test client talks directly to the application object in Python memory
     -   no network connection, no open port, no running process
@@ -63,7 +63,7 @@
 > Write a `conftest.py` with a session-scoped fixture called `server_url` that starts
 > `server_pw.py` and shuts it down after all tests finish.
 
--   `subprocess.Popen(["uv", "run", "litestar", "run", "--app", "server_pw:app"], cwd=LESSON_DIR)`
+-   `subprocess.Popen(["uv", "run", "uvicorn", "server_pw:app", "--port", "8000"], cwd=LESSON_DIR)`
     starts the server as a separate process, just as if you had typed the command in a terminal
     -   `cwd=LESSON_DIR` runs the command in the directory where `server_pw.py` lives
 -   `time.sleep(1.5)` gives the server a moment to start accepting connections before the first
@@ -142,9 +142,9 @@ See [%b playwright2025 %] for the full Playwright for Python documentation.
 ## Check Understanding
 
 <details markdown="1">
-<summary markdown="1">A classmate writes `client.post("/add", data={...})` with Litestar's TestClient to test the add form. What does this test confirm, and what does it miss?</summary>
+<summary markdown="1">A classmate writes `client.post("/add", data={...})` with a test client to test the add form. What does this test confirm, and what does it miss?</summary>
 
-The TestClient test confirms that the server receives the POST request,
+The test client test confirms that the server receives the POST request,
 inserts the row into the database,
 and returns a 303 redirect.
 It does not confirm that the `required` attribute on the form actually stops an empty field from being submitted, because that check happens in the browser before the request is ever sent.

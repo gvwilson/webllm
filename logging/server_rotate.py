@@ -3,19 +3,15 @@ import io
 import logging
 import logging.handlers
 import sqlite3
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated
 
+from fasthtml.common import FastHTML
 from htpy import a, body, button, form, h1, head, html
 from htpy import input as inp
 from htpy import label, li, link, table, td, th, title, tr, ul
-from litestar import Litestar, MediaType, get, post
-from litestar.datastructures import UploadFile
-from litestar.enums import RequestEncodingType
-from litestar.exceptions import NotFoundException
-from litestar.params import Body
-from litestar.response import Redirect
+from starlette.exceptions import HTTPException
+from starlette.requests import Request
+from starlette.responses import HTMLResponse, RedirectResponse, Response
 
 from utils import HEADERS, KEYS, LABELS, fmt
 
@@ -46,20 +42,17 @@ def configure_logging():
 # mccole:/configure-logging
 
 
-@dataclass
-class CsvUpload:
-    csv_file: UploadFile
-
-
 def make_app(db_path=DB_PATH):
-    @get("/", media_type=MediaType.HTML)
-    async def index() -> str:
+    app = FastHTML()
+
+    @app.get("/")
+    async def index():
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         rows = conn.execute("select * from sightings").fetchall()
         conn.close()
         logger.info("home page: %d sightings", len(rows))
-        return str(
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title["Sasquatch Sightings"],
@@ -82,10 +75,10 @@ def make_app(db_path=DB_PATH):
                     ],
                 ],
             ]
-        )
+        ))
 
-    @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
-    async def detail(sighting_id: int) -> str:
+    @app.get("/sighting/{sighting_id:int}")
+    async def detail(sighting_id: int):
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         row = conn.execute(
@@ -94,9 +87,9 @@ def make_app(db_path=DB_PATH):
         conn.close()
         if row is None:
             logger.warning("sighting %d not found", sighting_id)
-            raise NotFoundException(f"No sighting with ID {sighting_id}")
+            raise HTTPException(status_code=404, detail=f"No sighting with ID {sighting_id}")
         logger.debug("sighting %d retrieved", sighting_id)
-        return str(
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title[f"Sighting {sighting_id}"],
@@ -118,20 +111,20 @@ def make_app(db_path=DB_PATH):
                     ],
                 ],
             ]
-        )
+        ))
 
-    @post("/delete/{sighting_id:int}")
-    async def delete_sighting(sighting_id: int) -> Redirect:
+    @app.post("/delete/{sighting_id:int}")
+    async def delete_sighting(sighting_id: int):
         logger.info("deleting sighting %d", sighting_id)
         conn = sqlite3.connect(db_path)
         conn.execute("delete from sightings where id = ?", [sighting_id])
         conn.commit()
         conn.close()
-        return Redirect("/", status_code=303)
+        return RedirectResponse("/", status_code=303)
 
-    @get("/add", media_type=MediaType.HTML)
-    async def add_form() -> str:
-        return str(
+    @app.get("/add")
+    async def add_form():
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title["Add a Sighting"],
@@ -176,12 +169,11 @@ def make_app(db_path=DB_PATH):
                     a(href="/")["Back to all sightings"],
                 ],
             ]
-        )
+        ))
 
-    @post("/add")
-    async def add_sighting(
-        data: Annotated[dict, Body(media_type=RequestEncodingType.URL_ENCODED)],
-    ) -> Redirect:
+    @app.post("/add")
+    async def add_sighting(request: Request):
+        data = await request.form()
         if not data["sex"]:
             logger.warning("new sighting added without sex")
         if not data["weight"]:
@@ -202,11 +194,11 @@ def make_app(db_path=DB_PATH):
         conn.commit()
         conn.close()
         logger.info("inserted sighting: species=%s", data["species"])
-        return Redirect("/", status_code=303)
+        return RedirectResponse("/", status_code=303)
 
-    @get("/upload", media_type=MediaType.HTML)
-    async def upload_form() -> str:
-        return str(
+    @app.get("/upload")
+    async def upload_form():
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title["Upload Sightings"],
@@ -225,14 +217,14 @@ def make_app(db_path=DB_PATH):
                     a(href="/")["Back to all sightings"],
                 ],
             ]
-        )
+        ))
 
 # mccole:upload-csv
-    @post("/upload")
-    async def upload_csv(
-        data: Annotated[CsvUpload, Body(media_type=RequestEncodingType.MULTI_PART)],
-    ) -> Redirect:
-        content = await data.csv_file.read()
+    @app.post("/upload")
+    async def upload_csv(request: Request):
+        form_data = await request.form()
+        csv_file = form_data.get("csv_file")
+        content = await csv_file.read()
         reader = csv.DictReader(io.StringIO(content.decode("utf-8")))
         conn = sqlite3.connect(db_path)
         count = 0
@@ -256,25 +248,14 @@ def make_app(db_path=DB_PATH):
         conn.commit()
         conn.close()
         logger.info("CSV upload complete: %d rows inserted", count)
-        return Redirect("/", status_code=303)
+        return RedirectResponse("/", status_code=303)
 # mccole:/upload-csv
 
-    @get("/style.css", media_type="text/css")
-    async def styles() -> str:
-        return (LESSON_DIR / "style.css").read_text()
+    @app.get("/style.css")
+    def styles():
+        return Response((LESSON_DIR / "style.css").read_text(), media_type="text/css")
 
-    return Litestar(
-        [
-            index,
-            detail,
-            delete_sighting,
-            add_form,
-            add_sighting,
-            upload_form,
-            upload_csv,
-            styles,
-        ]
-    )
+    return app
 
 
 configure_logging()

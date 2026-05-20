@@ -1,8 +1,9 @@
 import sqlite3
 from pathlib import Path
 
+from fasthtml.common import FastHTML
 from htpy import body, div, h1, head, html, link, script, table, tbody, td, th, thead, title, tr
-from litestar import Litestar, MediaType, get
+from starlette.responses import HTMLResponse, Response
 
 from utils import HEADERS, KEYS, fmt
 
@@ -32,15 +33,17 @@ def make_sentinel(offset):
 
 # mccole:index-route
 def make_app(db_path=DB_PATH):
-    @get("/", media_type=MediaType.HTML)
-    async def index() -> str:
+    app = FastHTML()
+
+    @app.get("/")
+    async def index():
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         rows = conn.execute(
             "select * from sightings limit ?", [PAGE_SIZE]
         ).fetchall()
         conn.close()
-        return str(
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title["Sasquatch Sightings"],
@@ -60,12 +63,12 @@ def make_app(db_path=DB_PATH):
                     ],
                 ],
             ]
-        )
+        ))
 # mccole:/index-route
 
 # mccole:more-rows
-    @get("/rows", media_type=MediaType.HTML)
-    async def more_rows(offset: int = 0) -> str:
+    @app.get("/rows")
+    async def more_rows(offset: int = 0):
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         rows = conn.execute(
@@ -75,13 +78,13 @@ def make_app(db_path=DB_PATH):
         result = "".join(str(make_row(row)) for row in rows)
         if len(rows) == PAGE_SIZE:
             result += str(make_sentinel(offset + PAGE_SIZE))
-        return result
+        return HTMLResponse(result)
 
-    @get("/style.css", media_type="text/css")
-    async def styles() -> str:
-        return (LESSON_DIR / "style.css").read_text()
+    @app.get("/style.css")
+    def styles():
+        return Response((LESSON_DIR / "style.css").read_text(), media_type="text/css")
 
-    return Litestar([index, more_rows, styles])
+    return app
 
 
 app = make_app()

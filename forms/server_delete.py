@@ -1,10 +1,10 @@
 import sqlite3
 from pathlib import Path
 
+from fasthtml.common import FastHTML
 from htpy import a, body, button, form, head, html, link, table, td, th, title, tr
-from litestar import Litestar, MediaType, get, post
-from litestar.exceptions import NotFoundException
-from litestar.response import Redirect
+from starlette.exceptions import HTTPException
+from starlette.responses import HTMLResponse, RedirectResponse, Response
 
 from utils import HEADERS, KEYS, LABELS, fmt
 
@@ -13,13 +13,15 @@ DB_PATH = LESSON_DIR.parent / "database" / "sightings.db"
 
 
 def make_app(db_path=DB_PATH):
-    @get("/", media_type=MediaType.HTML)
-    async def index() -> str:
+    app = FastHTML()
+
+    @app.get("/")
+    async def index():
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         rows = conn.execute("select * from sightings").fetchall()
         conn.close()
-        return str(
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title["Sasquatch Sightings"],
@@ -38,11 +40,11 @@ def make_app(db_path=DB_PATH):
                     ],
                 ],
             ]
-        )
+        ))
 
 # mccole:detail-with-delete
-    @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
-    async def detail(sighting_id: int) -> str:
+    @app.get("/sighting/{sighting_id:int}")
+    async def detail(sighting_id: int):
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         row = conn.execute(
@@ -50,8 +52,8 @@ def make_app(db_path=DB_PATH):
         ).fetchone()
         conn.close()
         if row is None:
-            raise NotFoundException(f"No sighting with ID {sighting_id}")
-        return str(
+            raise HTTPException(status_code=404, detail=f"No sighting with ID {sighting_id}")
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title[f"Sighting {sighting_id}"],
@@ -73,24 +75,24 @@ def make_app(db_path=DB_PATH):
                     ],
                 ],
             ]
-        )
+        ))
 # mccole:/detail-with-delete
 
 # mccole:delete-route
-    @post("/delete/{sighting_id:int}")
-    async def delete_sighting(sighting_id: int) -> Redirect:
+    @app.post("/delete/{sighting_id:int}")
+    async def delete_sighting(sighting_id: int):
         conn = sqlite3.connect(db_path)
         conn.execute("delete from sightings where id = ?", [sighting_id])
         conn.commit()
         conn.close()
-        return Redirect("/", status_code=303)
+        return RedirectResponse("/", status_code=303)
 # mccole:/delete-route
 
-    @get("/style.css", media_type="text/css")
-    async def styles() -> str:
-        return (LESSON_DIR / "style.css").read_text()
+    @app.get("/style.css")
+    def styles():
+        return Response((LESSON_DIR / "style.css").read_text(), media_type="text/css")
 
-    return Litestar([index, detail, delete_sighting, styles])
+    return app
 
 
 app = make_app()

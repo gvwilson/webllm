@@ -1,8 +1,9 @@
 import sqlite3
 from pathlib import Path
 
+from fasthtml.common import FastHTML
 from htpy import body, div, h1, head, html, link, p, script, table, tbody, td, th, thead, title, tr
-from litestar import Litestar, MediaType, get
+from starlette.responses import HTMLResponse, Response
 
 from utils import HEADERS, KEYS, LABELS, fmt
 
@@ -37,15 +38,17 @@ def make_sentinel(offset):
 
 # mccole:index
 def make_app(db_path=DB_PATH):
-    @get("/", media_type=MediaType.HTML)
-    async def index() -> str:
+    app = FastHTML()
+
+    @app.get("/")
+    async def index():
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         rows = conn.execute(
             "select * from sightings limit ?", [PAGE_SIZE]
         ).fetchall()
         conn.close()
-        return str(
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title["Sasquatch Sightings"],
@@ -68,11 +71,11 @@ def make_app(db_path=DB_PATH):
                     ],
                 ],
             ]
-        )
+        ))
 # mccole:/index
 
-    @get("/rows", media_type=MediaType.HTML)
-    async def more_rows(offset: int = 0) -> str:
+    @app.get("/rows")
+    async def more_rows(offset: int = 0):
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         rows = conn.execute(
@@ -82,11 +85,11 @@ def make_app(db_path=DB_PATH):
         result = "".join(str(make_row(row)) for row in rows)
         if len(rows) == PAGE_SIZE:
             result += str(make_sentinel(offset + PAGE_SIZE))
-        return result
+        return HTMLResponse(result)
 
 # mccole:detail-fragment
-    @get("/sighting/{sighting_id:int}/detail", media_type=MediaType.HTML)
-    async def detail_fragment(sighting_id: int) -> str:
+    @app.get("/sighting/{sighting_id:int}/detail")
+    async def detail_fragment(sighting_id: int):
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         row = conn.execute(
@@ -94,8 +97,8 @@ def make_app(db_path=DB_PATH):
         ).fetchone()
         conn.close()
         if row is None:
-            return "<p>Sighting not found.</p>"
-        return str(
+            return HTMLResponse("<p>Sighting not found.</p>")
+        return HTMLResponse(str(
             table[
                 [
                     tr[
@@ -105,13 +108,13 @@ def make_app(db_path=DB_PATH):
                     for key, lbl in LABELS.items()
                 ]
             ]
-        )
+        ))
 
-    @get("/style.css", media_type="text/css")
-    async def styles() -> str:
-        return (LESSON_DIR / "style.css").read_text()
+    @app.get("/style.css")
+    def styles():
+        return Response((LESSON_DIR / "style.css").read_text(), media_type="text/css")
 
-    return Litestar([index, more_rows, detail_fragment, styles])
+    return app
 
 
 app = make_app()

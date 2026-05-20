@@ -1,5 +1,11 @@
 # Bibliography
 
+<span id="fasthtml2025">fasthtml2025</span>
+:   Jeremy Howard et al.:
+    "FastHTML Documentation".
+    <https://docs.fastht.ml/>,
+    2025.
+
 <span id="htmx2025">htmx2025</span>
 :   Carson Gross et al.:
     "HTMX Documentation".
@@ -10,12 +16,6 @@
 :   Johannes Hartveit:
     "htpy".
     <https://htpy.dev/>,
-    2025.
-
-<span id="litestar2025">litestar2025</span>
-:   Litestar Contributors:
-    "Litestar Documentation".
-    <https://docs.litestar.dev/>,
     2025.
 
 <span id="mdn-forms2025">mdn-forms2025</span>

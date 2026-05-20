@@ -3,7 +3,7 @@
 ## Goals
 
 -   Understand what a web server does and how it differs from opening a file in a browser.
--   Use Litestar to create a route that returns a plain-text response.
+-   Use FastHTML to create a route that returns a plain-text response.
 -   Serve a single HTML page built with htpy and styled with an external CSS file.
 -   Add a second page linked from the first.
 
@@ -19,36 +19,35 @@
 -   This matters because a server can generate different pages for different requests,
     read from a database, and accept form submissions, none of which work with static files
 
-> What is Litestar and how do I add it to the project?
+> What is FastHTML and how do I add it to the project?
 
--   [Litestar][litestar] is a Python [%g web-framework "web framework" %]:
+-   [FastHTML][fasthtml] is a Python [%g web-framework "web framework" %]:
     -   A library that handles the low-level details of receiving requests and sending responses
         so you can focus on your application logic
--   Add it to the project with `uv add litestar`, then confirm with `python -c "import litestar"`
--   A Litestar application is made of [%g route "routes" %]
+-   Add it to the project with `uv add python-fasthtml uvicorn`,
+    then confirm with `python -c "import fasthtml"`
+-   A FastHTML application is built around [%g route "routes" %]
     -   Each route pairs a URL pattern with the Python function that handles requests to that URL
 
 ## A First Server
 
-> Write a Litestar server with a single route at `/` that returns the message
+> Write a FastHTML server with a single route at `/` that returns the message
 > "Hello from the Sasquatch Observatory!".
 
--   The `@get("/")` decorator marks the function as a handler for GET requests to `/`
--   The function's return [%g type-annotation "type annotation" %] (`-> str`)
-    tells Litestar what kind of data to expect
--   `Litestar([index])` creates the application with a list of handlers
+-   `app = FastHTML()` creates the application object
+-   The `@app.get("/")` decorator marks the function as a handler for GET requests to `/`
 -   The `async` keyword tells Python this function can run while waiting on other work;
-    Litestar works with both `async def` and plain `def`, but LLMs typically generate `async def`
+    FastHTML works with both `async def` and plain `def`, but LLMs typically generate `async def`
 
 [%inc server_hello.py %]
 
--   Run the server from inside the `litestar/` directory with the command below
+-   Run the server from inside the `server/` directory with the command below
     -   Stop it with Ctrl-C when you are done
     -   If it doesn't work, check that your uv environment is active
 
 [%inc run1.sh %]
 
--   The terminal shows `Listening at http://127.0.0.1:8000`
+-   The terminal shows `Uvicorn running on http://127.0.0.1:8000`
     -   Visit that URL in a browser
 -   `127.0.0.1` is the [%g localhost "loopback address" %] (also written as `localhost`)
     -   Your computer talking to itself rather than to a remote machine
@@ -59,8 +58,8 @@
 
 -   The browser opens a connection to port 8000 on the loopback address
     and sends an [%g http-request "HTTP request" %]: "GET / HTTP/1.1"
--   Litestar matches the path `/` to the `index` function and calls it
--   The function returns the string, Litestar wraps it in an [%g http-response "HTTP response" %],
+-   FastHTML matches the path `/` to the `index` function and calls it
+-   The function returns the string, FastHTML wraps it in an [%g http-response "HTTP response" %],
     and sends it back
 -   With a [%g http-200 "200" %] status code to indicate that everything is OK
 -   The browser displays the text in the window
@@ -90,28 +89,29 @@ because it serves the site's front page.
 
 [%inc dataset.py head=11 %]
 
-> Write a Litestar route at `/` that imports `SIGHTINGS` from `dataset.py` and returns
+> Write a FastHTML route at `/` that imports `SIGHTINGS` from `dataset.py` and returns
 > an HTML page with a table of all sightings
 
--   Pass `media_type=MediaType.HTML` to `@get` so the browser renders the response as HTML
-    rather than displaying the raw tags as text
+-   Return an `HTMLResponse` from `starlette.responses` wrapping the htpy-generated HTML
+-   `HTMLResponse` sets the `Content-Type` header to `text/html` so the browser renders the
+    response as HTML rather than displaying the raw tags as text
 -   Display `None` values as an empty string with `str(s[k]) if s[k] is not None else ""`
 
-> Modify the Litestar route to Link to an external CSS file called `style.css`.
-> Also add a route at `/style.css` to read and return that file.
+> Add a route at `/style.css` that reads and returns the stylesheet file.
 
 -   Link to the stylesheet with `link(rel="stylesheet", href="/style.css")` in the `<head>`
 -   When the browser parses that link it makes a second GET request to `/style.css`,
     so the server needs a route to handle it
+-   Return a `Response` with `media_type="text/css"` for the CSS route
 -   The CSS route reads the file from disk relative to the server script using `Path(__file__).parent`
 
 [%inc server_table.py %]
 
-> Explain what `MediaType.HTML` does and what the browser would show if it was left out.
+> Explain what `HTMLResponse` does and what the browser would show if plain `str` were returned instead.
 
 -   HTTP responses carry a [%g media-type "media type" %] (sometimes called a MIME type)
     that tells the browser what kind of content it is receiving
--   `MediaType.HTML` sets that header to `text/html`; without it Litestar defaults to `text/plain`
+-   `HTMLResponse` sets that header to `text/html`; without it the default is `text/plain`
 -   With `text/plain` the browser treats the content as literal characters,
     so `<table>` appears on screen as `<table>` rather than becoming a rendered table
 
@@ -128,9 +128,9 @@ because it serves the site's front page.
 
 -   A [%g path-parameter "path parameter" %] is a variable segment of the URL:
     `{sighting_id:int}` matches `/sighting/1`, `/sighting/2`, and so on,
-    and Litestar converts the captured text to an integer before passing it to the handler
+    and FastHTML converts the captured text to an integer before passing it to the handler
 -   The handler loops through `SIGHTINGS` looking for the matching ID
-    -   `raise NotFoundException(...)` sends a [%g http-404 "404 response" %] if none is found
+    -   `raise HTTPException(status_code=404, ...)` sends a [%g http-404 "404 response" %] if none is found
 -   The detail table has one row per field
 -   Each sighting ID in the index table becomes a link:
     `a(href=f"/sighting/{s['id']}")[str(s["id"])]`
@@ -143,23 +143,23 @@ because it serves the site's front page.
 
 > Trace what happens when a user visits `/sighting/99` and ID 99 is not in the data.
 
--   Litestar matches the URL to `detail` and calls it with `sighting_id=99`
--   The `for` loop finishes without finding a match, so execution reaches `raise NotFoundException`
--   Litestar catches the exception and sends back an HTTP response with status code 404
+-   FastHTML matches the URL to `detail` and calls it with `sighting_id=99`
+-   The `for` loop finishes without finding a match, so execution reaches `raise HTTPException`
+-   FastHTML catches the exception and sends back an HTTP response with status code 404
 -   The browser shows an error page
-    -   No Python traceback appears in the browser window, but Litestar prints a log line in the terminal
+    -   No Python traceback appears in the browser window, but the server prints a log line in the terminal
 
 ## Check Understanding
 
-See [%b litestar2025 %] for the full Litestar documentation and [%b mdn-html2024 %] for the HTTP reference.
+See [%b fasthtml2025 %] for the full FastHTML documentation and [%b mdn-html2024 %] for the HTTP reference.
 
 <details markdown="1">
-<summary markdown="1">What is the difference between `@get("/")` and `@get("/sightings")`?</summary>
+<summary markdown="1">What is the difference between `@app.get("/")` and `@app.get("/sightings")`?</summary>
 
 Both decorate a function as a GET request handler, but they respond to different URLs.
-`@get("/")` handles requests to `http://127.0.0.1:8000/` (the root),
-while `@get("/sightings")` handles requests to `http://127.0.0.1:8000/sightings`.
-A Litestar app can have as many routes as you like, each at a different path.
+`@app.get("/")` handles requests to `http://127.0.0.1:8000/` (the root),
+while `@app.get("/sightings")` handles requests to `http://127.0.0.1:8000/sightings`.
+A FastHTML app can have as many routes as you like, each at a different path.
 
 </details>
 
@@ -167,7 +167,7 @@ A Litestar app can have as many routes as you like, each at a different path.
 <summary markdown="1">You visit `http://127.0.0.1:8000`, but the browser shows
 "This site can't be reached". What is the most likely cause?</summary>
 
-The server is not running: either you have not run `litestar run --app server_hello:app`,
+The server is not running: either you have not run `uvicorn server_hello:app`,
 or it crashed on startup, or you stopped it.
 Check the terminal where you launched the server for error messages.
 
@@ -176,21 +176,24 @@ Check the terminal where you launched the server for error messages.
 <details markdown="1">
 <summary markdown="1">The code below is supposed to show an HTML page, but the browser displays the raw tags as text. What is wrong and how do you fix it?</summary>
 
-The route is missing `media_type=MediaType.HTML`, so Litestar sends the response as `text/plain`.
-The browser therefore treats the content as literal text rather than markup.
+The route returns a plain string without wrapping it in `HTMLResponse`,
+so the browser receives the content with a `text/plain` content type
+and displays the tags as literal text rather than rendering them.
 The fix is:
 
 ```python
-@get("/", media_type=MediaType.HTML)
-async def index() -> str:
-    return str(html[body[p["Hello"]]])
+from starlette.responses import HTMLResponse
+
+@app.get("/")
+async def index():
+    return HTMLResponse(str(html[body[p["Hello"]]]))
 ```
 
 </details>
 
 ```python
-@get("/")
-async def index() -> str:
+@app.get("/")
+async def index():
     return str(html[body[p["Hello"]]])
 ```
 
@@ -210,18 +213,18 @@ This is why `server_table.py` needs both an `index` route and a `styles` route.
 `/sighting/abc` crashes the server with an unhandled exception. Why, and how does adding `:int`
 to the path parameter fix it?</summary>
 
-Without `:int`, Litestar captures the URL segment as a plain string and passes it to the handler.
+Without `:int`, FastHTML captures the URL segment as a plain string and passes it to the handler.
 When the handler tries to compare it to the integer IDs in `SIGHTINGS` the logic may fail,
 and any code that treats it as a number will raise a `ValueError` or `TypeError`.
-Writing `{sighting_id:int}` tells Litestar to convert the segment to an integer before calling the handler.
-If the segment is not a valid integer, such as `abc`, Litestar itself returns a 400 Bad Request response
+Writing `{sighting_id:int}` tells FastHTML to convert the segment to an integer before calling the handler.
+If the segment is not a valid integer, such as `abc`, FastHTML itself returns a 422 response
 before your function is ever called.
 
 </details>
 
 ```python
-@get("/sighting/{sighting_id}")
-async def detail(sighting_id: str) -> str:
+@app.get("/sighting/{sighting_id}")
+async def detail(sighting_id: str):
     ...
 ```
 

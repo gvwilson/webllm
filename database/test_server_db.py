@@ -1,7 +1,7 @@
 import sqlite3
 
 import pytest
-from litestar.testing import TestClient
+from starlette.testclient import TestClient
 
 from schema import CREATE_TABLE
 from server_db import make_app

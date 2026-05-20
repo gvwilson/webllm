@@ -5,7 +5,7 @@
 -   Understand what HTTPS and TLS certificates are and why browsers require them.
 -   Install mkcert to create locally-trusted development certificates.
 -   Generate a certificate for localhost.
--   Start the Litestar server in HTTPS mode.
+-   Start the server in HTTPS mode using uvicorn.
 
 ## What the Browser Checks
 
@@ -79,9 +79,9 @@
     -   Add `*-key.pem` to your `.gitignore` file so the key is never committed to a repository
         by accident
 
-*How do I start a Litestar server with HTTPS enabled?*
+*How do I start the server with HTTPS enabled?*
 
--   Pass the certificate and key files to `litestar run`:
+-   Pass the certificate and key files to `uvicorn`:
 
 [%inc run_secure.sh %]
 
@@ -128,7 +128,7 @@ even when the padlock is showing.
 </details>
 
 <details markdown="1">
-<summary markdown="1">The `litestar run` command below is supposed to start a secure server, but the browser shows a connection error. What is wrong?</summary>
+<summary markdown="1">The `uvicorn` command below is supposed to start a secure server, but the browser shows a connection error. What is wrong?</summary>
 
 The two file arguments are swapped.
 `--ssl-certfile` should point to `localhost.pem` (the certificate)
@@ -139,7 +139,7 @@ before the browser can connect.
 </details>
 
 ```
-litestar run --ssl-certfile localhost-key.pem --ssl-keyfile localhost.pem --app server:app
+uvicorn server:app --ssl-certfile localhost-key.pem --ssl-keyfile localhost.pem
 ```
 
 ## Exercises

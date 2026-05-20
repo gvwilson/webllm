@@ -1,1 +1,1 @@
-litestar run --app server_rotate:app
+uvicorn server_rotate:app --reload

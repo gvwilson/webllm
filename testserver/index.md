@@ -3,7 +3,7 @@
 ## Goals
 
 -   Understand why running automated tests is faster and more reliable than manually checking routes in a browser.
--   Use Litestar's test client to send HTTP requests to the application without starting a real server.
+-   Use a test client to send HTTP requests to the application without starting a real server.
 -   Write tests against the application's existing data to check status codes and page content.
 -   Refactor the server to accept a dataset as a parameter so tests can use small, controlled data.
 
@@ -21,18 +21,18 @@
 -   Clicking is easy to rush or skip, so bugs slip through
 -   The more routes the application has, the more steps there are to forget
 
-> What do I need to install to test a Litestar application with pytest?
+> What do I need to install to test a FastHTML application with pytest?
 
 -   `uv add pytest` adds the [pytest][pytest] testing framework
--   Litestar's test client uses the [httpx][httpx] library internally, so `uv add httpx` is needed too
+-   `uv add httpx` adds the [httpx][httpx] library that the test client uses internally
 -   Both packages are now available whenever you run pytest
 
 ## A First Test
 
-> Write a pytest test file called `test_server_status.py` that uses Litestar's TestClient to check that
+> Write a pytest test file called `test_server_status.py` that uses Starlette's TestClient to check that
 > `GET /` returns a 200 status code and that the page contains the text "Sasquatch Sightings".
 
--   `TestClient` from `litestar.testing` is a [%g test-client "test client" %]:
+-   `TestClient` from `starlette.testclient` is a [%g test-client "test client" %]:
     it wraps the application and lets you call routes directly in memory, with no real server or browser
 -   `with TestClient(app=make_app()) as client:` sets up the client and tears it down cleanly
     at the end of the `with` block
@@ -55,7 +55,7 @@
 -   Testing both the success path and the error path builds confidence that the code handles both correctly
     -   A route that never returns 404 when it should is just as broken as one that returns 200 when it should not
 -   The 20 rows in `SIGHTINGS` use IDs 1 through 20,
-    so ID 9999 is guaranteed to be missing and will trigger `raise NotFoundException`
+    so ID 9999 is guaranteed to be missing and will trigger `raise HTTPException(status_code=404, ...)`
 -   pytest reports pass or fail for each function separately, so you can see at a glance which path broke
 
 ## A Testable Server
@@ -71,12 +71,13 @@
 > Refactor `server_detail.py` into a new file `server_testable.py` by wrapping the route definitions in a function
 > called `make_app` that takes the sightings list as a parameter.
 
--   `make_app(sightings=SIGHTINGS)` is a function that defines the route handlers and returns the app
+-   `make_app(sightings=SIGHTINGS)` is a function that creates a fresh `FastHTML()` app,
+    defines the route handlers inside it, and returns the app
     -   The default value means calling `make_app()` with no arguments behaves exactly like `server_detail.py`
     -   Calling `make_app(SMALL)` returns an app that serves `SMALL` instead of the full dataset
 -   The handlers inside `make_app` use `sightings` just like any function uses a parameter:
     wherever `server_detail.py` wrote `for s in SIGHTINGS`, `server_testable.py` writes `for s in sightings`
--   `app = make_app()` at the bottom keeps `litestar run --app server_testable:app` working from the terminal
+-   `app = make_app()` at the bottom keeps `uvicorn server_testable:app` working from the terminal
 
 [%inc server_testable.py mark=make-app %]
 
@@ -99,12 +100,12 @@
 
 ## Check Understanding
 
-See [%b pytest2025 %] for the full pytest documentation and [%b litestar2025 %] for Litestar's testing reference.
+See [%b pytest2025 %] for the full pytest documentation and [%b fasthtml2025 %] for FastHTML's reference.
 
 <details markdown="1">
-<summary markdown="1">What is the difference between running `litestar run --app server_testable:app` and calling `client.get("/")` in a test?</summary>
+<summary markdown="1">What is the difference between running `uvicorn server_testable:app` and calling `client.get("/")` in a test?</summary>
 
-`litestar run` starts a real server process that listens on port 8000 and waits for browser requests
+`uvicorn server_testable:app` starts a real server process that listens on port 8000 and waits for browser requests
 over the network.
 `client.get("/")` sends a request directly to the application in memory without any network connection.
 Tests therefore run without a browser and without needing a free port.
@@ -114,7 +115,7 @@ Tests therefore run without a browser and without needing a free port.
 <details markdown="1">
 <summary markdown="1">Why does `server_testable.py` still have the line `app = make_app()` at the bottom?</summary>
 
-`litestar run --app server_testable:app` looks for a module-level name called `app`.
+`uvicorn server_testable:app` looks for a module-level name called `app`.
 Without that line, running the server from the terminal would fail with an import error.
 The factory function is for tests; the module-level `app` is for the command line.
 
@@ -195,8 +196,8 @@ text `"G. horribilus"` appears in the response.
 
 ### Test an Invalid Path Parameter
 
-Visit `/sighting/abc` in a test and assert that the response status code is 400.
-Look up what HTTP status code 400 means and write a comment in the test explaining why 400 is the
+Visit `/sighting/abc` in a test and assert that the response status code is 422.
+Look up what HTTP status code 422 means and write a comment in the test explaining why 422 is the
 right code here rather than 404.
 
 ### Test Both Species in the Index
@@ -231,5 +232,5 @@ depending on which version you use.
 
 Add a new route to `server_db.py` that handles any URL not matched by the existing routes
 and returns a page with the text "Page not found" and HTTP status 404.
-Look up Litestar's `ExceptionHandler` to see how to do this,
+Look up Starlette's exception handlers to see how to do this,
 and then add a test for it.

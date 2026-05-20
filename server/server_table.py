@@ -1,17 +1,19 @@
 from pathlib import Path
 
+from fasthtml.common import FastHTML
 from htpy import body, head, html, link, table, td, th, title, tr
-from litestar import Litestar, MediaType, get
+from starlette.responses import HTMLResponse, Response
 
 from dataset import SIGHTINGS
 from utils import HEADERS, KEYS, fmt
 
 LESSON_DIR = Path(__file__).parent
+app = FastHTML()
 
 
-@get("/", media_type=MediaType.HTML)
-async def index() -> str:
-    return str(
+@app.get("/")
+async def index():
+    return HTMLResponse(str(
         html(lang="en")[
             head[
                 title["Sasquatch Sightings"],
@@ -24,12 +26,9 @@ async def index() -> str:
                 ],
             ],
         ]
-    )
+    ))
 
 
-@get("/style.css", media_type="text/css")
-async def styles() -> str:
-    return (LESSON_DIR / "style.css").read_text()
-
-
-app = Litestar([index, styles])
+@app.get("/style.css")
+def styles():
+    return Response((LESSON_DIR / "style.css").read_text(), media_type="text/css")

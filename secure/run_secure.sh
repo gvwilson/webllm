@@ -1,1 +1,1 @@
-litestar run --ssl-certfile localhost.pem --ssl-keyfile localhost-key.pem --app server:app
+uvicorn server:app --ssl-certfile localhost.pem --ssl-keyfile localhost-key.pem

@@ -1,4 +1,4 @@
-from litestar.testing import TestClient
+from starlette.testclient import TestClient
 
 from server_testable import make_app
 from small import SMALL

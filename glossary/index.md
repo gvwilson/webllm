@@ -351,13 +351,6 @@
     with a single root item at the top.
     HTML documents form a tree because elements must be properly nested.
 
-<span id="type-annotation">type annotation</span>
-:   An optional label added to a Python function parameter or return value to indicate what type
-    of data is expected, written with a colon for parameters and `->` for return values:
-    `def greet(name: str) -> str:`.
-    Python does not enforce annotations at runtime, but web frameworks like Litestar use them
-    to validate incoming data and generate documentation automatically.
-
 ## U
 
 ## V
@@ -371,7 +364,7 @@
 <span id="web-framework">web framework</span>
 :   A library that handles the low-level details of receiving HTTP requests and sending responses,
     so developers can focus on application logic rather than network plumbing.
-    Examples include Litestar, Flask, and Django for Python.
+    Examples include FastHTML, Flask, and Django for Python.
 
 <span id="web-server">web server</span>
 :   A program that listens for HTTP requests from browsers or other clients and sends back responses.

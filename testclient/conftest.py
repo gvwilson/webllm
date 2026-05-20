@@ -10,7 +10,7 @@ LESSON_DIR = Path(__file__).parent
 @pytest.fixture(scope="session")
 def server_url():
     proc = subprocess.Popen(
-        ["uv", "run", "litestar", "run", "--app", "server_pw:app"],
+        ["uv", "run", "uvicorn", "server_pw:app", "--port", "8000"],
         cwd=LESSON_DIR,
     )
     time.sleep(1.5)

@@ -1,19 +1,21 @@
 from pathlib import Path
 
+from fasthtml.common import FastHTML
 from htpy import a, body, head, html, link, table, td, th, title, tr
-from litestar import Litestar, MediaType, get
-from litestar.exceptions import NotFoundException
+from starlette.exceptions import HTTPException
+from starlette.responses import HTMLResponse, Response
 
 from dataset import SIGHTINGS
 from utils import HEADERS, KEYS, LABELS, fmt
 
 LESSON_DIR = Path(__file__).parent
+app = FastHTML()
 
 
 # mccole:index-with-links
-@get("/", media_type=MediaType.HTML)
-async def index() -> str:
-    return str(
+@app.get("/")
+async def index():
+    return HTMLResponse(str(
         html(lang="en")[
             head[
                 title["Sasquatch Sightings"],
@@ -32,16 +34,16 @@ async def index() -> str:
                 ],
             ],
         ]
-    )
+    ))
 # mccole:/index-with-links
 
 
 # mccole:detail-route
-@get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
-async def detail(sighting_id: int) -> str:
+@app.get("/sighting/{sighting_id:int}")
+async def detail(sighting_id: int):
     for s in SIGHTINGS:
         if s["id"] == sighting_id:
-            return str(
+            return HTMLResponse(str(
                 html(lang="en")[
                     head[
                         title[f"Sighting {sighting_id}"],
@@ -60,14 +62,11 @@ async def detail(sighting_id: int) -> str:
                         a(href="/")["Back to all sightings"],
                     ],
                 ]
-            )
-    raise NotFoundException(f"No sighting with ID {sighting_id}")
+            ))
+    raise HTTPException(status_code=404, detail=f"No sighting with ID {sighting_id}")
 
 
-@get("/style.css", media_type="text/css")
-async def styles() -> str:
-    return (LESSON_DIR / "style.css").read_text()
-
-
-app = Litestar([index, detail, styles])
+@app.get("/style.css")
+def styles():
+    return Response((LESSON_DIR / "style.css").read_text(), media_type="text/css")
 # mccole:/detail-route

@@ -1,8 +1,9 @@
 from pathlib import Path
 
+from fasthtml.common import FastHTML
 from htpy import a, body, head, html, link, table, td, th, title, tr
-from litestar import Litestar, MediaType, get
-from litestar.exceptions import NotFoundException
+from starlette.exceptions import HTTPException
+from starlette.responses import HTMLResponse, Response
 
 from dataset import SIGHTINGS
 from utils import LABELS, HEADERS, KEYS, fmt
@@ -12,9 +13,11 @@ LESSON_DIR = Path(__file__).parent
 
 # mccole:make-app
 def make_app(sightings=SIGHTINGS):
-    @get("/", media_type=MediaType.HTML)
-    async def index() -> str:
-        return str(
+    app = FastHTML()
+
+    @app.get("/")
+    async def index():
+        return HTMLResponse(str(
             html(lang="en")[
                 head[
                     title["Sasquatch Sightings"],
@@ -33,15 +36,15 @@ def make_app(sightings=SIGHTINGS):
                     ],
                 ],
             ]
-        )
+        ))
 # mccole:/make-app
 
 # mccole:detail-and-close
-    @get("/sighting/{sighting_id:int}", media_type=MediaType.HTML)
-    async def detail(sighting_id: int) -> str:
+    @app.get("/sighting/{sighting_id:int}")
+    async def detail(sighting_id: int):
         for s in sightings:
             if s["id"] == sighting_id:
-                return str(
+                return HTMLResponse(str(
                     html(lang="en")[
                         head[
                             title[f"Sighting {sighting_id}"],
@@ -60,14 +63,14 @@ def make_app(sightings=SIGHTINGS):
                             a(href="/")["Back to all sightings"],
                         ],
                     ]
-                )
-        raise NotFoundException(f"No sighting with ID {sighting_id}")
+                ))
+        raise HTTPException(status_code=404, detail=f"No sighting with ID {sighting_id}")
 
-    @get("/style.css", media_type="text/css")
-    async def styles() -> str:
-        return (LESSON_DIR / "style.css").read_text()
+    @app.get("/style.css")
+    def styles():
+        return Response((LESSON_DIR / "style.css").read_text(), media_type="text/css")
 
-    return Litestar([index, detail, styles])
+    return app
 
 
 app = make_app()

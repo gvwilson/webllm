@@ -3,7 +3,7 @@
 [htpy]: https://htpy.dev/
 [httpx]: https://www.python-httpx.org/
 [jinja]: https://jinja.palletsprojects.com/
-[litestar]: https://litestar.dev/
+[fasthtml]: https://docs.fastht.ml/
 [python-logging]: https://docs.python.org/3/library/logging.html
 [playwright-python]: https://playwright.dev/python/
 [pytest]: https://docs.pytest.org/

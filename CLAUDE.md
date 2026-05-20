@@ -128,7 +128,7 @@ social and environmental impact of these tools in general.
 -   [uv](https://docs.astral.sh/uv/): package and environment management
 -   [Alpine.js](https://alpinejs.dev/): browser interaction
 -   [HTMX](https://htmx.org/): browser-server communication
--   [Litestar](https://litestar.dev/): server
+-   [FastHTML](https://docs.fastht.ml/): server
 -   [htpy](https://htpy.dev/): generating HTML
 -   [SQLite](https://sqlite.org/): database
 -   [pytest](https://docs.pytest.org/): Python testing

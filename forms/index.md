@@ -29,12 +29,12 @@
     -   `<form method="post" action="/delete/1">` sends a POST request to `/delete/1` when submitted
     -   A `<button type="submit">` inside the form triggers the submission when clicked
     -   This form needs no text inputs: the sighting ID is already in the URL
--   `@post` in Litestar marks a handler that responds to POST requests,
-    just as `@get` marks one that responds to GET
+-   `@app.post` marks a handler that responds to POST requests,
+    just as `@app.get` marks one that responds to GET
 -   `delete from sightings where id = ?` removes the matching row; `conn.commit()` writes the change to disk
 -   After deleting, the handler returns a [%g http-303 "HTTP 303" %] [%g redirect "redirect" %]
     that tells the browser to fetch another URL
-    -   `Redirect("/", status_code=303)` sends the browser to the home page
+    -   `RedirectResponse("/", status_code=303)` sends the browser to the home page
     -   This is called the Post/Redirect/Get pattern
     -   If the user presses Refresh afterward, the browser replays the GET, not the POST,
         so the record is not deleted a second time
@@ -65,12 +65,12 @@
 
 -   When a form is submitted, the browser encodes its fields as
     `species=G.+canadensis&color=brown&...` and sends them in the request body
--   Litestar decodes these into a dictionary when the handler is annotated with
-    `Body(media_type=RequestEncodingType.URL_ENCODED)`
+-   The handler reads them by calling `await request.form()`, which returns a dictionary-like object
     -   `data["species"]` reads the field whose `name` attribute is `"species"` in the form
     -   Optional fields left blank arrive as empty strings;
         `data["sex"] or None` converts them to `None` before inserting into the database
     -   Number fields also arrive as strings; `float(data["latitude"])` converts them before inserting
+-   The `request` parameter must be declared as type `Request` from `starlette.requests`
 
 [%inc server_add.py mark=add-sighting %]
 [%inc server_add.py mark=make-app %]
@@ -94,16 +94,14 @@
 > The GET route should show a file upload form; the POST route should read the CSV and insert
 > all its rows into the database.
 
--   Litestar receives the uploaded file through a `dataclass` whose field names match
-    the `name` attributes in the form
-    -   `await data.csv_file.read()` returns the file contents as `bytes`
+-   `await request.form()` returns the multipart form data including any uploaded files
+    -   `form_data.get("csv_file")` returns an `UploadFile` object whose `.read()` method
+        returns the file contents as `bytes`
     -   `.decode("utf-8")` converts them to a string that the `csv` module can read
 -   `csv.DictReader` turns the string into an iterator of dictionaries, one per data row,
     using the header line for the keys
     -   `io.StringIO` wraps the string so `DictReader` treats it like a file
 -   One `conn.commit()` at the end saves all the new rows in a single write to disk
-
-[%inc server_upload.py mark=csv-dataclass %]
 
 [%inc server_upload.py mark=upload-form %]
 
